@@ -22,8 +22,8 @@ function makeStage(canvas, { fov = 35, env = true } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  // ロゴの色をそのまま出すため、色を丸める処理（トーンマッピング）は使わない
+  renderer.toneMapping = THREE.NoToneMapping;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 100);
   camera.position.set(0, 0, 8);
@@ -83,29 +83,39 @@ function dust(count = 500, rMin = 2.5, rMax = 8, size = 0.05) {
   return new THREE.Points(geo, mat);
 }
 
-/* ---------- ロゴの H のかたち（平行四辺形に傾けた H） ---------- */
-function hGeometry() {
-  const w = 0.7, h = 0.58, t = 0.22, c = 0.18, shear = 0.3;
-  const pts = [[-w / 2, -h / 2], [-w / 2 + t, -h / 2], [-w / 2 + t, -c / 2], [w / 2 - t, -c / 2], [w / 2 - t, -h / 2], [w / 2, -h / 2],
-    [w / 2, h / 2], [w / 2 - t, h / 2], [w / 2 - t, c / 2], [-w / 2 + t, c / 2], [-w / 2 + t, h / 2], [-w / 2, h / 2]];
-  const s = new THREE.Shape();
-  pts.forEach(([x, y], k) => (k ? s.lineTo(x + y * shear, y) : s.moveTo(x + y * shear, y)));
-  const geo = new THREE.ExtrudeGeometry(s, { depth: 0.2, bevelEnabled: true, bevelThickness: 0.045, bevelSize: 0.035, bevelSegments: 5, curveSegments: 2 });
-  geo.center();
-  return geo;
+/* ---------- ロゴの H のかたち ----------
+   会社ロゴ（6色の H の輪）の輪郭を、元画像から1つずつ写し取った座標。
+   輪の外周の半径を 1、中心を (0,0) にそろえてある。形は変えずに厚みだけ付ける */
+const LOGO = {"red":[[-0.0942,0.5373],[-0.0912,0.5342],[0.077,0.5342],[0.1389,0.6265],[0.1449,0.6315],[0.1591,0.6315],[0.1743,0.6234],[0.1824,0.6234],[0.2078,0.6133],[0.2179,0.6032],[0.1581,0.5292],[0.1571,0.516],[0.1713,0.5069],[0.1794,0.5059],[0.2504,0.4724],[0.2889,0.4511],[0.3527,0.4045],[0.3669,0.4025],[0.4541,0.4532],[0.5676,0.5008],[0.6659,0.5302],[0.7024,0.5342],[0.7328,0.5424],[0.7622,0.5424],[0.7703,0.5474],[0.7896,0.5505],[0.8169,0.5505],[0.824,0.5545],[0.824,0.5586],[0.7683,0.6366],[0.7064,0.7055],[0.6284,0.7765],[0.5716,0.817],[0.5514,0.818],[0.5108,0.8049],[0.448,0.7765],[0.4216,0.7603],[0.4105,0.7603],[0.3416,0.7978],[0.3385,0.8069],[0.3446,0.814],[0.4632,0.8718],[0.4672,0.8799],[0.446,0.894],[0.4379,0.894],[0.4075,0.9082],[0.4014,0.9143],[0.3912,0.9153],[0.3811,0.9224],[0.375,0.9224],[0.3304,0.9427],[0.3213,0.9427],[0.2696,0.963],[0.2341,0.963],[0.1601,0.9143],[0.1105,0.8738],[0.0598,0.8231],[0.0203,0.7755],[-0.0213,0.7136],[-0.0527,0.6528],[-0.078,0.591]],"purple":[[0.4196,0.3498],[0.4166,0.3376],[0.4602,0.2738],[0.4987,0.1998],[0.6122,0.1937],[0.6233,0.1815],[0.6355,0.1207],[0.6304,0.1157],[0.5331,0.1288],[0.5281,0.1278],[0.523,0.1207],[0.5301,0.0721],[0.5301,-0.0688],[0.526,-0.0901],[0.5291,-0.1144],[0.6375,-0.1793],[0.7054,-0.231],[0.7896,-0.311],[0.8412,-0.3698],[0.8879,-0.4337],[0.8929,-0.4337],[0.901,-0.4246],[0.9223,-0.38],[0.9223,-0.3708],[0.9507,-0.3039],[0.9791,-0.1945],[0.9791,-0.1813],[0.9912,-0.1276],[0.9923,-0.0911],[0.9872,-0.0718],[0.97,-0.0546],[0.8666,0.0204],[0.8615,0.0498],[0.8595,0.1065],[0.8635,0.1116],[0.8777,0.1075],[0.9811,0.0366],[0.9933,0.0336],[0.9953,0.0802],[0.9912,0.0974],[0.9912,0.1319],[0.975,0.2221],[0.9608,0.2565],[0.9517,0.2707],[0.9244,0.294],[0.8828,0.3143],[0.8118,0.3427],[0.7906,0.3457],[0.7835,0.3508],[0.7743,0.3508],[0.7379,0.363],[0.6882,0.3711],[0.5777,0.3751],[0.5676,0.3711],[0.52,0.3711],[0.4662,0.363]],"navy":[[0.5098,-0.1874],[0.5027,-0.1864],[0.4683,-0.2583],[0.4227,-0.3273],[0.4247,-0.3384],[0.4733,-0.4296],[0.4713,-0.4438],[0.4237,-0.4914],[0.4176,-0.4925],[0.4125,-0.4874],[0.3791,-0.3992],[0.373,-0.3901],[0.3679,-0.3901],[0.3172,-0.4306],[0.2716,-0.46],[0.1895,-0.5016],[0.1723,-0.5046],[0.1652,-0.5107],[0.1652,-0.6313],[0.1612,-0.6455],[0.1612,-0.6769],[0.1571,-0.684],[0.1531,-0.7317],[0.149,-0.7377],[0.1449,-0.7671],[0.1287,-0.8219],[0.1287,-0.833],[0.0882,-0.9394],[0.0679,-0.9769],[0.0699,-0.9901],[0.1419,-0.9861],[0.152,-0.982],[0.1703,-0.982],[0.1784,-0.9779],[0.1946,-0.9779],[0.2027,-0.9739],[0.2341,-0.9698],[0.2919,-0.9536],[0.297,-0.9496],[0.3081,-0.9496],[0.373,-0.9252],[0.4267,-0.8999],[0.4318,-0.8948],[0.4358,-0.8756],[0.448,-0.7428],[0.4703,-0.7235],[0.521,-0.6911],[0.5301,-0.6972],[0.525,-0.831],[0.5291,-0.8381],[0.5453,-0.834],[0.6162,-0.7833],[0.6659,-0.7418],[0.7146,-0.6931],[0.7156,-0.6273],[0.7075,-0.5685],[0.7034,-0.5594],[0.7034,-0.5442],[0.6993,-0.5381],[0.6993,-0.5249],[0.6953,-0.5178],[0.6953,-0.5046],[0.671,-0.4296],[0.6456,-0.3719],[0.6,-0.2938],[0.5493,-0.2279]],"blue":[[-0.821,-0.5543],[-0.8199,-0.5665],[-0.8047,-0.5898],[-0.7601,-0.6465],[-0.7145,-0.6962],[-0.6476,-0.759],[-0.6395,-0.7621],[-0.6041,-0.7935],[-0.5625,-0.8198],[-0.5463,-0.8188],[-0.4247,-0.7621],[-0.4074,-0.7631],[-0.3446,-0.7904],[-0.3365,-0.7996],[-0.3395,-0.8077],[-0.4622,-0.8705],[-0.4622,-0.8786],[-0.4571,-0.8847],[-0.4196,-0.905],[-0.3557,-0.9333],[-0.3395,-0.9374],[-0.3314,-0.9435],[-0.2787,-0.9577],[-0.2402,-0.9587],[-0.2067,-0.9455],[-0.149,-0.905],[-0.1064,-0.8695],[-0.0355,-0.7945],[0.0061,-0.7367],[0.0507,-0.6546],[0.075,-0.5979],[0.0912,-0.536],[0.0831,-0.532],[-0.075,-0.533],[-0.0942,-0.5553],[-0.0993,-0.5675],[-0.1388,-0.6252],[-0.1449,-0.6303],[-0.1581,-0.6303],[-0.1703,-0.6232],[-0.2078,-0.6141],[-0.2169,-0.607],[-0.2169,-0.6019],[-0.1591,-0.53],[-0.153,-0.5158],[-0.1682,-0.5056],[-0.1885,-0.5016],[-0.2716,-0.46],[-0.3142,-0.4317],[-0.3568,-0.3962],[-0.3608,-0.3962],[-0.4176,-0.4327],[-0.5007,-0.4732],[-0.5361,-0.4844],[-0.5595,-0.4965],[-0.5959,-0.5046],[-0.6557,-0.5249],[-0.6709,-0.5249],[-0.6983,-0.533],[-0.7601,-0.5411],[-0.7682,-0.5452],[-0.8007,-0.5462]],"green":[[-0.8949,0.4359],[-0.9294,0.3609],[-0.9659,0.2505],[-0.9659,0.2373],[-0.9811,0.1785],[-0.9821,0.1582],[-0.9862,0.1511],[-0.9902,0.0741],[-0.8655,-0.0191],[-0.8605,-0.0333],[-0.8574,-0.1002],[-0.8625,-0.1114],[-0.8777,-0.1073],[-0.9841,-0.0354],[-0.9933,-0.0374],[-0.9943,-0.0789],[-0.9902,-0.0962],[-0.9902,-0.1235],[-0.9862,-0.1296],[-0.9862,-0.1509],[-0.9821,-0.157],[-0.9821,-0.1702],[-0.9659,-0.234],[-0.9659,-0.2472],[-0.9558,-0.2715],[-0.9405,-0.2837],[-0.898,-0.305],[-0.8919,-0.305],[-0.8311,-0.3333],[-0.7287,-0.3617],[-0.7105,-0.3617],[-0.6993,-0.3658],[-0.6395,-0.3729],[-0.5676,-0.3729],[-0.4986,-0.3658],[-0.4916,-0.3617],[-0.45,-0.3577],[-0.4216,-0.3496],[-0.4176,-0.3425],[-0.4216,-0.3303],[-0.4551,-0.2837],[-0.4926,-0.2107],[-0.5007,-0.2016],[-0.5372,-0.1965],[-0.6111,-0.1935],[-0.6223,-0.1823],[-0.6345,-0.1408],[-0.6355,-0.1195],[-0.6304,-0.1134],[-0.6081,-0.1144],[-0.5757,-0.1225],[-0.527,-0.1225],[-0.524,-0.1185],[-0.5372,-0.0252],[-0.5372,0.0305],[-0.5331,0.069],[-0.525,0.1045],[-0.526,0.1146],[-0.6061,0.1592],[-0.7054,0.2332],[-0.751,0.2748],[-0.8098,0.3356],[-0.8595,0.3954],[-0.8747,0.4187],[-0.8919,0.4369]],"yellow":[[-0.0689,0.9934],[-0.1257,0.9913],[-0.1439,0.9853],[-0.1763,0.9832],[-0.1855,0.9782],[-0.2199,0.9751],[-0.2443,0.966],[-0.2696,0.963],[-0.2797,0.9559],[-0.3334,0.9427],[-0.3405,0.9356],[-0.3537,0.9346],[-0.3659,0.9265],[-0.4064,0.9133],[-0.4277,0.9011],[-0.4348,0.893],[-0.447,0.742],[-0.5149,0.6984],[-0.528,0.6974],[-0.5341,0.7025],[-0.5331,0.7359],[-0.525,0.7937],[-0.524,0.8383],[-0.528,0.8413],[-0.5493,0.8282],[-0.5605,0.8251],[-0.5676,0.817],[-0.5757,0.815],[-0.6051,0.7897],[-0.6264,0.7765],[-0.6709,0.737],[-0.678,0.7349],[-0.7044,0.7035],[-0.7135,0.6701],[-0.7105,0.5859],[-0.7024,0.5586],[-0.7024,0.5444],[-0.6902,0.4907],[-0.6699,0.4359],[-0.6699,0.4268],[-0.6486,0.3782],[-0.6081,0.3072],[-0.5696,0.2494],[-0.5159,0.1896],[-0.5037,0.1886],[-0.4997,0.1917],[-0.4895,0.216],[-0.4642,0.2636],[-0.4571,0.2697],[-0.4277,0.3295],[-0.4277,0.3427],[-0.449,0.3974],[-0.4672,0.4228],[-0.4693,0.4339],[-0.4642,0.4511],[-0.4358,0.4805],[-0.4247,0.4846],[-0.4135,0.4836],[-0.4074,0.4775],[-0.3943,0.443],[-0.3932,0.4299],[-0.3861,0.4207],[-0.3831,0.4045],[-0.3699,0.3883],[-0.3527,0.3964],[-0.3253,0.4238],[-0.3182,0.4258],[-0.2878,0.4511],[-0.2595,0.4653],[-0.2534,0.4724],[-0.2128,0.4917],[-0.2017,0.4937],[-0.1946,0.5008],[-0.1703,0.5079],[-0.1642,0.5302],[-0.1642,0.594],[-0.1581,0.6761],[-0.1439,0.7674],[-0.1236,0.8434],[-0.1034,0.8951],[-0.1034,0.9052],[-0.0679,0.9853]]};
+const LOGO_ORDER = ["red", "purple", "navy", "blue", "green", "yellow"]; // PALETTE と同じ順
+
+let logoGeos;
+function logoGeometries() {
+  if (logoGeos) return logoGeos;
+  logoGeos = LOGO_ORDER.map((name) => {
+    const pts = LOGO[name];
+    let cx = 0, cy = 0;
+    pts.forEach(([x, y]) => { cx += x; cy += y; });
+    cx /= pts.length; cy /= pts.length;
+    const s = new THREE.Shape();
+    pts.forEach(([x, y], k) => (k ? s.lineTo(x - cx, y - cy) : s.moveTo(x - cx, y - cy)));
+    const geo = new THREE.ExtrudeGeometry(s, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.025, bevelSize: 0.012, bevelSegments: 4, curveSegments: 1 });
+    geo.translate(0, 0, -0.08);
+    return { geo, center: new THREE.Vector2(cx, cy) };
+  });
+  return logoGeos;
 }
 
 function hPieces(scale = 1) {
-  const geo = hGeometry();
+  const geos = logoGeometries();
   const group = new THREE.Group();
   const pieces = PALETTE.map((hex, i) => {
-    const mat = new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.28, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.12, sheen: 0.4 });
-    const m = new THREE.Mesh(geo, mat);
-    const th = THREE.MathUtils.degToRad(60 - 60 * i);
-    const R = 0.98;
-    m.userData.home = new THREE.Vector3(Math.cos(th) * R, Math.sin(th) * R, 0);
-    m.userData.homeQ = new THREE.Quaternion().setFromEuler(new THREE.Euler(0, 0, th - Math.PI / 2 + 0.38));
-    const dir = new THREE.Vector3(Math.cos(th), Math.sin(th), (Math.random() - 0.5) * 1.6).normalize();
+    const mat = new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.26, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.1, sheen: 0.4 });
+    const m = new THREE.Mesh(geos[i].geo, mat);
+    const c = geos[i].center;
+    m.userData.home = new THREE.Vector3(c.x, c.y, 0);
+    m.userData.homeQ = new THREE.Quaternion();
+    const dir = new THREE.Vector3(c.x, c.y, (Math.random() - 0.5) * 1.6).normalize();
     m.userData.scatter = dir.multiplyScalar(3.4 + Math.random() * 1.6);
     m.userData.scatterQ = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.random() * 6, Math.random() * 6, Math.random() * 6));
     m.userData.phase = Math.random() * Math.PI * 2;
@@ -136,10 +146,10 @@ const MODES = {
         const v = viewHalf(camera);
         const portrait = camera.aspect < 0.9;
         if (portrait) {
-          holder.scale.setScalar(Math.min(v.w * 0.54, v.h * 0.32));
+          holder.scale.setScalar(Math.min(v.w * 0.7, v.h * 0.4));
           holder.position.set(0, v.h * 0.36, 0);
         } else {
-          holder.scale.setScalar(Math.min(v.h * 0.4, v.w * 0.24));
+          holder.scale.setScalar(Math.min(v.h * 0.52, v.w * 0.3));
           holder.position.set(v.w * 0.52, v.h * 0.08, 0);
         }
       },
@@ -147,7 +157,7 @@ const MODES = {
         intro = reduced ? 1 : Math.min(1, (performance.now() - born) / 2600);
         pieces.forEach((m, i) => {
           const local = expoOut(clamp((intro - i * 0.07) / 0.58));
-          const out = s * 1.1; // スクロールで少し外へ開く
+          const out = s * 0.9; // スクロールで少し外へ開く
           const home = m.userData.home;
           const bob = reduced ? 0 : Math.sin(t * 1.2 + m.userData.phase) * 0.03;
           m.position.lerpVectors(m.userData.scatter, home, local);
@@ -176,7 +186,7 @@ const MODES = {
     const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.075, map: dotTexture(), vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
     const holder = new THREE.Group();
     holder.add(pts);
-    const center = hPieces(0.26);
+    const center = hPieces(0.36);
     center.pieces.forEach((m) => { m.position.copy(m.userData.home); m.quaternion.copy(m.userData.homeQ); });
     holder.add(center.group);
     scene.add(holder, dust(300));
@@ -320,13 +330,13 @@ const MODES = {
     const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: dotTexture(), color: 0x9fb4ff, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
     halo.scale.setScalar(3.2);
     holder.add(glow, core, halo);
-    const geo = hGeometry();
+    const geos = logoGeometries();
     const TRAIL = 70;
     const orbits = PALETTE.map((hex, i) => {
       const tilt = new THREE.Euler((i - 2.5) * 0.3, 0, (((i * 2) % 6) - 2.5) * 0.28);
       const R = 1.75 + (i % 3) * 0.32;
-      const m = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08, emissive: hex, emissiveIntensity: 0.18 }));
-      m.scale.setScalar(0.75);
+      const m = new THREE.Mesh(geos[i].geo, new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08, emissive: hex, emissiveIntensity: 0.18 }));
+      m.scale.setScalar(1.15);
       const pos = new Float32Array(TRAIL * 3), col = new Float32Array(TRAIL * 3);
       const base = new THREE.Color(hex);
       for (let k = 0; k < TRAIL; k++) { const f = 1 - k / TRAIL; col.set([base.r * f, base.g * f, base.b * f], k * 3); }
@@ -360,7 +370,11 @@ const MODES = {
           o.plane.quaternion.setFromEuler(o.tilt).slerp(flat, mix);
           pointAt(o, a, mix, v3);
           o.m.position.copy(v3);
-          o.m.rotation.set(Math.sin(t * 0.8 + o.phase) * 0.5, Math.cos(t * 0.6 + o.phase) * 0.5, -(o.phase + t * o.speed));
+          // 面をこちらに向けたまま、少しだけ揺らす（形がいつも読めるように）
+          o.m.quaternion.copy(holder.quaternion).invert();
+          o.m.rotateZ(-(o.phase + t * o.speed) * 0.5);
+          o.m.rotateX(Math.sin(t * 0.8 + o.phase) * 0.25);
+          o.m.rotateY(Math.cos(t * 0.6 + o.phase) * 0.25);
           for (let k = 0; k < TRAIL; k++) {
             pointAt(o, a - k * 0.035, mix, v3);
             o.pos[k * 3] = v3.x; o.pos[k * 3 + 1] = v3.y; o.pos[k * 3 + 2] = v3.z;

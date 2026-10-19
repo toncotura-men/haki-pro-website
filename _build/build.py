@@ -127,7 +127,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=3"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=4"></script>'
         if scene
         else ""
     )
@@ -153,9 +153,9 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=3" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=4" />
   {importmap}
-  <script src="{pre}assets/js/site.js?v=3" defer></script>
+  <script src="{pre}assets/js/site.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -415,10 +415,18 @@ def build_home():
           </div>
           <p class="lead reveal">企業さまでの経営セミナー、健康セミナー、地域のイベント参加など、さまざまな活動を始めました。ぜひ一緒にミライの健康について考えませんか？</p>
         </div>
-        <div class="gallery reveal">
-          <figure><div class="ph"><img src="assets/img/baseball-class.webp" alt="子どもたちへの野球指導" loading="lazy" width="1600" height="1044" /></div><figcaption>子どもたちへの野球教室</figcaption></figure>
-          <figure><div class="ph"><img src="assets/img/abe-talk.webp" alt="話す安部友裕" loading="lazy" width="1600" height="1067" /></div><figcaption>代表 安部友裕</figcaption></figure>
-          <figure><div class="ph"><img src="assets/img/abe-seminar.webp" alt="覇氣セミナーで話す安部友裕" loading="lazy" width="800" height="533" /></div><figcaption>覇氣セミナー</figcaption></figure>
+        <div class="talks">
+          <div class="talk-stat reveal">
+            <p class="k">LECTURES</p>
+            <p class="talk-num"><span class="pre">約</span><span class="num" data-count="200">200</span><span class="unit">回</span></p>
+            <p class="talk-label">講演会の実績</p>
+            <ul class="talk-tags">
+              <li>経営セミナー</li><li>健康セミナー</li><li>覇氣セミナー</li><li>地域のイベント</li>
+            </ul>
+            <a class="link-arrow" href="contact/?kind=talk">講演のご依頼 <span class="circle">{arrow()}</span></a>
+          </div>
+          <figure class="talk-photo reveal" style="--i:1"><div class="ph"><img src="assets/img/abe-seminar.webp" alt="覇氣セミナーで話す安部友裕" loading="lazy" width="800" height="533" /></div><figcaption>覇氣セミナー</figcaption></figure>
+          <figure class="talk-photo reveal" style="--i:2"><div class="ph"><img src="assets/img/baseball-class.webp" alt="子どもたちへの野球指導" loading="lazy" width="1600" height="1044" /></div><figcaption>子どもたちへの野球教室</figcaption></figure>
         </div>
       </div>
     </section>
@@ -628,7 +636,7 @@ def build_project():
           <h2 class="h2 split">事業内容</h2>
         </div>
         <div class="grid-2" data-stagger>
-          {''.join(f'<div class="card tilt reveal" data-tilt="4"><span class="big-k" aria-hidden="true">0{i + 1}</span>{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p><p class="k" style="margin:20px 0 0">導入実績</p><div class="chips" style="margin-top:8px">{"".join(f"<span>{c}</span>" for c in ch)}</div></div>' for i, (ic, t, d, ch) in enumerate(biz))}
+          {''.join(f'<div class="card tilt reveal" data-tilt="4"><span class="big-k" aria-hidden="true">0{i + 1}</span>{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for i, (ic, t, d, ch) in enumerate(biz))}
         </div>
       </div>
     </section>
@@ -930,6 +938,7 @@ def build_contact():
         var sel = document.getElementById("f-kind");
         if (k === "diag") sel.value = "社内潤化無料診断";
         if (k === "school") sel.value = "野球スクール";
+        if (k === "talk") sel.value = "講演会";
         var note = document.querySelector(".school-note");
         var sync = function () {{ note.hidden = sel.value !== "野球スクール"; }};
         sel.addEventListener("change", sync);
