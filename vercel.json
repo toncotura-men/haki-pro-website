@@ -5,7 +5,9 @@
     { "source": "/heros-cup", "destination": "/heros-cup/", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/pumps/:path*", "destination": "https://toncotura-men.github.io/company-website/:path*" },
-    { "source": "/heros-cup/:path*", "destination": "https://toncotura-men.github.io/company-website/heros-cup/:path*" }
+    { "source": "/pumps/", "destination": "https://toncotura-men.github.io/company-website/index.html" },
+    { "source": "/heros-cup/", "destination": "https://toncotura-men.github.io/company-website/heros-cup/index.html" },
+    { "source": "/pumps/:path+", "destination": "https://toncotura-men.github.io/company-website/:path+" },
+    { "source": "/heros-cup/:path+", "destination": "https://toncotura-men.github.io/company-website/heros-cup/:path+" }
   ]
 }
