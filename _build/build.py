@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://haki-pro.com"
-SCHOOL = "https://pumps.haki-pro.com/"
+SCHOOL = "https://toncotura-men.github.io/company-website/index.html"  # 野球スクール PUMPS（オーナー指定のアドレス）
 MAIL = "info@haki-pro.com"
 SCHOOL_FORM = "https://pro.form-mailer.jp/fms/39ce6285355128"  # PUMPS サイトのお問い合わせフォーム
 
@@ -59,7 +59,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     full_title = f"{title}｜株式会社HAKI pro" if slug else "株式会社HAKI pro｜個性を社会の可能性に"
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=1"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=2"></script>'
         if scene
         else ""
     )
@@ -87,7 +87,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{pre}assets/css/site.css?v=1" />
   {importmap}
-  <script src="{pre}assets/js/site.js?v=1" defer></script>
+  <script src="{pre}assets/js/site.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -183,8 +183,6 @@ def cta(pre):
 
 MEMBERS = [
     ("tomohiro-abe", "安部 友裕", "代表取締役 CPO（チーフパフォーマンスオフィサー）", "あなたにしかできない、あなたの強みを。", "abe-2.webp"),
-    ("kazuyuki-ito", "伊藤 和之", "健康経営＆組織活性化スペシャリスト", "従業員の健康が会社を守る", "ito.webp"),
-    ("funaki-itsuka", "舩木 いつか", "プロジェクトマネージャー", "SNSとAIで実現する新しい可能性", "funaki.webp"),
     ("shimosada-hirokazu", "下定 弘和", "クリエイティブディレクター", "イベント力が会社を救う", "shimosada.webp"),
 ]
 
@@ -351,9 +349,7 @@ def build_home():
         </div>
         <div class="gallery reveal">
           <figure><div class="ph"><img src="assets/img/baseball-class.webp" alt="子どもたちへの野球指導" loading="lazy" width="1600" height="1044" /></div><figcaption>子どもたちへの野球教室</figcaption></figure>
-          <figure><div class="ph"><img src="assets/img/event-stage.webp" alt="商業施設での運動教室" loading="lazy" width="668" height="1000" /></div><figcaption>商業施設での運動教室</figcaption></figure>
-          <figure><div class="ph"><img src="assets/img/ito.webp" alt="健康セミナーで話す伊藤和之" loading="lazy" width="1600" height="1064" /></div><figcaption>健康セミナー</figcaption></figure>
-          <figure><div class="ph"><img src="assets/img/event-kids.webp" alt="イベントで子どもとハイタッチ" loading="lazy" width="400" height="400" /></div><figcaption>地域のイベント</figcaption></figure>
+          <figure><div class="ph"><img src="assets/img/abe-talk.webp" alt="話す安部友裕" loading="lazy" width="1600" height="1067" /></div><figcaption>代表 安部友裕</figcaption></figure>
           <figure><div class="ph"><img src="assets/img/abe-seminar.webp" alt="覇氣セミナーで話す安部友裕" loading="lazy" width="800" height="533" /></div><figcaption>覇氣セミナー</figcaption></figure>
         </div>
       </div>
@@ -590,7 +586,7 @@ def build_health():
         ("move", "出張運動指導", "当社専属の経験豊富な運動指導者が、御社の会議室やセミナールームで運動指導を実施します。肩こり・腰痛やメタボ対策、ダイエット、姿勢改善など各種プログラムを実施します。"),
         ("doctor", "産業医選定", "当社にて産業医の選任をさせていただきます。医師の職場巡視、または健康問題のある従業員さまに対し、当社にて一元管理が可能になります。"),
         ("chat", "健康・メンタルヘルスLINE相談窓口", "健康とメンタルヘルスに関するご相談を、リアルタイムにLINEでお受けします。看護師、薬剤師、理学療法士、管理栄養士など各種専門家が、健康面のさまざまな質問にお答えします。"),
-        ("mic", "健康セミナー", "運動・食事を中心に、従業員さまの健康を語る上で必ず知っておいてほしい、健康経営コンサルタント伊藤のセミナーです。ご家族にも共有できる、すぐに実践できる健康法を講義＋実技でわかりやすくご説明します。"),
+        ("mic", "健康セミナー", "運動・食事を中心に、従業員さまの健康を語る上で必ず知っておいてほしい、健康経営コンサルタントによるセミナーです。ご家族にも共有できる、すぐに実践できる健康法を講義＋実技でわかりやすくご説明します。"),
         ("flame", "覇氣セミナー", "安部友裕が従業員さまに「覇氣」を注入する特別セミナー。結果が出ない時、何をやってもダメな時、どうやってその状況を乗り越えるのか。メンタルの重要性からコンディションを整えることの重要さまで、やる気が出る唯一無二のセミナーです。"),
         ("badge", "健康経営優良法人 取得サポート", "近年取得される企業さまが増えている、経済産業省認定の健康経営優良法人。認定条件に必要な項目の実施や、どうすれば取得できるかのご相談まで、初めて取得される企業さまも、取得を検討中の企業さまもサポートします。"),
     ]
@@ -775,22 +771,6 @@ SPECIALISTS = {
           <p class="sign">株式会社 HAKI pro<br />代表取締役 CPO　安部 友裕</p>
         </div>""",
     },
-    "kazuyuki-ito": {
-        "catch": "“未来への投資、<br />従業員の健康を守ります”",
-        "eyebrow": "従業員とともに企業の未来を築きます",
-        "title": "幸せ、かつ健康に働ける環境作りを。",
-        "img": "ito.webp",
-        "photo2": "event-stage.webp",
-        "body": "<p>我々HAKI proは、企業と従業員の今を守り、未来に向けた健全な社会環境にするため、健康増進というビジネスの元になる資源をご提案し、実践することで共に歩みます。</p>",
-    },
-    "funaki-itsuka": {
-        "catch": "デジタルの力で、<br />企業成長の新たな一歩を",
-        "eyebrow": "work innovation",
-        "title": "新時代のマーケティングとAIの力で、企業の未来を切り拓きます",
-        "img": "funaki.webp",
-        "photo2": None,
-        "body": "<p>SNSマーケティングとAIコンサルタントとして、企業が直面する課題に革新的な解決策を提供します。デジタル時代の先端を行く専門知識と経験は、お客さまのビジネスモデルを次のレベルへと引き上げます。社会の変化を捉え、それに応じた戦略的なアプローチで、企業の持続可能な成長と従業員の満足度向上を目指します。</p>",
-    },
     "shimosada-hirokazu": {
         "catch": "発見、企画、実行で<br />社会を切り拓く",
         "eyebrow": "work innovation",
@@ -815,7 +795,7 @@ def build_specialists():
       </div>
     </section>
 {cta(pre)}"""
-    page("specialist", "スペシャリスト", "HAKI proに参画するスペシャリスト。代表 安部友裕、健康経営＆組織活性化スペシャリスト 伊藤和之、プロジェクトマネージャー 舩木いつか、クリエイティブディレクター 下定弘和。", body, scene=True)
+    page("specialist", "スペシャリスト", "HAKI proに参画するスペシャリスト。代表 安部友裕、クリエイティブディレクター 下定弘和。", body, scene=True)
 
     pre = "../../"
     for slug, name, role, copy, img in MEMBERS:
@@ -937,12 +917,12 @@ def build_404():
   (function () {
     var p = decodeURIComponent(location.pathname);
     var map = [
-      [/舩木/, "/specialist/funaki-itsuka/"],
+      [/%e8%88%a9|funaki-itsuka|kazuyuki-ito/i, "/specialist/", true],
       [/下定/, "/specialist/shimosada-hirokazu/"],
       [/^\\/news\\//, "/news/"],
       [/^\\/(feed|category|author|wp-)/, "/"]
     ];
-    for (var i = 0; i < map.length; i++) if (map[i][0].test(p)) { location.replace(map[i][1]); return; }
+    for (var i = 0; i < map.length; i++) if (map[i][0].test(map[i][2] ? location.pathname : p)) { location.replace(map[i][1]); return; }
   })();
 </script>
 <style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Noto Sans JP",system-ui,sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>

@@ -349,11 +349,15 @@ const MODES = {
     /* 指で回す（横の動きだけ奪う。縦はページのスクロール） */
     const vel = { x: 0, y: reduced ? 0 : 0.6 };
     let drag = null;
-    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, t: performance.now() }; el.setPointerCapture(e.pointerId); el.style.cursor = "grabbing"; });
+    /* 動かしたら回すだけ、軽く押しただけならリンク（野球スクールへ）として働かせる */
+    let moved = 0;
+    el.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, t: performance.now() }; moved = 0; el.style.cursor = "grabbing"; });
+    el.addEventListener("click", (e) => { if (moved > 8) { e.preventDefault(); e.stopPropagation(); } });
     el.addEventListener("pointermove", (e) => {
       if (!drag) return;
       const now = performance.now(), dtm = Math.max(1, now - drag.t);
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      moved += Math.abs(dx) + Math.abs(dy);
       holder.rotation.y += dx * 0.01;
       holder.rotation.x += dy * 0.01;
       vel.y = (dx * 0.01) / (dtm / 1000);
@@ -364,6 +368,7 @@ const MODES = {
     const end = () => { drag = null; el.style.cursor = ""; };
     el.addEventListener("pointerup", end);
     el.addEventListener("pointercancel", end);
+    el.addEventListener("pointerleave", end);
     return {
       layout() {
         const v = viewHalf(camera);
