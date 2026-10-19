@@ -76,7 +76,8 @@ def phrase_breaks(html):
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://haki-pro.com"
-SCHOOL = "https://toncotura-men.github.io/company-website/index.html"  # 野球スクール PUMPS（オーナー指定のアドレス）
+SCHOOL = "/pumps/"  # 野球スクール PUMPS（中身は company-website。vercel.json で haki-pro.com/pumps/ に取り込む）
+HEROS = "/heros-cup/"  # 少年野球大会 HERO's CUP（同じく haki-pro.com/heros-cup/ に取り込む）
 MAIL = "info@haki-pro.com"
 SCHOOL_FORM = "https://pro.form-mailer.jp/fms/39ce6285355128"  # PUMPS サイトのお問い合わせフォーム
 
@@ -153,7 +154,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=5" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=6" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=4" defer></script>
 </head>
@@ -167,7 +168,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
       </a>
       <nav class="nav" aria-label="メインメニュー">
         {nav}
-        <a class="nav-ext" href="{SCHOOL}" target="_blank" rel="noopener">野球スクール {arrow(True)}</a>
+        <a href="{SCHOOL}">野球スクール</a>
+        <a href="{HEROS}">HERO's CUP</a>
         <a class="nav-cta" href="{pre}contact/">お問い合わせ</a>
       </nav>
       <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
@@ -177,7 +179,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <div class="drawer" id="drawer" aria-hidden="true">
     <a href="{pre or './'}">トップ<small>HOME</small></a>
     {drawer}
-    <a href="{SCHOOL}" target="_blank" rel="noopener">野球スクール PUMPS<small>SCHOOL ↗</small></a>
+    <a href="{SCHOOL}">野球スクール PUMPS<small>SCHOOL</small></a>
+    <a href="{HEROS}">HERO's CUP<small>TOURNAMENT</small></a>
     <a class="drawer-cta" href="{pre}contact/">お問い合わせ</a>
   </div>
   <main id="main">
@@ -196,7 +199,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
           <a href="{pre or './'}">トップ</a>
           {''.join(f'<a href="{pre}{s}/">{ja}</a>' for s, ja, _ in NAV)}
           <a href="{pre}news/">お知らせ</a>
-          <a href="{SCHOOL}" target="_blank" rel="noopener">野球スクール PUMPS ↗</a>
+          <a href="{SCHOOL}">野球スクール PUMPS</a>
+          <a href="{HEROS}">HERO's CUP</a>
           <a href="{pre}contact/">お問い合わせ</a>
         </nav>
       </div>
@@ -390,7 +394,7 @@ def build_home():
           <h2 class="h2 split">HAKI proの野球スクール</h2>
           <p class="lead reveal">元プロ野球選手と大学が共同開発した、スポーツ科学で「打つ・投げる・走る」を測って伸ばすスクールです。</p>
         </div>
-        <a class="school reveal" href="{SCHOOL}" target="_blank" rel="noopener" data-dark>
+        <a class="school reveal" href="{SCHOOL}" data-dark>
           <div class="school-body">
             <img class="school-logo" src="assets/img/pumps-logo-white.png" alt="PUMPS" width="300" height="120" loading="lazy" />
             <p class="en" style="font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.6);margin:0">BASEBALL SCIENCE LAB</p>
@@ -401,6 +405,35 @@ def build_home():
           <div class="school-stage">
             <canvas data-scene="ball" aria-label="指で回せる硬式球"></canvas>
             <span class="hint">DRAG TO SPIN</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="sec-tight" id="heros-cup" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">TOURNAMENT</p>
+          <h2 class="h2 split">子どもが主役の全員野球大会</h2>
+          <p class="lead reveal">補欠をつくらず、大人が指示を出さず、子どもたち自身の手で試合をつくる少年野球大会です。</p>
+        </div>
+        <a class="heros reveal" href="{HEROS}">
+          <div class="heros-body">
+            <p class="heros-en">ALL-PLAYERS BASEBALL TOURNAMENT</p>
+            <h3 class="heros-title">次は、<br /><span>きみだ！</span></h3>
+            <p class="heros-lead">すべての子どもに、ヒーローになる瞬間を。</p>
+            <ul class="heros-rules">
+              <li><b>補欠なし</b>登録選手は全員出場</li>
+              <li><b>大人立入禁止</b>指示は出さない</li>
+              <li><b>技術 ＜ 姿勢</b>HERO審査制度</li>
+              <li><b>模擬甲子園演出</b>アナウンス・応援歌</li>
+            </ul>
+            <p class="heros-next"><span>第1回大会 in 三原</span>2026年11月28日・29日／16チーム限定</p>
+            <span class="school-go">HERO's CUP のサイトを見る <span class="circle heros-circle">{arrow()}</span></span>
+          </div>
+          <div class="heros-visual" aria-hidden="true">
+            <div class="heros-rays"></div>
+            <img src="assets/img/heros-logo.png" alt="" width="560" height="375" loading="lazy" />
           </div>
         </a>
       </div>
@@ -564,7 +597,7 @@ def build_company():
           <div><dt>代表者</dt><dd>安部 友裕</dd></div>
           <div><dt>所在地</dt><dd>〒733-0001<br />広島市西区大芝2丁目9-2</dd></div>
           <div><dt>資本金</dt><dd>300万円</dd></div>
-          <div><dt>事業内容</dt><dd>健康経営サポート事業<br />組織コーチング事業<br />SNSマーケティング＆AIコンサル事業<br />イベント企画運営<br />野球スクール（<a href="{SCHOOL}" target="_blank" rel="noopener" style="text-decoration:underline">PUMPS</a>）</dd></div>
+          <div><dt>事業内容</dt><dd>健康経営サポート事業<br />組織コーチング事業<br />SNSマーケティング＆AIコンサル事業<br />イベント企画運営<br />野球スクール（<a href="{SCHOOL}" style="text-decoration:underline">PUMPS</a>）</dd></div>
           <div><dt>設立</dt><dd>2023年3月</dd></div>
           <div><dt>取引銀行</dt><dd>広島信用金庫</dd></div>
         </dl>
@@ -624,7 +657,7 @@ def build_project():
           <h2 class="h2 split">子どもの健全育成のために</h2>
           <p class="reveal" style="margin-top:24px">覇氣プロジェクトは、企業の健康経営と同時に子どもの健全育成を考え、各種スポーツ競技の発展に伴う少年少女に対する専門的技術指導や、成長期に必要なカラダ作りのための基礎トレーニング、それに伴う栄養（食育）指導を行い、スポーツ育成現場に必須である各種コンテンツを提供します。</p>
           <p class="reveal">昨今、特定のスポーツを行っていない（スマホ、テレビゲームなどに没頭している）子どもたちも増えてきており、将来の健康面も不安視されています。そんな子どもたちのためにカラダを動かす機会と環境を提供し、日頃の運動不足を解消してもらうための取り組みを提供します。</p>
-          <a class="link-arrow reveal" href="{SCHOOL}" target="_blank" rel="noopener" style="margin-top:8px">野球スクール PUMPS <span class="circle">{arrow(True)}</span></a>
+          <a class="link-arrow reveal" href="{SCHOOL}" style="margin-top:8px">野球スクール PUMPS <span class="circle">{arrow(True)}</span></a>
         </div>
       </div>
     </section>

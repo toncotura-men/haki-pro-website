@@ -187,7 +187,7 @@ button { font: inherit; color: inherit; }
 .menu-btn span:nth-child(2) { top: 25px; }
 .menu-open .menu-btn span:nth-child(1) { transform: translateY(4px) rotate(45deg); }
 .menu-open .menu-btn span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
-@media (min-width: 1080px) { .nav { display: flex; } .menu-btn { display: none; } }
+@media (min-width: 1240px) { .nav { display: flex; } .menu-btn { display: none; } }
 
 /* スマホメニュー（すりガラス・時間差で項目が出る） */
 .drawer {
@@ -339,6 +339,28 @@ body.menu-open { overflow: hidden; }
 .school-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
 .school-stage .hint { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: .14em; color: rgba(255, 255, 255, .5); font-family: var(--font-en); white-space: nowrap; }
 .school::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(80% 80% at 70% 40%, #000, transparent); }
+
+/* ---------- HERO's CUP 入口（大会の色：オレンジ×ネイビー） ---------- */
+.heros { position: relative; display: grid; overflow: hidden; border-radius: 32px; isolation: isolate; min-height: 520px; color: #fff;
+  background: radial-gradient(90% 120% at 80% 20%, #ff8a3d 0%, #f26b21 38%, #14356e 100%); box-shadow: 0 30px 80px rgba(20, 53, 110, .25); transition: transform .5s var(--ease); }
+.heros:active { transform: scale(.985); }
+@media (min-width: 900px) { .heros { grid-template-columns: 1.1fr 1fr; } }
+.heros-body { padding: clamp(28px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; gap: 16px; position: relative; z-index: 1; }
+.heros-en { margin: 0; font-family: var(--font-en); font-size: 12px; font-weight: 700; letter-spacing: .2em; color: rgba(255, 255, 255, .8); }
+.heros-title { font-family: var(--font-serif); font-size: clamp(40px, 6.4vw, 76px); line-height: 1.1; letter-spacing: .02em; }
+.heros-title span { color: #ffd23f; }
+.heros-lead { margin: 0; font-weight: 700; font-size: 17px; }
+.heros-rules { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.heros-rules li { font-size: 12px; padding: 10px 12px; border-radius: 14px; background: rgba(255, 255, 255, .12); box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .22); color: rgba(255, 255, 255, .85); }
+.heros-rules b { display: block; font-size: 15px; color: #fff; }
+.heros-next { margin: 4px 0 0; font-size: 13px; color: rgba(255, 255, 255, .85); }
+.heros-next span { display: inline-block; margin-right: 8px; padding: 3px 10px; border-radius: 999px; background: #ffd23f; color: #14356e; font-weight: 700; }
+.heros-circle { background: #ffd23f !important; color: #14356e !important; }
+.heros:hover .school-go .circle { transform: translateX(4px) scale(1.06); }
+.heros-visual { position: relative; min-height: 300px; display: grid; place-items: center; }
+.heros-visual img { position: relative; width: min(82%, 440px); height: auto; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, .35)); animation: heros-float 6s ease-in-out infinite; }
+.heros-rays { position: absolute; inset: -20%; background: repeating-conic-gradient(from 0deg, rgba(255, 255, 255, .12) 0 6deg, transparent 6deg 18deg); mask-image: radial-gradient(closest-side, #000 20%, transparent 75%); animation: spin 40s linear infinite; }
+@keyframes heros-float { 50% { transform: translateY(-10px) rotate(-1.5deg); } }
 
 /* ---------- 写真の横スクロール ---------- */
 .gallery { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px var(--gutter) 24px; margin-inline: calc(var(--gutter) * -1); scrollbar-width: none; cursor: grab; }
@@ -544,7 +566,7 @@ body.menu-open { overflow: hidden; }
 .fab.show { transform: none; }
 .fab:active { transform: scale(.96); }
 .fab i { width: 8px; height: 8px; border-radius: 50%; background: var(--rainbow-c); }
-@media (min-width: 1080px) { .fab { display: none; } }
+@media (min-width: 1240px) { .fab { display: none; } }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .header::before { background: rgba(255, 255, 255, .95); }

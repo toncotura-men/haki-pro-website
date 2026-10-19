@@ -16,8 +16,10 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - 導入実績（取引先名）は載せない。講演実績は「約200回」（オーナー申告）
 - 動き `assets/js/site.js`、見た目 `assets/css/site.css`。動きは transform / opacity のみ、動きを減らす設定に対応
 - AI で作った画像は使わない（2026-10 オーナー指示）。写真は旧サイトの本物の写真だけ
-- 野球スクール（PUMPS）は別サイト https://toncotura-men.github.io/company-website/index.html（リポジトリ company-website）。トップに入口カードあり。
-  pumps.haki-pro.com は 2026-10 時点で開けなかったため使わない（オーナー指摘）
+- 野球スクール（PUMPS）と少年野球大会 HERO's CUP は、リポジトリ company-website の中身を `vercel.json` の rewrites で
+  **haki-pro.com/pumps/** と **haki-pro.com/heros-cup/** に取り込んで表示している（2026-10 オーナー指示：URL に toncotura-men.github.io を出さない）。
+  中身を直すときは company-website 側を直す（こちらへのコピーは不要、自動で最新になる）。HERO's CUP の参加要項が読む
+  `../assets/img/logo-haki.png` のため、同じ画像を `assets/img/logo-haki.png` に置いている。pumps.haki-pro.com は使わない
 - スペシャリストは安部・下定の2名。伊藤・舩木のページと写真は 2026-10 オーナー指示で削除（再掲載しない）
 
 ## お問い合わせ（2026-10 オーナー決定）

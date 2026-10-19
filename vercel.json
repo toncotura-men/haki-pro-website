@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/pumps", "destination": "/pumps/", "permanent": true },
+    { "source": "/heros-cup", "destination": "/heros-cup/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/pumps/:path*", "destination": "https://toncotura-men.github.io/company-website/:path*" },
+    { "source": "/heros-cup/:path*", "destination": "https://toncotura-men.github.io/company-website/heros-cup/:path*" }
+  ]
+}

@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/site.css?v=5" />
+  <link rel="stylesheet" href="assets/css/site.css?v=6" />
   <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
   <script type="module" src="assets/js/scene.js?v=4"></script>
   <script src="assets/js/site.js?v=4" defer></script>
@@ -34,7 +34,8 @@
       </a>
       <nav class="nav" aria-label="メインメニュー">
         <a href="company/">会社概要</a><a href="project/">プロジェクト</a><a href="health-management/">健康経営</a><a href="raise-children/">組織コーチング</a><a href="specialist/">スペシャリスト</a>
-        <a class="nav-ext" href="https://toncotura-men.github.io/company-website/index.html" target="_blank" rel="noopener">野球スクール <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        <a href="/pumps/">野球スクール</a>
+        <a href="/heros-cup/">HERO's CUP</a>
         <a class="nav-cta" href="contact/">お問い合わせ</a>
       </nav>
       <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
@@ -44,7 +45,8 @@
   <div class="drawer" id="drawer" aria-hidden="true">
     <a href="./">トップ<small>HOME</small></a>
     <a href="company/">会社概要<small>COMPANY</small></a><a href="project/">プロジェクト<small>PROJECT</small></a><a href="health-management/">健康経営<small>WELLNESS</small></a><a href="raise-children/">組織コーチング<small>COACHING</small></a><a href="specialist/">スペシャリスト<small>MEMBER</small></a>
-    <a href="https://toncotura-men.github.io/company-website/index.html" target="_blank" rel="noopener">野球スクール PUMPS<small>SCHOOL ↗</small></a>
+    <a href="/pumps/">野球スクール PUMPS<small>SCHOOL</small></a>
+    <a href="/heros-cup/">HERO's CUP<small>TOURNAMENT</small></a>
     <a class="drawer-cta" href="contact/">お問い合わせ</a>
   </div>
   <main id="main">
@@ -139,7 +141,7 @@
           <h2 class="h2 split">HAKI proの​野球スクール</h2>
           <p class="lead reveal">元プロ野球選手と​大学が​共同開発した、​スポーツ科学で​「打つ・投げる​・走る」を​測って​伸ばすスクールです。</p>
         </div>
-        <a class="school reveal" href="https://toncotura-men.github.io/company-website/index.html" target="_blank" rel="noopener" data-dark>
+        <a class="school reveal" href="/pumps/" data-dark>
           <div class="school-body">
             <img class="school-logo" src="assets/img/pumps-logo-white.png" alt="PUMPS" width="300" height="120" loading="lazy" />
             <p class="en" style="font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.6);margin:0">BASEBALL SCIENCE LAB</p>
@@ -150,6 +152,35 @@
           <div class="school-stage">
             <canvas data-scene="ball" aria-label="指で回せる硬式球"></canvas>
             <span class="hint">DRAG TO SPIN</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="sec-tight" id="heros-cup" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">TOURNAMENT</p>
+          <h2 class="h2 split">子どもが​主役の​全員野球大会</h2>
+          <p class="lead reveal">補欠を​つくらず、​大人が​指示を​出さず、​子ども​たち自身の​手で​試合を​つくる​少年野球大会です。</p>
+        </div>
+        <a class="heros reveal" href="/heros-cup/">
+          <div class="heros-body">
+            <p class="heros-en">ALL-PLAYERS BASEBALL TOURNAMENT</p>
+            <h3 class="heros-title">次は、<br/><span>​きみだ！</span></h3>
+            <p class="heros-lead">すべての​子どもに、​ヒーローに​なる​瞬間を。</p>
+            <ul class="heros-rules">
+              <li><b>補欠なし</b>登録選手は​全員出場</li>
+              <li><b>大人立入禁止</b>指示は​出さない</li>
+              <li><b>技術 ＜ 姿勢</b>HERO審査制度</li>
+              <li><b>模擬甲子園演出</b>アナウンス・応援歌</li>
+            </ul>
+            <p class="heros-next"><span>第1回大会 in 三原</span>2026年11月28日・29日／16チーム限定</p>
+            <span class="school-go">HERO's CUP のサイトを見る <span class="circle heros-circle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+          </div>
+          <div class="heros-visual" aria-hidden="true">
+            <div class="heros-rays"></div>
+            <img src="assets/img/heros-logo.png" alt="" width="560" height="375" loading="lazy" />
           </div>
         </a>
       </div>
@@ -243,7 +274,8 @@
           <a href="./">トップ</a>
           <a href="company/">会社概要</a><a href="project/">プロジェクト</a><a href="health-management/">健康経営</a><a href="raise-children/">組織コーチング</a><a href="specialist/">スペシャリスト</a>
           <a href="news/">お知らせ</a>
-          <a href="https://toncotura-men.github.io/company-website/index.html" target="_blank" rel="noopener">野球スクール PUMPS ↗</a>
+          <a href="/pumps/">野球スクール PUMPS</a>
+          <a href="/heros-cup/">HERO's CUP</a>
           <a href="contact/">お問い合わせ</a>
         </nav>
       </div>
