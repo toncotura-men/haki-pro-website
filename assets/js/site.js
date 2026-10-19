@@ -18,22 +18,26 @@
   /* ---------- 見出しを1文字ずつに分ける ---------- */
   $$(".split").forEach(function (el) {
     var i = 0;
+    /* 1文字ずつ動かすが、折り返しは言葉のまとまり（ゼロ幅スペースの所）だけにする */
     var walk = function (node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (n) {
         if (n.nodeType === 3) {
           var frag = document.createDocumentFragment();
+          var word = null;
           Array.from(n.textContent).forEach(function (ch) {
             if (ch === "\n" || ch === "\t") return;
+            if (ch === "\u200b") { word = null; frag.appendChild(document.createTextNode("\u200b")); return; }
+            if (ch === " ") { word = null; var sp = document.createElement("span"); sp.className = "sp"; sp.textContent = "\u00a0"; frag.appendChild(sp); return; }
+            if (!word) { word = document.createElement("span"); word.className = "word"; frag.appendChild(word); }
             var s = document.createElement("span");
-            if (ch === " ") { s.className = "sp"; s.innerHTML = "&nbsp;"; }
-            else { s.className = "ch"; s.textContent = ch; s.style.setProperty("--i", i++); }
-            frag.appendChild(s);
+            s.className = "ch"; s.textContent = ch; s.style.setProperty("--i", i++);
+            word.appendChild(s);
           });
           n.parentNode.replaceChild(frag, n);
         } else if (n.nodeType === 1 && n.tagName !== "BR") walk(n);
       });
     };
-    el.setAttribute("aria-label", el.textContent.replace(/\s+/g, " ").trim());
+    el.setAttribute("aria-label", el.textContent.replace(/\u200b/g, "").replace(/\s+/g, " ").trim());
     walk(el);
     $$(".ch, .sp", el).forEach(function (c) { c.setAttribute("aria-hidden", "true"); });
   });
@@ -85,7 +89,7 @@
   var scrubs = $$(".scrub");
   scrubs.forEach(function (el) {
     var text = el.textContent.trim();
-    el.setAttribute("aria-label", text);
+    el.setAttribute("aria-label", text.replace(/\u200b/g, ""));
     el.textContent = "";
     Array.from(text).forEach(function (ch) {
       var w = document.createElement("span");

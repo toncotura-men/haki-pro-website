@@ -309,6 +309,74 @@ const MODES = {
     };
   },
 
+  /* 締めの舞台：6色の H が、それぞれ傾いた軌道を光の尾を引いて回る（原子のような姿）。
+     真ん中はガラスの核。スクロールで軌道がそろい、1つの輪にまとまっていく */
+  orbit(stage) {
+    const { scene, camera } = stage;
+    camera.position.z = 9;
+    const holder = new THREE.Group();
+    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.62, 1), new THREE.MeshPhysicalMaterial({ color: 0xbfd4ff, roughness: 0.08, metalness: 0.1, flatShading: true, transmission: 0.85, thickness: 1.2, ior: 1.5, clearcoat: 1, iridescence: 1, iridescenceIOR: 1.6, envMapIntensity: 1.4 }));
+    const glow = new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 32), new THREE.MeshBasicMaterial({ color: 0xcfe0ff }));
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: dotTexture(), color: 0x9fb4ff, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false }));
+    halo.scale.setScalar(3.2);
+    holder.add(glow, core, halo);
+    const geo = hGeometry();
+    const TRAIL = 70;
+    const orbits = PALETTE.map((hex, i) => {
+      const tilt = new THREE.Euler((i - 2.5) * 0.3, 0, (((i * 2) % 6) - 2.5) * 0.28);
+      const R = 1.75 + (i % 3) * 0.32;
+      const m = new THREE.Mesh(geo, new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.08, emissive: hex, emissiveIntensity: 0.18 }));
+      m.scale.setScalar(0.75);
+      const pos = new Float32Array(TRAIL * 3), col = new Float32Array(TRAIL * 3);
+      const base = new THREE.Color(hex);
+      for (let k = 0; k < TRAIL; k++) { const f = 1 - k / TRAIL; col.set([base.r * f, base.g * f, base.b * f], k * 3); }
+      const tg = new THREE.BufferGeometry();
+      tg.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      tg.setAttribute("color", new THREE.BufferAttribute(col, 3));
+      const trail = new THREE.Points(tg, new THREE.PointsMaterial({ size: 0.11, map: dotTexture(), vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+      const ringPts = Array.from({ length: 129 }, (_, k) => { const a = (k / 128) * Math.PI * 2; return new THREE.Vector3(Math.cos(a) * R, 0, Math.sin(a) * R); });
+      const ring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(ringPts), new THREE.LineBasicMaterial({ color: hex, transparent: true, opacity: 0.16, blending: THREE.AdditiveBlending, depthWrite: false }));
+      const plane = new THREE.Group();
+      plane.add(ring);
+      holder.add(plane, m, trail);
+      return { m, trail, pos, plane, tilt, R, speed: 0.5, phase: (i / 6) * Math.PI * 2, tgeo: tg };
+    });
+    scene.add(holder, dust(420, 3, 9, 0.045));
+    const v3 = new THREE.Vector3(), q = new THREE.Quaternion(), flat = new THREE.Quaternion();
+    const pointAt = (o, a, mix, out) => {
+      out.set(Math.cos(a) * o.R, 0, Math.sin(a) * o.R);
+      q.setFromEuler(o.tilt).slerp(flat, mix);
+      return out.applyQuaternion(q);
+    };
+    return {
+      layout() {
+        const v = viewHalf(camera);
+        holder.scale.setScalar(Math.min(v.w, v.h) * 0.36);
+      },
+      update(t, dt, s, ptr) {
+        const mix = clamp(s * 1.6 - 0.2) * 0.85; // スクロールで軌道が水平にそろう
+        orbits.forEach((o) => {
+          const a = o.phase + (reduced ? 0 : t * o.speed);
+          o.plane.quaternion.setFromEuler(o.tilt).slerp(flat, mix);
+          pointAt(o, a, mix, v3);
+          o.m.position.copy(v3);
+          o.m.rotation.set(Math.sin(t * 0.8 + o.phase) * 0.5, Math.cos(t * 0.6 + o.phase) * 0.5, -(o.phase + t * o.speed));
+          for (let k = 0; k < TRAIL; k++) {
+            pointAt(o, a - k * 0.035, mix, v3);
+            o.pos[k * 3] = v3.x; o.pos[k * 3 + 1] = v3.y; o.pos[k * 3 + 2] = v3.z;
+          }
+          o.tgeo.attributes.position.needsUpdate = true;
+        });
+        const pulse = reduced ? 1 : 1 + Math.sin(t * 2.2) * 0.06;
+        glow.scale.setScalar(pulse);
+        halo.material.opacity = 0.45 + (pulse - 1) * 2;
+        core.rotation.y += dt * 0.3;
+        holder.rotation.x = damp(holder.rotation.x, 0.35 - ptr.y * 0.35, 3, dt);
+        holder.rotation.y = damp(holder.rotation.y, ptr.x * 0.6, 3, dt);
+      },
+    };
+  },
+
   /* 硬式球：縫い目は球面上の曲線、赤い糸は V 字に並べる */
   ball(stage, el) {
     const { scene, camera } = stage;

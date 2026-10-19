@@ -5,7 +5,74 @@
 文章を直したらこのファイルを編集して `python3 _build/build.py` を実行する。
 出力はリポジトリ直下の各フォルダの index.html（GitHub Pages がそのまま公開する）。
 """
+import re
 from pathlib import Path
+
+import budoux  # 日本語を「言葉のまとまり」で折り返すため（pip install budoux）
+
+_PHRASE = budoux.load_default_japanese_parser()
+_PHRASE_CLASSES = ("lead", "hero-lead", "scrub", "voice", "serif", "h1", "h2", "h3")
+
+
+def _phrase(inner):
+    """文の中に、言葉の切れ目（ゼロ幅スペース）を入れる。CSS の keep-all と組で使う。"""
+    out = _PHRASE.translate_html_string(inner)
+    return re.sub(r'^<span style="word-break: keep-all; overflow-wrap: anywhere;">(.*)</span>$', r"\1", out, flags=re.S)
+
+
+# 写真の「顔の位置」。切り抜かれても顔が見切れないよう、ここを中心に表示する
+FOCUS = {
+    "abe-1.webp": "84% 30%",
+    "abe-2.webp": "80% 32%",
+    "abe-talk.webp": "62% 30%",
+    "abe-portrait-wide.webp": "66% 35%",
+    "abe-seminar.webp": "62% 30%",
+    "shimosada.webp": "70% 30%",
+    "baseball-class.webp": "45% 40%",
+}
+
+
+def focus_images(html):
+    def fix(m):
+        tag = m[0]
+        name = m[1]
+        pos = FOCUS.get(name)
+        if not pos:
+            return tag
+        if 'style="' in tag:
+            return tag.replace('style="', f'style="object-position:{pos};', 1)
+        return tag.replace("<img ", f'<img style="object-position:{pos}" ', 1)
+
+    return re.sub(r'<img [^>]*?src="[^"]*?/?([\w-]+\.webp)"[^>]*>', fix, html)
+
+
+def phrase_breaks(html):
+    """見出し（h1〜h3）と、リード文などの段落だけ、変な所で改行しないようにする。"""
+    main = re.search(r"<main id=\"main\">.*</main>", html, flags=re.S)
+    if not main:
+        return html
+
+    def heading(m):
+        return f"<{m[1]}{m[2]}>{_phrase(m[3])}</{m[1]}>"
+
+    def para(m):
+        attrs = m[1]
+        cls = re.search(r'class="([^"]*)"', attrs)
+        names = cls[1].split() if cls else []
+        if not cls and not m[3]:
+            return m[0]
+        if cls and not any(n in _PHRASE_CLASSES for n in names) and not m[3]:
+            return m[0]
+        return f"<p{attrs}>{_phrase(m[2])}</p>"
+
+    body = main[0]
+    body = re.sub(r"<(h[1-3])((?:\s[^>]*)?)>(.*?)</\1>", heading, body, flags=re.S)
+    # 「そのためには」の連続文（.chain の中の p）も対象
+    body = re.sub(r'(<div class="chain">)(.*?)(</div>)', lambda m: m[1] + re.sub(r"<p((?:\s[^>]*)?)>(.*?)</p>", lambda q: f"<p{q[1]}>{_phrase(q[2])}</p>", m[2], flags=re.S) + m[3], body, flags=re.S)
+    body = re.sub(r"<p((?:\s[^>]*)?)>(.*?)</p>()", lambda m: f"<p{m[1]}>{_phrase(m[2])}</p>" if "\u200b" not in m[2] else m[0], body, flags=re.S)
+    body = re.sub(r"<(li|dd)((?:\s[^>]*)?)>(.*?)</\1>", lambda m: f"<{m[1]}{m[2]}>{_phrase(m[3])}</{m[1]}>", body, flags=re.S)
+    body = re.sub(r'(<span class="(?:member-copy|member-role)"[^>]*>)(.*?)(</span>)', lambda m: m[1] + _phrase(m[2]) + m[3], body, flags=re.S)
+    return html[: main.start()] + body + html[main.end():]
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://haki-pro.com"
@@ -57,9 +124,10 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     )
     drawer = "".join(f'<a href="{pre}{s}/">{ja}<small>{en}</small></a>' for s, ja, en in NAV)
     full_title = f"{title}｜株式会社HAKI pro" if slug else "株式会社HAKI pro｜個性を社会の可能性に"
+    scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=2"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=3"></script>'
         if scene
         else ""
     )
@@ -85,9 +153,9 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=1" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=3" />
   {importmap}
-  <script src="{pre}assets/js/site.js?v=2" defer></script>
+  <script src="{pre}assets/js/site.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -140,7 +208,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
 """
     out = ROOT / slug / "index.html" if slug else ROOT / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding="utf-8")
+    out.write_text(focus_images(phrase_breaks(html)), encoding="utf-8")
 
 
 def hero(eyebrow, title_html, lead, scene, *, crumbs=None, extra="", sub=True):
@@ -168,9 +236,9 @@ def crumbs(pre, *items):
 
 
 def cta(pre):
-    return f"""    <section class="sec cta night" data-dark>
+    return f"""    <section class="sec cta night" data-dark data-stage-host>
       <div class="wrap">
-        <div class="cta-mark" aria-hidden="true"><div class="halo"></div><img src="{pre}assets/img/mark.png" alt="" width="103" height="103" /></div>
+        <div class="cta-mark" aria-hidden="true"><canvas class="stage" data-scene="orbit"></canvas></div>
         <p class="eyebrow reveal" style="justify-content:center">LET'S START</p>
         <h2 class="h1 split">さあ、一緒に歩み出そう</h2>
         <p class="lead reveal" style="margin:20px auto 0">トップアスリートと一緒に、健全な未来へ。<br />講演・イベント・健康経営・組織コーチング、まずはお気軽にご相談ください。</p>
@@ -585,7 +653,7 @@ def build_health():
         ("stress", "ストレスチェック", "自己診断疲労度チェックリストに記入後、身体的・精神的・総合評価の3項目の結果をオンラインでフィードバックします。ストレスリスクが高い従業員さまは、御社のご担当者に個別にご報告します。（年4回実施）"),
         ("move", "出張運動指導", "当社専属の経験豊富な運動指導者が、御社の会議室やセミナールームで運動指導を実施します。肩こり・腰痛やメタボ対策、ダイエット、姿勢改善など各種プログラムを実施します。"),
         ("doctor", "産業医選定", "当社にて産業医の選任をさせていただきます。医師の職場巡視、または健康問題のある従業員さまに対し、当社にて一元管理が可能になります。"),
-        ("chat", "健康・メンタルヘルスLINE相談窓口", "健康とメンタルヘルスに関するご相談を、リアルタイムにLINEでお受けします。看護師、薬剤師、理学療法士、管理栄養士など各種専門家が、健康面のさまざまな質問にお答えします。"),
+        ("chat", "健康・メンタルヘルス LINE相談窓口", "健康とメンタルヘルスに関するご相談を、リアルタイムにLINEでお受けします。看護師、薬剤師、理学療法士、管理栄養士など各種専門家が、健康面のさまざまな質問にお答えします。"),
         ("mic", "健康セミナー", "運動・食事を中心に、従業員さまの健康を語る上で必ず知っておいてほしい、健康経営コンサルタントによるセミナーです。ご家族にも共有できる、すぐに実践できる健康法を講義＋実技でわかりやすくご説明します。"),
         ("flame", "覇氣セミナー", "安部友裕が従業員さまに「覇氣」を注入する特別セミナー。結果が出ない時、何をやってもダメな時、どうやってその状況を乗り越えるのか。メンタルの重要性からコンディションを整えることの重要さまで、やる気が出る唯一無二のセミナーです。"),
         ("badge", "健康経営優良法人 取得サポート", "近年取得される企業さまが増えている、経済産業省認定の健康経営優良法人。認定条件に必要な項目の実施や、どうすれば取得できるかのご相談まで、初めて取得される企業さまも、取得を検討中の企業さまもサポートします。"),
