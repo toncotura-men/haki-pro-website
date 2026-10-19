@@ -153,7 +153,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=4" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=5" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=4" defer></script>
 </head>

@@ -296,7 +296,9 @@ body.menu-open { overflow: hidden; }
 .stack-body { padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; position: relative; z-index: 1; }
 .stack-num { font-family: var(--font-en); font-size: 13px; letter-spacing: .14em; color: var(--on-night-2); display: flex; gap: 12px; align-items: center; }
 .stack-num b { font-size: 13px; color: #fff; }
-.stack-title { font-size: clamp(30px, 4.6vw, 54px); letter-spacing: -.03em; line-height: 1.15; margin-top: 16px; }
+/* 事業名は必ず1行（画面幅に合わせて文字の大きさを変える） */
+.stack-title { white-space: nowrap; font-size: min(7vw, 34px); letter-spacing: -.03em; line-height: 1.15; margin-top: 16px; }
+@media (min-width: 900px) { .stack-title { font-size: clamp(30px, 3.1vw, 44px); } }
 .stack-en { font-family: var(--font-en); font-weight: 700; font-size: clamp(14px, 1.4vw, 16px); letter-spacing: .16em; }
 .stack-visual { position: relative; min-height: 280px; overflow: hidden; }
 .stack-visual img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
