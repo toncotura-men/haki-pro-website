@@ -11,7 +11,9 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 ## 構成
 - ビルド不要の静的サイト。文章は `_build/build.py` を直して `python3 _build/build.py` で各ページの index.html を作り直す（事前に `pip install budoux`。日本語を言葉の切れ目で折り返すため）
 - 写真の顔の位置は build.py の `FOCUS`。新しい写真を足したらここにも足す
-- 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱）。モード：ring（ロゴの6色の H）/ loop / pulse / network / ball
+- 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱）。モード：ring（ロゴの6色の H）/ loop / pulse / network / orbit（締め）/ ball
+- ロゴの H は形を変えない（2026-10 オーナー指示）。`LOGO` の座標は元のロゴ画像（img-junkan3.png）から写し取ったもの。色の丸め（トーンマッピング）は使わない
+- 導入実績（取引先名）は載せない。講演実績は「約200回」（オーナー申告）
 - 動き `assets/js/site.js`、見た目 `assets/css/site.css`。動きは transform / opacity のみ、動きを減らす設定に対応
 - AI で作った画像は使わない（2026-10 オーナー指示）。写真は旧サイトの本物の写真だけ
 - 野球スクール（PUMPS）は別サイト https://toncotura-men.github.io/company-website/index.html（リポジトリ company-website）。トップに入口カードあり。
