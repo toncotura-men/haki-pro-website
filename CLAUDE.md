@@ -13,7 +13,9 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱）。モード：ring（ロゴの6色の H）/ loop / pulse / network / ball
 - 動き `assets/js/site.js`、見た目 `assets/css/site.css`。動きは transform / opacity のみ、動きを減らす設定に対応
 - AI で作った画像は使わない（2026-10 オーナー指示）。写真は旧サイトの本物の写真だけ
-- 野球スクール（PUMPS）は別サイト https://pumps.haki-pro.com/（リポジトリ company-website）。トップに入口カードあり
+- 野球スクール（PUMPS）は別サイト https://toncotura-men.github.io/company-website/index.html（リポジトリ company-website）。トップに入口カードあり。
+  pumps.haki-pro.com は 2026-10 時点で開けなかったため使わない（オーナー指摘）
+- スペシャリストは安部・下定の2名。伊藤・舩木のページと写真は 2026-10 オーナー指示で削除（再掲載しない）
 
 ## お問い合わせ（2026-10 オーナー決定）
 - 通常のお問い合わせは info@haki-pro.com（入力内容でメールを作る方式）
