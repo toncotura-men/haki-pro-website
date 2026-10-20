@@ -611,7 +611,7 @@ def build_project():
         <div class="photo tall reveal-img"><img src="{pre}assets/img/abe-2.webp" alt="セミナーで話す安部友裕" loading="lazy" width="1600" height="1067" /></div>
         <div>
           <p class="eyebrow reveal">FOR EMPLOYEES</p>
-          <h2 class="h2 split">従業員さまに「とびっきり」の原動力を</h2>
+          <h2 class="h2 split">従業員さまに<br />「とびっきり」の原動力を</h2>
           <p class="reveal" style="margin-top:24px">個人の輝きを最大限に引き出します。そして、一人ひとりの想いや考えを丁寧に言葉にすることで、チーム内の相互理解を深め、強固な信頼関係を構築していきます。</p>
         </div>
       </div>
