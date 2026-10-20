@@ -203,14 +203,14 @@ button { font: inherit; color: inherit; }
 .menu-open .header .logo-dark { display: none; }
 .menu-open .header .logo-white { display: block; }
 .drawer a {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
   padding: 14px 0; border-bottom: .5px solid rgba(255, 255, 255, .14);
-  font-size: 22px; font-weight: 700; letter-spacing: .02em;
+  font-size: min(18px, 4.6vw); font-weight: 700; letter-spacing: .02em; white-space: nowrap;
   transform: translateY(16px); opacity: 0;
   transition: transform .5s var(--ease), opacity .4s var(--ease);
   transition-delay: calc(var(--i, 0) * 40ms);
 }
-.drawer a small { font-family: var(--font-en); font-size: 11px; letter-spacing: .14em; color: rgba(255, 255, 255, .5); }
+.drawer a small { flex: none; font-family: var(--font-en); font-size: 10px; letter-spacing: .06em; color: rgba(255, 255, 255, .5); }
 .menu-open .drawer a { transform: none; opacity: 1; }
 .drawer .drawer-cta { margin-top: 28px; border: 0; justify-content: center; background: #fff; color: var(--ink); border-radius: 999px; font-size: 16px; padding: 16px; }
 body.menu-open { overflow: hidden; }
@@ -331,6 +331,8 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 759px) { .ba-arrow svg { transform: rotate(90deg); } }
 .cycle { width: 100%; max-width: 580px; display: block; margin: 0 auto; overflow: visible; }
 .cycle .cyc-ring circle { fill: none; stroke-width: 3; }
+.cycle-wrap { position: relative; width: 100%; max-width: 580px; margin: 0 auto; }
+.cycle-ball { position: absolute; left: 50%; top: 50%; width: 46%; aspect-ratio: 1; transform: translate(-50%, -50%); touch-action: pan-y; cursor: grab; }
 .cycle .cyc-photo-ring { fill: none; stroke: rgba(255, 255, 255, .14); stroke-width: 1; }
 .cycle .cyc-chev { fill: none; stroke: rgba(255, 255, 255, .7); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .cycle .cyc-run { transform-origin: 200px 200px; transform-box: view-box; animation: spin 10s linear infinite; }
