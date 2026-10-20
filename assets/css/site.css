@@ -315,6 +315,11 @@ body.menu-open { overflow: hidden; }
 @keyframes draw { 0% { stroke-dashoffset: 200; } 40%, 70% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
 .viz-net circle { transform-box: fill-box; transform-origin: center; animation: blink 4s var(--ease) infinite; animation-delay: calc(var(--k) * .12s); }
 @keyframes blink { 0%, 100% { transform: scale(.6); opacity: .5; } 40% { transform: scale(1.15); opacity: 1; } }
+/* 硬式球の再生：赤い縫い目が一針ずつ入る */
+.viz-ball .hide { fill: rgba(244, 239, 228, .07); stroke: rgba(255, 255, 255, .28); stroke-width: 1.5; }
+.viz-ball .seam { fill: none; stroke: rgba(255, 255, 255, .18); stroke-width: 1.2; }
+.viz-ball .st { fill: none; stroke: #e60312; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform-box: fill-box; transform-origin: center; animation: sew 6s var(--ease) infinite; animation-delay: calc(var(--k) * .07s); }
+@keyframes sew { 0% { opacity: 0; transform: scale(.4); } 6%, 75% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; transform: none; } }
 
 /* ---------- 野球スクール（PUMPS）入口 ---------- */
 .school {
@@ -583,6 +588,7 @@ body.menu-open { overflow: hidden; }
   .marquee-track { animation: none !important; }
   .scrub .w { opacity: 1 !important; }
   .chain p { opacity: 1 !important; transform: none !important; }
+  .viz-ball .st { animation: none !important; opacity: 1 !important; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
 @media (prefers-reduced-transparency: reduce) {

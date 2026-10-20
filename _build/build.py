@@ -85,7 +85,7 @@ NAV = [
     ("company", "会社概要", "COMPANY"),
     ("project", "プロジェクト", "PROJECT"),
     ("health-management", "健康経営", "WELLNESS"),
-    ("raise-children", "組織コーチング", "COACHING"),
+    ("ball-recycle", "硬式球再生", "RECYCLE"),
     ("specialist", "スペシャリスト", "MEMBER"),
 ]
 
@@ -102,6 +102,8 @@ ICON = {
     "team": '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 20a4 4 0 0 1 7 0"/>',
     "academy": '<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5c2 2 2 9 0 11M17.5 6.5c-2 2-2 9 0 11"/>',
     "heart": '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+    "recycle": '<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 3.5V7h-3.5"/><path d="M9.2 8.8c1.3 1.8 1.3 4.6 0 6.4M14.8 8.8c-1.3 1.8-1.3 4.6 0 6.4"/>',
+    "gift": '<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M4 13h16M12 9c-1.5-3-5-3.5-5-1.2 0 1.2 2 1.2 5 1.2zM12 9c1.5-3 5-3.5 5-1.2 0 1.2-2 1.2-5 1.2z"/>',
     "spark": '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
 }
 
@@ -154,7 +156,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=6" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=7" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=4" defer></script>
 </head>
@@ -245,7 +247,7 @@ def cta(pre):
         <div class="cta-mark" aria-hidden="true"><canvas class="stage" data-scene="orbit"></canvas></div>
         <p class="eyebrow reveal" style="justify-content:center">LET'S START</p>
         <h2 class="h1 split">さあ、一緒に歩み出そう</h2>
-        <p class="lead reveal" style="margin:20px auto 0">トップアスリートと一緒に、健全な未来へ。<br />講演・イベント・健康経営・組織コーチング、まずはお気軽にご相談ください。</p>
+        <p class="lead reveal" style="margin:20px auto 0">トップアスリートと一緒に、健全な未来へ。<br />講演・イベント・健康経営・硬式球の再生、まずはお気軽にご相談ください。</p>
         <div class="btn-row reveal" style="justify-content:center;margin-top:32px">
           <a class="btn btn-light magnetic" href="{pre}contact/">お問い合わせ <span class="arr">{arrow()}</span></a>
         </div>
@@ -283,7 +285,7 @@ def build_home():
     ticker = "".join(
         f"<span>{t}</span>"
         for t in [
-            "企業の健康経営と組織コーチング",
+            "企業の健康経営と、硬式球の再生",
             "“からだ”と“こころ”、真のWell-beingへ",
             "「自分ならできる」から「自分たちならできる」へ",
             "「働きやすさ」から「働きがい」へ",
@@ -298,18 +300,7 @@ def build_home():
               <circle class="ring" cx="200" cy="200" r="150" stroke="#fee003" style="--k:5"/>
               <path class="ecg" d="M40 200h90l20-40 25 90 25-130 25 110 15-30h120"/>
             </svg>"""
-    import math, random
-    random.seed(7)
-    pts = [(200 + 150 * math.cos(a) * r, 200 + 150 * math.sin(a) * r) for a, r in ((random.random() * 6.283, 0.25 + random.random() * 0.75) for _ in range(22))]
-    lines, k = [], 0
-    for i, (x1, y1) in enumerate(pts):
-        for x2, y2 in pts[i + 1:]:
-            if math.hypot(x2 - x1, y2 - y1) < 95:
-                lines.append(f'<line x1="{x1:.0f}" y1="{y1:.0f}" x2="{x2:.0f}" y2="{y2:.0f}" style="--k:{k}"/>')
-                k += 1
-    cols = ["#e60312", "#b30281", "#1d2286", "#0881cb", "#42af38", "#fee003", "#ffffff"]
-    dots = "".join(f'<circle cx="{x:.0f}" cy="{y:.0f}" r="6" fill="{cols[i % 7]}" style="--k:{i}"/>' for i, (x, y) in enumerate(pts))
-    net_svg = f'<svg class="viz-net" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{"".join(lines)}{dots}</svg>'
+    ball_svg = sewing_ball_svg()
 
     body = f"""    <section class="hero" data-dark data-stage-host>
       <canvas class="stage" data-scene="ring" data-layout="home" aria-hidden="true"></canvas>
@@ -334,8 +325,8 @@ def build_home():
       <div class="wrap-narrow">
         <p class="eyebrow reveal">MIRAI WO TSUNAGU</p>
         <h2 class="h2 split">ミライをつなぐ</h2>
-        <p class="lead reveal" style="margin-top:16px">企業の健康経営と組織コーチングで導く、パーパス駆動型プロジェクト</p>
-        <p class="scrub" style="margin-top:48px">HAKI proは、健康経営事業と組織コーチング事業を通じて、企業の従業員さまの「からだ」と「こころ」の健康や、運動に対する意欲を向上させ、一人ひとりが目的、役割を理解し確かなpieceとなって、より良い社会を創造していくことを目的としています。</p>
+        <p class="lead reveal" style="margin-top:16px">企業の健康経営と、硬式球の再生でつなぐプロジェクト</p>
+        <p class="scrub" style="margin-top:48px">HAKI proは、健康経営事業を通じて企業の従業員さまの「からだ」と「こころ」の健康を支えています。あわせて、練習で古くなった硬式球を集め、福祉の現場で直し、もう一度グラウンドへ戻しています。働く人、野球をする子ども、ボールを直す人。それぞれの毎日が少しずつ良くなる仕組みを、広島からつくっていきます。</p>
         <a class="link-arrow reveal" href="project/" style="margin-top:32px">HAKI proのコンセプト <span class="circle">{arrow()}</span></a>
       </div>
     </section>
@@ -344,7 +335,7 @@ def build_home():
       <div class="wrap">
         <div class="sec-head">
           <p class="eyebrow reveal">BUSINESS</p>
-          <h2 class="h2 split">3つの事業で、会社を元気に</h2>
+          <h2 class="h2 split">3つの事業で、人と地域を元気に</h2>
         </div>
         <div class="stack">
           <a class="stack-card" href="health-management/">
@@ -359,17 +350,17 @@ def build_home():
             </div>
             <div class="stack-visual">{pulse_svg}</div>
           </a>
-          <a class="stack-card" href="raise-children/">
+          <a class="stack-card" href="ball-recycle/">
             <div class="stack-body">
               <div>
                 <p class="stack-num"><b>02</b> / 03</p>
-                <p class="stack-en" style="margin-top:28px">FUTURE</p>
-                <h3 class="stack-title">組織コーチング</h3>
-                <p class="muted" style="margin-top:16px">社員の潜在能力を解放し、組織全体のシナジーを最大化する。今こそ、あなたの会社を「働きたい」から「輝きたい」場所へ。</p>
+                <p class="stack-en" style="margin-top:28px">RECYCLE</p>
+                <h3 class="stack-title">硬式球の再生</h3>
+                <p class="muted" style="margin-top:16px">古くなった硬式球を集め、就労継続支援B型事業所の皆さんが一球ずつ手で直します。直したボールは、また誰かの練習で使われます。</p>
               </div>
-              <span class="link-arrow">明日のリーダーを、今日から <span class="circle">{arrow()}</span></span>
+              <span class="link-arrow">その一球、まだ使えます <span class="circle">{arrow()}</span></span>
             </div>
-            <div class="stack-visual">{net_svg}</div>
+            <div class="stack-visual">{ball_svg}</div>
           </a>
           <a class="stack-card" href="specialist/">
             <div class="stack-body">
@@ -472,7 +463,7 @@ def build_home():
             <h2 class="h2 split">トップアスリートと一緒に</h2>
           </div>
           <div>
-            <p class="lead reveal">私たちは単なるサービス提供者ではなく、皆さまと社会の真のパートナーとなることを目指します。トップアスリート経験豊富なメンバーだからこそ、見えない部分に着目し、誰にも真似できない健康経営＆組織コーチングを創出していきます。</p>
+            <p class="lead reveal">私たちは単なるサービス提供者ではなく、皆さまと社会の真のパートナーとなることを目指します。トップアスリート経験豊富なメンバーだからこそ、見えない部分に着目し、誰にも真似できない健康経営を創出していきます。</p>
           </div>
         </div>
         {member_cards(pre)}
@@ -493,7 +484,7 @@ def build_home():
       </div>
     </section>
 {cta(pre)}"""
-    page("", "", "株式会社HAKI proは、元プロアスリートが企業の健康経営と組織コーチングを支える広島の会社です。からだとこころの健康から、働きがいのある組織へ。", body, scene=True)
+    page("", "", "株式会社HAKI proは、元プロアスリートが企業の健康経営を支え、古くなった硬式球の再生にも取り組む広島の会社です。", body, scene=True)
 
 
 # ======================================================================
@@ -597,7 +588,7 @@ def build_company():
           <div><dt>代表者</dt><dd>安部 友裕</dd></div>
           <div><dt>所在地</dt><dd>〒733-0001<br />広島市西区大芝2丁目9-2</dd></div>
           <div><dt>資本金</dt><dd>300万円</dd></div>
-          <div><dt>事業内容</dt><dd>健康経営サポート事業<br />組織コーチング事業<br />SNSマーケティング＆AIコンサル事業<br />イベント企画運営<br />野球スクール（<a href="{SCHOOL}" style="text-decoration:underline">PUMPS</a>）</dd></div>
+          <div><dt>事業内容</dt><dd>健康経営サポート事業<br />硬式球再生事業<br />SNSマーケティング＆AIコンサル事業<br />イベント企画運営<br />野球スクール（<a href="{SCHOOL}" style="text-decoration:underline">PUMPS</a>）</dd></div>
           <div><dt>設立</dt><dd>2023年3月</dd></div>
           <div><dt>取引銀行</dt><dd>広島信用金庫</dd></div>
         </dl>
@@ -615,7 +606,7 @@ def build_project():
     biz = [
         ("heart", "健康経営サポート事業", "「企業のチームトレーナー」として、企業さまにとって一番の財産である従業員に対して健康プログラムを作成し、ストレス管理や栄養指導等を提供します。従業員の健康促進をサポートすることにより、企業さまの生産性を向上させます。", ["テラスホールディングス", "桑原組", "御池鐵工所"]),
         ("event", "イベント企画運営事業", "商業施設での運動教室やトークショーなど、幅広い世代の方々を対象としたイベントを、企画から運営までトータルでサポートいたします。", ["イオンモール広島府中", "レクト"]),
-        ("team", "組織コーチング事業", "広島に所縁のあるプロアスリートたちが、講演活動やイベント参加を通じて、自らの経験を還元します。", ["テラスホールディングス"]),
+        ("recycle", "硬式球再生事業", "練習で傷んだ硬式球を回収し、就労継続支援B型事業所の皆さんと一緒に、革の張り替えと糸の縫い直しを行います。直したボールは練習球として、地域のチームや野球教室へお届けします。", []),
         ("academy", "アカデミー事業", "子どもたちを対象とした野球教室から、高齢者向けの健康体操まで、幅広い年齢の皆さまに健康プログラムの作成と指導をお届けします。", ["住田学園", "山陽高校女子野球部"]),
     ]
     extra = '<div class="reveal" style="--i:5;display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><span class="chips" style="margin:0"><span style="background:rgba(42,163,255,.18);color:#bfe3ff">● 企業の健康経営</span><span style="background:rgba(91,214,74,.18);color:#cdf5c6">● 子どもの健全なミライ</span></span></div>'
@@ -674,7 +665,7 @@ def build_project():
       </div>
     </section>
 {cta(pre)}"""
-    page("project", "プロジェクト", "企業の健康経営と、こどもの健全なミライをつなぐ循環型プロジェクト。健康経営サポート・イベント企画運営・組織コーチング・アカデミー事業。", body, scene=True)
+    page("project", "プロジェクト", "企業の健康経営と、こどもの健全なミライをつなぐ循環型プロジェクト。健康経営サポート・イベント企画運営・硬式球再生・アカデミー事業。", body, scene=True)
 
 
 # ======================================================================
@@ -751,101 +742,138 @@ def build_health():
 
 
 # ======================================================================
-# 組織コーチング
+# 硬式球再生
 # ======================================================================
-def build_coaching():
+def sewing_ball_svg():
+    """トップの事業カードの絵。硬式球の赤い縫い目が、一針ずつ入っていく。"""
+    def bez(p, t):
+        u = 1 - t
+        x = u ** 3 * p[0][0] + 3 * u * u * t * p[1][0] + 3 * u * t * t * p[2][0] + t ** 3 * p[3][0]
+        y = u ** 3 * p[0][1] + 3 * u * u * t * p[1][1] + 3 * u * t * t * p[2][1] + t ** 3 * p[3][1]
+        return x, y
+
+    left = ((118, 92), (182, 160), (182, 240), (118, 308))
+    right = tuple((400 - x, y) for x, y in left)
+    stitches, k = [], 0
+    for curve, side in ((left, 1), (right, -1)):
+        n = 20
+        for i in range(n):
+            t = (i + 0.5) / n
+            x, y = bez(curve, t)
+            x2, y2 = bez(curve, min(1, t + 0.01))
+            tx, ty = x2 - x, y2 - y
+            ln = (tx * tx + ty * ty) ** 0.5 or 1
+            tx, ty = tx / ln, ty / ln
+            nx, ny = -ty * side, tx * side
+            a = (x - nx * 9 - tx * 4, y - ny * 9 - ty * 4)
+            m = (x + tx * 3, y + ty * 3)
+            c = (x + nx * 9 - tx * 4, y + ny * 9 - ty * 4)
+            stitches.append(f'<path class="st" d="M{a[0]:.0f} {a[1]:.0f}L{m[0]:.0f} {m[1]:.0f}L{c[0]:.0f} {c[1]:.0f}" style="--k:{k}"/>')
+            k += 1
+    seam = "".join(f'<path class="seam" d="M{c[0][0]} {c[0][1]}C{c[1][0]} {c[1][1]} {c[2][0]} {c[2][1]} {c[3][0]} {c[3][1]}"/>' for c in (left, right))
+    return f'<svg class="viz-ball" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle class="hide" cx="200" cy="200" r="135"/>{seam}{"".join(stitches)}</svg>'
+
+
+def build_ball():
     pre = "../"
-    changes = [
-        ("溢れ出す笑顔としなやかな対応力", ["明るい表情で迎える毎日の業務", "リラックスした雰囲気での会議進行", "柔軟な発想で課題解決にアプローチ", "お客さまとの自然な会話の広がり", "ストレスフリーな職場コミュニケーション"]),
-        ("自然と生まれる会話の輪", ["朝の挨拶から始まる活気ある職場", "お互いを気にかけ合う声かけが日常に", "雑談から生まれる新しいアイデアの数々", "部署を超えた情報交換が活発に", "「話しやすい」と感じる風通しの良さ"]),
-        ("心身ともに充実した毎日", ["活力みなぎる朝型の働き方", "自然と身につく健康習慣", "質の高い睡眠がもたらす集中力", "仕事とプライベートの心地よいバランス", "ポジティブな思考で進める業務"]),
-        ("湧き出るアイデアと創造性", ["イノベーティブな提案が次々と誕生", "「できない」を「できる」に変えるマインド", "情熱を持って取り組むプロジェクト", "品質へのこだわりが生む高評価", "チャレンジを楽しむ組織文化"]),
-        ("響き合う組織の一体感", ["全員で共有する明確なビジョン", "経営理念が自然と染み渡る組織風土", "お互いを高め合うチームワーク", "世代を超えた活発な意見交換", "全社一丸となって進むプロジェクト"]),
+    targets = [
+        "縫い目の糸が切れた・ほつれた",
+        "革がすり減った・破れた",
+        "土や雨で黒ずんで、練習で使わなくなった",
     ]
-    feats = [
-        ("spark", "科学的アプローチ", ["産業医と組織心理の専門家による総合診断", "データに基づく改善計画の立案", "定期的な効果測定と計画調整"]),
-        ("move", "実践的プログラム", ["現場の実態に即したカスタマイズ", "すぐに実践できる具体的な施策提供", "経営層から現場までの包括的サポート"]),
-        ("team", "持続可能な変革", ["社内チームの育成支援", "自走できる仕組みづくり", "継続的なフォローアップ体制"]),
+    flow = [
+        ("集める", "チーム・学校・スクールから、使わなくなった硬式球を引き取ります"),
+        ("仕分ける", "一球ずつ芯の状態を見て、直せるボールを選びます"),
+        ("革を張り替える", "古い革と糸をはずし、新しい革をかぶせます"),
+        ("縫う", "赤い糸で、108の縫い目を一針ずつ縫い上げます"),
+        ("確かめる", "形や縫い目を確かめ、合格したボールだけを出します"),
+        ("届ける", "練習球として、チームや野球教室へお届けします"),
     ]
-    progs = [("潤化 LEADERS’ VISION", "月1回の戦略会議"), ("潤化 NAVIGATOR", "隔週1on1"), ("潤化 DIALOGUE CAFÉ", "月2回"), ("潤化 CROSS INNOVATION LAB", "四半期開催"), ("潤化 VOICE BOX", "常時受付・月1回共有"), ("潤化 INNOVATION TRIBE", "プロジェクト制"), ("潤化 FACILITATION CREW", "専門チーム"), ("潤化 DIGITAL HUB", "システム基盤")]
-    acc = "".join(
-        f'<div class="acc reveal" style="--i:{i}"><button type="button" aria-expanded="{"true" if i == 0 else "false"}"><span class="n">0{i + 1}</span>{t}<span class="pm" aria-hidden="true"></span></button><div class="panel"><div><ul class="list-dot">{"".join(f"<li>{x}</li>" for x in li)}</ul></div></div></div>'
-        for i, (t, li) in enumerate(changes)
-    ).replace('<div class="acc reveal" style="--i:0">', '<div class="acc open reveal" style="--i:0">', 1)
-    body = hero("COACHING", "個性を力に。<br />組織を輝きに。", "眠れる才能を呼び覚まし、言葉で企業文化を創る。明日のリーダーを、今日から。", "network", crumbs=crumbs(pre, ("組織コーチング", None))) + f"""
+    goods = [
+        ("team", "チーム・学校に", "新しいボールを買い足す回数が減り、練習球にかかるお金をおさえられます。"),
+        ("heart", "直す人に", "地域のチームとつながる仕事になります。作業した分は、工賃（はたらいた分のお金）になります。"),
+        ("recycle", "地域に", "まだ使えるものを捨てずに回します。ボールを通して、野球と福祉の現場がつながります。"),
+    ]
+    asks = [
+        ("gift", "ボールを譲ってください", "使わなくなった硬式球を引き取ります。卒団や引退で道具を整理する時期に、まとめてご連絡いただけると助かります。"),
+        ("academy", "再生球を使ってください", "直したボールは、練習用としてお使いいただけます。数やお値段は、お問い合わせください。"),
+        ("team", "一緒に取り組みませんか", "回収の場所を貸していただける店舗・企業さま、作業に加わりたい事業所さまからのご連絡もお待ちしています。"),
+    ]
+    body = hero("BALL RECYCLE", "その一球、<br />まだ使えます。", "練習で古くなった硬式球を集めて、就労継続支援B型事業所の皆さんが、一球ずつ手で直しています。", "loop", crumbs=crumbs(pre, ("硬式球再生", None))) + f"""
     <section class="sec">
       <div class="wrap split-2" style="align-items:start">
         <div>
-          <p class="eyebrow reveal">PROBLEM</p>
-          <h2 class="h2 split">組織の乾燥は、<br />静かに進行する危機です。</h2>
-          <p class="lead reveal" style="margin-top:24px">数字では見えにくい「社内の潤い」が、企業の持続可能性を左右します。</p>
+          <p class="eyebrow reveal">WHY</p>
+          <h2 class="h2 split">倉庫の隅で、<br />ボールが眠っていませんか。</h2>
+          <p class="reveal" style="margin-top:24px">硬式球は、毎日の練習で少しずつ傷んでいきます。糸が切れる。革がすり減る。雨や土で黒くなる。そうなったボールは、使われないまま箱にしまわれるか、捨てられてしまうことがほとんどです。</p>
+          <p class="reveal">けれど、中の芯がしっかりしていれば、革と糸を替えるだけでまた投げられます。HAKI proは、そのボールを集めて直し、もう一度グラウンドへ戻す取り組みを始めました。</p>
         </div>
         <div class="card reveal">
-          <p class="k">CHECK</p>
-          <h3 class="h3">こんな状態が続いていませんか？</h3>
+          <p class="k">TARGET</p>
+          <h3 class="h3">こんなボールを集めています</h3>
           <ul class="list-check" data-stagger style="margin-top:20px">
-            <li>社員の表情が硬く、オフィスに活気がない</li>
-            <li>部署間のコミュニケーションが形骸化している</li>
-            <li>健康診断の数値は改善せず、休職者が増加傾向</li>
-            <li>新しいアイデアや改善提案の声が上がらなくなった</li>
-            <li>退職者の「職場の雰囲気」評価が年々低下</li>
+            {''.join(f'<li>{t}</li>' for t in targets)}
           </ul>
+          <p class="note" style="margin-top:20px">※芯が割れたもの、水を吸って重くなったものは、直せないことがあります。</p>
         </div>
       </div>
     </section>
 
     <section class="sec night" data-dark>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">FLOW</p>
+          <h2 class="h2 split">ボールが戻ってくるまで</h2>
+          <p class="lead reveal">手作業なので、一度にたくさんは仕上がりません。そのぶん、一球ずつ確かめてからお渡しします。</p>
+        </div>
+        <ol class="prog" data-stagger style="padding:0;margin:0">
+          {''.join(f'<li class="reveal">{t}<small>{d}</small></li>' for t, d in flow)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="sec">
       <div class="wrap-narrow">
-        <p class="eyebrow reveal">SOLUTION</p>
-        <h2 class="h2 split">社内潤化プログラム</h2>
-        <p class="lead reveal" style="margin-top:20px">組織に潤いを取り戻す、科学的アプローチ。私たちは「社内潤化」という新しいアプローチで、組織の活性化と社員の健康増進を実現します。</p>
+        <p class="eyebrow reveal">MAKERS</p>
+        <h2 class="h2 split">直しているのは、<br />就労継続支援B型の皆さんです。</h2>
+        <p class="reveal" style="margin-top:24px">就労継続支援B型（しゅうろうけいぞくしえん・ビーがた）は、障がいや病気などの理由で、すぐに会社で働くことが難しい方が、体調に合わせて自分のペースで働ける場所です。</p>
+        <p class="reveal">硬式球の縫い目は108。一針でも引き方が甘いと、投げているうちに糸がゆるんできます。根気のいる仕事ですが、急がず、一つのことにじっくり向き合える人の手が生きる仕事でもあります。</p>
+        <p class="reveal">直したボールは、そのまま誰かの練習で使われます。自分が縫った一球が、子どもたちの手に渡っていく。その手応えも、この仕事の大事な一部だと考えています。</p>
       </div>
     </section>
 
     <section class="sec bg-2">
-      <div class="wrap-narrow">
+      <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow reveal">5 CHANGES</p>
-          <h2 class="h2 split">潤化がもたらす5つの変化</h2>
+          <p class="eyebrow reveal">GOOD FOR</p>
+          <h2 class="h2 split">直した一球が、3つの場所で役に立つ</h2>
         </div>
-        {acc}
+        <div class="grid-3" data-stagger>
+          {''.join(f'<div class="card tilt reveal" data-tilt="4">{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for ic, t, d in goods)}
+        </div>
       </div>
     </section>
 
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow reveal">FEATURES</p>
-          <h2 class="h2 split">特徴</h2>
+          <p class="eyebrow reveal">JOIN</p>
+          <h2 class="h2 split">ご協力のお願い</h2>
         </div>
         <div class="grid-3" data-stagger>
-          {''.join(f'<div class="card tilt reveal" data-tilt="4">{icon(ic)}<h3 class="h3">{t}</h3><ul class="list-dot">{"".join(f"<li>{x}</li>" for x in li)}</ul></div>' for ic, t, li in feats)}
+          {''.join(f'<div class="card reveal">{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for ic, t, d in asks)}
         </div>
-        <a class="card reveal" href="{pre}contact/?kind=diag" style="display:block;margin-top:16px;background:var(--night);color:#fff;text-align:center">
-          <p class="k" style="color:rgba(255,255,255,.6)">＼ 現在、特別キャンペーン実施中 ／</p>
-          <p class="h2" style="margin:8px 0">今なら「社内潤化診断」を<span class="grad-text">無料</span>で実施</p>
-          <p style="color:rgba(255,255,255,.7);margin:0">貴社の潤化スコアを見える化し、具体的な改善施策をご提案します</p>
-          <span class="link-arrow" style="margin-top:16px">無料診断を申し込む <span class="circle">{arrow()}</span></span>
+        <p class="note reveal" style="margin-top:20px">※直した硬式球は練習用です。公式戦ではお使いいただけません。</p>
+        <a class="card reveal" href="{pre}contact/?kind=ball" style="display:block;margin-top:16px;background:var(--night);color:#fff;text-align:center">
+          <p class="k" style="color:rgba(255,255,255,.6)">CONTACT</p>
+          <p class="h2" style="margin:8px 0">ボールの回収・再生球のご相談</p>
+          <p style="color:rgba(255,255,255,.7);margin:0">回収の方法や数は、場所と量に合わせてご相談ください</p>
+          <span class="link-arrow" style="margin-top:16px">お問い合わせへ <span class="circle">{arrow()}</span></span>
         </a>
       </div>
     </section>
-
-    <section class="sec night" data-dark>
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow reveal">PROGRAM</p>
-          <h2 class="h2 split">潤化 INNOVATION PROGRAM</h2>
-          <p class="lead reveal">具体的な行動で実現する、組織の進化。</p>
-        </div>
-        <ol class="prog" data-stagger style="padding:0;margin:0">
-          {''.join(f'<li class="reveal">{t}<small>{d}</small></li>' for t, d in progs)}
-        </ol>
-        <p class="note reveal" style="margin-top:20px;color:var(--on-night-2)">※詳細はお問い合わせください。</p>
-        <p class="h1 reveal" style="margin-top:72px;line-height:1.35">今こそ、あなたの会社を<br />「働きたい」から<span class="grad-text">「輝きたい」</span>場所へ。</p>
-      </div>
-    </section>
 {cta(pre)}"""
-    page("raise-children", "組織コーチング", "「個性を力に。組織を輝きに。」社内潤化プログラムで、組織の活性化と社員の健康増進を実現します。社内潤化診断を無料で実施中。", body, scene=True)
+    page("ball-recycle", "硬式球再生", "練習で古くなった硬式球を集め、就労継続支援B型事業所の皆さんが革の張り替えと縫い直しを行い、練習球としてもう一度グラウンドへ戻します。", body, scene=True)
 
 
 # ======================================================================
@@ -942,7 +970,7 @@ def build_specialists():
 # ======================================================================
 def build_contact():
     pre = "../"
-    kinds = ["講演会", "イベント（出演・企画・運営）", "健康経営サポート", "組織コーチング", "SNSマーケティング・AIコンサル", "社内潤化無料診断", "野球スクール", "その他"]
+    kinds = ["講演会", "イベント（出演・企画・運営）", "健康経営サポート", "硬式球の回収・再生球のご購入", "SNSマーケティング・AIコンサル", "野球スクール", "その他"]
     body = hero("CONTACT", "HAKI proに<br />相談してみる。", "下のフォームに必要事項をご記入のうえ、送信してください。追って担当者よりお返事いたします。", "ring", crumbs=crumbs(pre, ("お問い合わせ", None))) + f"""
     <section class="sec">
       <div class="wrap-narrow">
@@ -969,7 +997,7 @@ def build_contact():
       (function () {{
         var k = new URLSearchParams(location.search).get("kind");
         var sel = document.getElementById("f-kind");
-        if (k === "diag") sel.value = "社内潤化無料診断";
+        if (k === "ball") sel.value = "硬式球の回収・再生球のご購入";
         if (k === "school") sel.value = "野球スクール";
         if (k === "talk") sel.value = "講演会";
         var note = document.querySelector(".school-note");
@@ -978,7 +1006,7 @@ def build_contact():
         sync();
       }})();
     </script>"""
-    page("contact", "お問い合わせ", "講演会・イベント・健康経営サポート・組織コーチング・社内潤化無料診断などのご相談は、こちらからお気軽にどうぞ。", body, scene=True)
+    page("contact", "お問い合わせ", "講演会・イベント・健康経営サポート・硬式球の回収や再生球のご購入などのご相談は、こちらからお気軽にどうぞ。", body, scene=True)
 
 
 def build_news():
@@ -1047,7 +1075,7 @@ if __name__ == "__main__":
     build_company()
     build_project()
     build_health()
-    build_coaching()
+    build_ball()
     build_specialists()
     build_contact()
     build_news()
