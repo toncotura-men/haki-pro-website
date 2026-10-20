@@ -225,7 +225,7 @@ def hero(eyebrow, title_html, lead, scene, *, crumbs=None, extra="", sub=True):
         {cr}
         <p class="eyebrow reveal">{eyebrow}</p>
         <h1 class="hero-title split">{title_html}</h1>
-        <p class="hero-lead reveal" style="--i:3">{lead}</p>
+        {f'<p class="hero-lead reveal" style="--i:3">{lead}</p>' if lead else ""}
         {extra}
       </div>
     </section>"""
@@ -512,7 +512,7 @@ def build_company():
         ("3", "人と人を紡ぎ、価値を創造する", "意味ある出会いと協働を通じて、新たな価値を生み出します。", ["業界や組織を超えた協創の促進", "世代を超えた知見の継承と革新", "地域社会との持続的な共生"]),
     ]
     values = [("R", "Respect", "尊重", "すべての人の個性と可能性を大切にする", "#e60312"), ("C", "Connect", "繋ぐ", "人と人、知恵と知恵を紡ぎ合わせる", "#b30281"), ("C", "Create", "創造", "既存の枠を超えた新しい価値を生み出す", "#0881cb"), ("E", "Evolve", "進化", "常に学び、成長し続ける", "#42af38"), ("I", "Impact", "影響", "社会に持続的なポジティブインパクトを与える", "#fee003")]
-    body = hero("COMPANY", "人を紡ぎ、<br />未来へ繋ぐ。", "株式会社HAKI proの想い（VISION）と使命（MISSION）、会社の情報です。", "ring", crumbs=crumbs(pre, ("会社概要", None))) + f"""
+    body = hero("COMPANY", "人を紡ぎ、<br />未来へ繋ぐ。", "", "ring", crumbs=crumbs(pre, ("会社概要", None))) + f"""
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
