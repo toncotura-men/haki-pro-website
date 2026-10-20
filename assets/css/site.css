@@ -315,11 +315,27 @@ body.menu-open { overflow: hidden; }
 @keyframes draw { 0% { stroke-dashoffset: 200; } 40%, 70% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
 .viz-net circle { transform-box: fill-box; transform-origin: center; animation: blink 4s var(--ease) infinite; animation-delay: calc(var(--k) * .12s); }
 @keyframes blink { 0%, 100% { transform: scale(.6); opacity: .5; } 40% { transform: scale(1.15); opacity: 1; } }
-/* 硬式球の再生：赤い縫い目が一針ずつ入る */
-.viz-ball .hide { fill: rgba(244, 239, 228, .07); stroke: rgba(255, 255, 255, .28); stroke-width: 1.5; }
-.viz-ball .seam { fill: none; stroke: rgba(255, 255, 255, .18); stroke-width: 1.2; }
-.viz-ball .st { fill: none; stroke: #e60312; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform-box: fill-box; transform-origin: center; animation: sew 6s var(--ease) infinite; animation-delay: calc(var(--k) * .07s); }
-@keyframes sew { 0% { opacity: 0; transform: scale(.4); } 6%, 75% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; transform: none; } }
+/* 硬式球の再生：古いボール → 直したボール が入れかわる */
+.xf .xf-new { opacity: 0; animation: xf 7s var(--ease) infinite; }
+@keyframes xf { 0%, 35% { opacity: 0; } 50%, 85% { opacity: 1; } 100% { opacity: 0; } }
+.xf-tag { position: absolute; left: 16px; bottom: 16px; z-index: 1; font-family: var(--font-en); font-weight: 700; font-size: 12px; letter-spacing: .16em; padding: 6px 12px; border-radius: 999px; background: rgba(7, 10, 20, .7); color: #fff; }
+.xf-tag.xf-new { background: #e60312; }
+.xf .xf-old { animation: xfo 7s var(--ease) infinite; }
+@keyframes xfo { 0%, 35% { opacity: 1; } 50%, 85% { opacity: 0; } 100% { opacity: 1; } }
+.before-after { display: grid; gap: 16px; align-items: center; }
+@media (min-width: 760px) { .before-after { grid-template-columns: 1fr auto 1fr; } }
+.before-after figure { margin: 0; }
+.before-after figcaption { margin-top: 12px; font-size: 14px; color: var(--ink-2); display: flex; gap: 10px; align-items: baseline; }
+.before-after figcaption b { font-family: var(--font-en); font-size: 12px; letter-spacing: .16em; color: var(--ink); }
+.ba-arrow { justify-self: center; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; }
+@media (max-width: 759px) { .ba-arrow svg { transform: rotate(90deg); } }
+.cycle { width: 100%; max-width: 440px; display: block; margin: 0 auto; overflow: visible; }
+.cycle .cyc-ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+.cycle .cyc-run { transform-origin: 200px 200px; transform-box: view-box; animation: spin 8s linear infinite; }
+.cycle .cyc-run circle { fill: #fff; }
+.cycle .cyc-node circle { fill: var(--night-2); stroke: rgba(255, 255, 255, .25); stroke-width: 1; }
+.cycle text { fill: #fff; font-size: 15px; font-weight: 700; text-anchor: middle; }
+.cycle text.n { font-family: var(--font-en); font-size: 11px; letter-spacing: .12em; fill: var(--on-night-2); }
 
 /* ---------- 野球スクール（PUMPS）入口 ---------- */
 .school {
@@ -588,7 +604,9 @@ body.menu-open { overflow: hidden; }
   .marquee-track { animation: none !important; }
   .scrub .w { opacity: 1 !important; }
   .chain p { opacity: 1 !important; transform: none !important; }
-  .viz-ball .st { animation: none !important; opacity: 1 !important; }
+  .xf .xf-new { animation: none !important; opacity: 1 !important; }
+  .xf .xf-old { animation: none !important; opacity: 0 !important; }
+  .cycle .cyc-run { animation: none !important; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
 @media (prefers-reduced-transparency: reduce) {
