@@ -24,8 +24,8 @@
   --rainbow: linear-gradient(90deg, var(--h-red), var(--h-purple) 20%, var(--h-navy) 40%, var(--h-blue) 60%, var(--h-green) 80%, var(--h-yellow));
   --rainbow-c: conic-gradient(from 0deg, var(--h-red), var(--h-purple), var(--h-navy), var(--h-blue), var(--h-green), var(--h-yellow), var(--h-red));
 
-  --font: "Noto Sans JP", system-ui, -apple-system, "Hiragino Sans", sans-serif;
-  --font-en: "Inter Tight", "Noto Sans JP", system-ui, sans-serif;
+  --font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "YuGothic", "Meiryo", sans-serif;
+  --font-en: "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic Medium", "Meiryo", sans-serif;
   --font-serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
 
   --ease: cubic-bezier(.16, 1, .3, 1);
@@ -63,7 +63,7 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 p { margin: 0 0 1em; text-wrap: pretty; }
-h1, h2, h3, h4 { margin: 0; font-weight: 700; line-height: 1.3; text-wrap: balance; font-feature-settings: "palt"; }
+h1, h2, h3, h4 { margin: 0; font-weight: 700; line-height: 1.3; text-wrap: balance;  }
 /* 日本語は「言葉のまとまり」で折り返す（切れ目はビルド時に入れている） */
 h1, h2, h3, main p, main li, main dd, .member-copy, .member-role { word-break: keep-all; overflow-wrap: anywhere; }
 main p, main li { text-wrap: pretty; }
@@ -95,14 +95,14 @@ button { font: inherit; color: inherit; }
 .night .eyebrow, .hero .eyebrow { color: rgba(255, 255, 255, .78); }
 .h-display {
   font-family: var(--font-en); font-weight: 700;
-  font-size: clamp(44px, 9vw, 120px); line-height: .95; letter-spacing: -.045em;
+  font-size: clamp(44px, 9vw, 120px); line-height: .95; letter-spacing: .02em;
 }
-.h1 { font-size: clamp(32px, 5.6vw, 64px); letter-spacing: -.03em; line-height: 1.22; }
-.h2 { font-size: clamp(26px, 4vw, 44px); letter-spacing: -.025em; line-height: 1.3; }
-.h3 { font-size: clamp(20px, 2.4vw, 26px); letter-spacing: -.02em; }
+.h1 { font-size: clamp(32px, 5.6vw, 64px); letter-spacing: .02em; line-height: 1.22; }
+.h2 { font-size: clamp(26px, 4vw, 44px); letter-spacing: .02em; line-height: 1.3; }
+.h3 { font-size: clamp(20px, 2.4vw, 26px); letter-spacing: .02em; }
 .lead { font-size: clamp(16px, 1.6vw, 19px); line-height: 1.95; color: var(--ink-2); max-width: 46em; }
 .night .lead { color: var(--on-night-2); }
-.serif { font-family: var(--font-serif); font-weight: 800; letter-spacing: .02em; }
+.serif { font-family: var(--font-serif); font-weight: 700; letter-spacing: .02em; }
 .sec-head { margin-bottom: clamp(40px, 6vw, 72px); }
 .sec-head .h2 + .lead { margin-top: 20px; }
 .grad-text { background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -205,7 +205,7 @@ button { font: inherit; color: inherit; }
 .drawer a {
   display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
   padding: 14px 0; border-bottom: .5px solid rgba(255, 255, 255, .14);
-  font-size: 22px; font-weight: 700; letter-spacing: -.01em;
+  font-size: 22px; font-weight: 700; letter-spacing: .02em;
   transform: translateY(16px); opacity: 0;
   transition: transform .5s var(--ease), opacity .4s var(--ease);
   transition-delay: calc(var(--i, 0) * 40ms);
@@ -230,7 +230,7 @@ body.menu-open { overflow: hidden; }
 /* 幅は .wrap に任せる */
 .hero-inner { padding-bottom: clamp(40px, 9vh, 96px); padding-top: calc(var(--header-h) + 40px); }
 .hero .h-display, .hero .h1 { color: #fff; }
-.hero-title { font-size: clamp(38px, 8.4vw, 104px); line-height: 1.12; letter-spacing: -.04em; font-weight: 800; }
+.hero-title { font-size: clamp(38px, 8.4vw, 104px); line-height: 1.12; letter-spacing: .02em; font-weight: 700; }
 .hero-title .thin { font-weight: 300; }
 .hero-lead { margin-top: 24px; max-width: 34em; color: var(--on-night-2); font-size: clamp(15px, 1.5vw, 18px); }
 .hero .btn-row { margin-top: 32px; }
@@ -269,14 +269,14 @@ body.menu-open { overflow: hidden; }
 .reveal-img.in { clip-path: inset(0 0 0 0 round var(--r-card)); }
 
 /* スクロールで文字が濃くなる文 */
-.scrub { font-size: clamp(22px, 3.4vw, 40px); line-height: 1.7; font-weight: 700; letter-spacing: -.01em; font-feature-settings: "palt"; }
+.scrub { font-size: clamp(22px, 3.4vw, 40px); line-height: 1.7; font-weight: 700; letter-spacing: .02em;  }
 .scrub .w { opacity: .14; transition: opacity .25s linear; }
 .scrub .w.on { opacity: 1; }
 
 /* ---------- 流れる帯 ---------- */
 .marquee { overflow: hidden; border-block: .5px solid var(--line); padding-block: 18px; background: var(--bg); }
 .marquee-track { display: flex; width: max-content; gap: 48px; animation: marquee 32s linear infinite; }
-.marquee span { font-family: var(--font-en); font-weight: 700; font-size: clamp(28px, 5vw, 64px); letter-spacing: -.03em; white-space: nowrap; display: flex; align-items: center; gap: 48px; }
+.marquee span { font-family: var(--font-en); font-weight: 700; font-size: clamp(28px, 5vw, 64px); letter-spacing: 0; white-space: nowrap; display: flex; align-items: center; gap: 48px; }
 .marquee span i { width: .5em; height: .5em; border-radius: 50%; background: var(--rainbow-c); display: inline-block; }
 .marquee .stroke { color: transparent; -webkit-text-stroke: 1px var(--ink); }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -297,7 +297,7 @@ body.menu-open { overflow: hidden; }
 .stack-num { font-family: var(--font-en); font-size: 13px; letter-spacing: .14em; color: var(--on-night-2); display: flex; gap: 12px; align-items: center; }
 .stack-num b { font-size: 13px; color: #fff; }
 /* 事業名は必ず1行（画面幅に合わせて文字の大きさを変える） */
-.stack-title { white-space: nowrap; font-size: min(7vw, 34px); letter-spacing: -.03em; line-height: 1.15; margin-top: 16px; }
+.stack-title { white-space: nowrap; font-size: min(7vw, 34px); letter-spacing: .02em; line-height: 1.15; margin-top: 16px; }
 @media (min-width: 900px) { .stack-title { font-size: clamp(30px, 3.1vw, 44px); } }
 .stack-en { font-family: var(--font-en); font-weight: 700; font-size: clamp(14px, 1.4vw, 16px); letter-spacing: .16em; }
 .stack-visual { position: relative; min-height: 280px; overflow: hidden; }
@@ -329,44 +329,43 @@ body.menu-open { overflow: hidden; }
 .before-after figcaption b { font-family: var(--font-en); font-size: 12px; letter-spacing: .16em; color: var(--ink); }
 .ba-arrow { justify-self: center; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; }
 @media (max-width: 759px) { .ba-arrow svg { transform: rotate(90deg); } }
-.cycle { width: 100%; max-width: 440px; display: block; margin: 0 auto; overflow: visible; }
-.cycle .cyc-ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
-.cycle .cyc-run { transform-origin: 200px 200px; transform-box: view-box; animation: spin 8s linear infinite; }
+.cycle { width: 100%; max-width: 580px; display: block; margin: 0 auto; overflow: visible; }
+.cycle .cyc-ring circle { fill: none; stroke-width: 3; }
+.cycle .cyc-photo-ring { fill: none; stroke: rgba(255, 255, 255, .14); stroke-width: 1; }
+.cycle .cyc-chev { fill: none; stroke: rgba(255, 255, 255, .7); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.cycle .cyc-run { transform-origin: 200px 200px; transform-box: view-box; animation: spin 10s linear infinite; }
 .cycle .cyc-run circle { fill: #fff; }
-.cycle .cyc-node circle { fill: var(--night-2); stroke: rgba(255, 255, 255, .25); stroke-width: 1; }
-.cycle text { fill: #fff; font-size: 15px; font-weight: 700; text-anchor: middle; }
-.cycle text.n { font-family: var(--font-en); font-size: 11px; letter-spacing: .12em; fill: var(--on-night-2); }
-.cycle .cyc-node circle { transition: fill .3s ease, stroke .3s ease; }
-.cycle .cyc-node { transform-box: fill-box; transform-origin: center; transition: transform .35s var(--ease); }
-.cycle .cyc-node.hl { transform: scale(1.12); }
-.cycle .cyc-node.hl circle { fill: var(--c); stroke: var(--c); }
-.cycle .cyc-node.hl text.n { fill: rgba(255, 255, 255, .8); }
+.cycle .cyc-dot { fill: var(--night); stroke: var(--c); stroke-width: 3; transform-box: fill-box; transform-origin: center; transition: transform .35s var(--ease), fill .3s ease; }
+.cycle text { fill: #fff; }
+.cycle text.t { font-size: 20px; font-weight: 700; letter-spacing: .04em; transition: fill .3s ease; }
+.cycle text.s { font-size: 13px; fill: var(--on-night-2); }
+.cycle .cyc-node.hl .cyc-dot { fill: var(--c); transform: scale(1.5); }
+.cycle .cyc-node.hl text.t { fill: var(--c); }
 
 /* ---------- 番号つきの横長リスト（アイコンのカードの代わり） ---------- */
 .rows { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
 .rows > li { border-bottom: 1px solid var(--line); }
-.row { position: relative; display: grid; grid-template-columns: clamp(56px, 9vw, 128px) 1fr; gap: clamp(12px, 3vw, 40px); align-items: start; padding: clamp(22px, 3vw, 36px) clamp(4px, 1.4vw, 20px); overflow: hidden; isolation: isolate; color: inherit; text-decoration: none; }
-.row:has(.row-go) { grid-template-columns: clamp(56px, 9vw, 128px) 1fr auto; }
+.row { position: relative; display: grid; grid-template-columns: clamp(64px, 8vw, 96px) 1fr; gap: clamp(12px, 3vw, 40px); align-items: start; padding: clamp(22px, 3vw, 36px) clamp(4px, 1.4vw, 20px); overflow: hidden; isolation: isolate; color: inherit; text-decoration: none; }
+.row:has(.row-go) { grid-template-columns: clamp(64px, 8vw, 96px) 1fr auto; }
 .row::before { content: ""; position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, color-mix(in srgb, var(--c) 16%, transparent), color-mix(in srgb, var(--c) 3%, transparent) 70%); clip-path: inset(0 100% 0 0); transition: clip-path .55s var(--ease); }
 .row::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .3s ease; background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c) 20%, transparent), transparent 65%); }
-.row-n { font-family: var(--font-en); font-weight: 800; font-size: clamp(40px, 6vw, 76px); line-height: .9; letter-spacing: -.04em; color: transparent; -webkit-text-stroke: 1.2px var(--ink-3); transition: color .35s ease, -webkit-text-stroke-color .35s ease, transform .5s var(--ease); }
+.row-n { display: flex; align-items: center; gap: 10px; padding-top: 6px; font-family: var(--font-en); font-weight: 700; font-size: 13px; letter-spacing: .08em; color: var(--c); transition: transform .5s var(--ease); }
+.row-n::after { content: ""; width: 24px; height: 2px; border-radius: 2px; background: var(--c); transform-origin: left; transition: transform .5s var(--ease); }
 .row-b { display: grid; gap: 8px; padding-top: 4px; }
-.row-t { font-weight: 800; font-size: clamp(18px, 2vw, 24px); letter-spacing: -.01em; }
+.row-t { font-weight: 700; font-size: clamp(17px, 1.8vw, 21px); letter-spacing: .04em; }
 .row-d { color: var(--ink-2); line-height: 1.85; max-width: 46em; }
 .row-go { align-self: center; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--line); transition: background-color .3s ease, color .3s ease, transform .45s var(--ease), box-shadow .3s ease; }
 .row:active { transform: scale(.99); }
-.in .row-n, .rows > li.in .row-n { -webkit-text-stroke-color: var(--c); }
 @media (hover: hover) and (pointer: fine) {
   .row:hover::before { clip-path: inset(0 0 0 0); }
   .row:hover::after { opacity: 1; }
-  .row:hover .row-n { color: var(--c); transform: translateX(8px); }
+  .row:hover .row-n::after { transform: scaleX(1.8); }
   .row:hover .row-go { background: var(--c); color: #fff; box-shadow: none; transform: rotate(-45deg); }
 }
 .night .rows, .night .rows > li { border-color: rgba(255, 255, 255, .12); }
 .night .row-d { color: var(--on-night-2); }
-.night .row-n { -webkit-text-stroke-color: rgba(255, 255, 255, .35); }
 .row.hl::before { clip-path: inset(0 0 0 0); }
-.row.hl .row-n { color: var(--c); }
+.row.hl .row-n::after { transform: scaleX(1.8); }
 
 /* ---------- ボールが転がる流れ ---------- */
 .track { position: relative; --ball: 44px; }
@@ -374,7 +373,7 @@ body.menu-open { overflow: hidden; }
 .tk-step { position: relative; padding: 0 0 0 64px; min-height: 64px; cursor: default; }
 .tk-dot { position: absolute; left: 12px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--night); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .25); transition: background-color .3s ease, box-shadow .3s ease, transform .4s var(--ease); }
 .tk-n { display: block; font-family: var(--font-en); font-weight: 700; font-size: 12px; letter-spacing: .14em; color: var(--on-night-2); transition: color .3s ease; }
-.tk-t { display: block; font-weight: 800; font-size: clamp(18px, 1.8vw, 22px); margin-top: 4px; transition: color .3s ease; }
+.tk-t { display: block; font-weight: 700; font-size: clamp(18px, 1.8vw, 22px); margin-top: 4px; transition: color .3s ease; }
 .tk-d { display: block; color: var(--on-night-2); font-size: 14px; line-height: 1.8; margin-top: 6px; }
 .tk-step.done .tk-dot { background: var(--c); box-shadow: none; }
 .tk-step.on .tk-dot { transform: scale(1.35); }
@@ -395,13 +394,9 @@ body.menu-open { overflow: hidden; }
   .tk-step:hover { transform: translateY(-6px); }
 }
 
-/* 108針 */
-.stitch-count { text-align: center; padding: clamp(32px, 5vw, 64px) 16px; border-radius: 32px; background: var(--bg-2); position: relative; overflow: hidden; }
-.stitch-count::before { content: ""; position: absolute; inset: 18px; border-radius: 22px; border: 2px dashed color-mix(in srgb, var(--h-red) 55%, transparent); pointer-events: none; }
-.stitch-num { margin: 0; font-family: var(--font-en); font-weight: 800; line-height: 1; letter-spacing: -.05em; }
-.stitch-num .num { font-size: clamp(96px, 16vw, 200px); color: var(--h-red); }
-.stitch-num .unit { font-size: clamp(24px, 3vw, 36px); margin-left: 6px; font-family: var(--font); }
-.stitch-label { margin: 12px 0 0; color: var(--ink-2); font-weight: 700; }
+/* 108針：写真に一言（縫い目に寄せて切り抜く） */
+.photo.zoom img { scale: 2.1; transform-origin: 34% 50%; object-position: 50% 50%; }
+.stitch figcaption { margin-top: 16px; padding-left: 14px; border-left: 3px solid var(--h-red); color: var(--ink-2); line-height: 1.9; font-size: 15px; }
 
 /* ---------- 野球スクール（PUMPS）入口 ---------- */
 .school {
@@ -415,7 +410,7 @@ body.menu-open { overflow: hidden; }
 @media (min-width: 900px) { .school { grid-template-columns: 1.1fr 1fr; } }
 .school-body { padding: clamp(28px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; gap: 20px; position: relative; z-index: 1; }
 .school-logo { width: 150px; height: auto; }
-.school-title { font-size: clamp(34px, 5.6vw, 68px); line-height: 1.1; letter-spacing: -.04em; font-weight: 800; }
+.school-title { font-size: clamp(34px, 5.6vw, 68px); line-height: 1.1; letter-spacing: .02em; font-weight: 700; }
 .school-title .accent { background: linear-gradient(90deg, #c8ff3d, #6ee7ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .school-meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .school-meta span { font-size: 12px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .16); }
@@ -467,7 +462,7 @@ body.menu-open { overflow: hidden; }
 .talk-stat::before { content: ""; position: absolute; right: -30%; top: -40%; width: 90%; aspect-ratio: 1; border-radius: 50%; background: var(--rainbow-c); filter: blur(70px); opacity: .32; z-index: -1; animation: spin 20s linear infinite; }
 .talk-stat .k { font-family: var(--font-en); font-weight: 700; font-size: 13px; letter-spacing: .14em; color: rgba(255, 255, 255, .6); margin: 0 0 8px; }
 .talk-num { margin: 0; display: flex; align-items: baseline; gap: 6px; line-height: 1; }
-.talk-num .num { flex: none; white-space: nowrap; font-size: clamp(88px, 9vw, 128px); font-weight: 800; letter-spacing: -.05em; }
+.talk-num .num { flex: none; white-space: nowrap; font-size: clamp(88px, 9vw, 128px); font-weight: 700; letter-spacing: .02em; }
 .talk-num .pre, .talk-num .unit { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; }
 .talk-label { font-size: 18px; font-weight: 700; margin: 8px 0 20px; }
 .talk-tags { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -488,8 +483,8 @@ body.menu-open { overflow: hidden; }
 .member::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(7, 10, 20, .9) 0%, rgba(7, 10, 20, .2) 50%, transparent 70%); }
 .member-body { position: absolute; inset: auto 0 0; padding: 20px; }
 .member-role { display: block; font-size: 12px; color: rgba(255, 255, 255, .7); }
-.member-name { display: block; font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin-top: 2px; }
-.member-copy { position: absolute; top: 20px; right: 16px; writing-mode: vertical-rl; font-family: var(--font-serif); font-weight: 800; font-size: 15px; letter-spacing: .1em; line-height: 1.6; max-height: 62%; text-shadow: 0 2px 12px rgba(0, 0, 0, .4); }
+.member-name { display: block; font-size: 22px; font-weight: 700; letter-spacing: .02em; margin-top: 2px; }
+.member-copy { position: absolute; top: 20px; right: 16px; writing-mode: vertical-rl; font-family: var(--font-serif); font-weight: 700; font-size: 15px; letter-spacing: .1em; line-height: 1.6; max-height: 62%; text-shadow: 0 2px 12px rgba(0, 0, 0, .4); }
 .member .go { position: absolute; right: 16px; bottom: 20px; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(12px) saturate(180%); backdrop-filter: blur(12px) saturate(180%); box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .2); transition: transform .4s var(--ease), background-color .3s; }
 .member:hover .go { transform: translateX(4px); background: #fff; color: var(--ink); }
 
@@ -523,7 +518,7 @@ body.menu-open { overflow: hidden; }
 .card .k { font-family: var(--font-en); font-weight: 700; font-size: 13px; letter-spacing: .14em; color: var(--ink-3); }
 .card h3 { margin: 10px 0 12px; }
 .card p:last-child { margin-bottom: 0; }
-.card .big-k { position: absolute; right: -8px; top: -28px; font-family: var(--font-en); font-weight: 800; font-size: 140px; line-height: 1; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1px var(--line); pointer-events: none; }
+.card .big-k { display: none; position: absolute; right: -8px; top: -28px; font-family: var(--font-en); font-weight: 700; font-size: 140px; line-height: 1; letter-spacing: 0; color: transparent; -webkit-text-stroke: 1px var(--line); pointer-events: none; }
 .card .bar { height: 3px; width: 40px; border-radius: 3px; background: var(--rainbow); margin-bottom: 18px; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1s var(--ease) .2s; }
 .card.in .bar, .in .card .bar { transform: none; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
@@ -592,7 +587,7 @@ body.menu-open { overflow: hidden; }
 
 /* 「そのためには」連続文 */
 .chain { display: grid; gap: 4px; }
-.chain p { margin: 0; font-size: clamp(20px, 3.4vw, 40px); font-weight: 700; letter-spacing: -.02em; line-height: 1.5; opacity: .16; transition: opacity .5s var(--ease), transform .6s var(--ease); transform: translateX(-8px); font-feature-settings: "palt"; }
+.chain p { margin: 0; font-size: clamp(20px, 3.4vw, 40px); font-weight: 700; letter-spacing: .02em; line-height: 1.5; opacity: .16; transition: opacity .5s var(--ease), transform .6s var(--ease); transform: translateX(-8px);  }
 .chain p.on { opacity: 1; transform: none; }
 .chain p.last { margin-top: 24px; }
 .chain p.last.on { background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -600,9 +595,9 @@ body.menu-open { overflow: hidden; }
 /* 行動指針の大文字 */
 .values { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
 .value { position: relative; border-radius: var(--r-card); padding: 24px; background: var(--night-2); color: #fff; min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; isolation: isolate; }
-.value .L { position: absolute; top: -10px; left: 14px; font-family: var(--font-en); font-weight: 800; font-size: 140px; line-height: 1; letter-spacing: -.06em; z-index: -1; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .22); transition: transform .8s var(--ease); }
+.value .L { position: absolute; top: -10px; left: 14px; font-family: var(--font-en); font-weight: 700; font-size: 140px; line-height: 1; letter-spacing: 0; z-index: -1; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .22); transition: transform .8s var(--ease); }
 .value:hover .L { transform: translateY(-6px); }
-.value b { font-family: var(--font-en); font-size: 20px; letter-spacing: -.01em; }
+.value b { font-family: var(--font-en); font-size: 20px; letter-spacing: 0; }
 .value span { font-size: 13px; color: var(--on-night-2); }
 .value i { position: absolute; inset: auto 0 0; height: 3px; background: var(--c); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1s var(--ease) calc(var(--i) * 90ms); }
 .in .value i, .value.in i { transform: none; }
@@ -612,7 +607,7 @@ body.menu-open { overflow: hidden; }
 .letter p { margin-bottom: 1.6em; }
 .haki { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); margin-block: 32px; }
 .haki div { border-radius: 16px; padding: 18px 20px; background: var(--bg-2); font-family: var(--font); }
-.haki b { font-family: var(--font-en); font-size: 28px; letter-spacing: -.03em; display: block; line-height: 1.1; }
+.haki b { font-family: var(--font-en); font-size: 28px; letter-spacing: 0; display: block; line-height: 1.1; }
 .haki b em { font-style: normal; background: var(--rainbow); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .haki span { font-size: 13px; color: var(--ink-2); }
 .sign { text-align: right; font-family: var(--font); font-weight: 700; }
@@ -639,7 +634,7 @@ body.menu-open { overflow: hidden; }
 .footer-grid { display: grid; gap: 40px; }
 @media (min-width: 900px) { .footer-grid { grid-template-columns: 1.2fr 1fr; } }
 .footer-logo { height: 30px; width: auto; }
-.footer .slogan { font-family: var(--font-en); font-weight: 800; font-size: clamp(36px, 6vw, 72px); letter-spacing: -.04em; line-height: 1; margin: 28px 0 16px; }
+.footer .slogan { font-family: var(--font-en); font-weight: 700; font-size: clamp(36px, 6vw, 72px); letter-spacing: 0; line-height: 1; margin: 28px 0 16px; }
 .footer nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 24px; }
 .footer nav a { padding: 10px 0; color: var(--on-night-2); font-size: 14px; transition: color .2s; }
 .footer nav a:hover { color: #fff; }

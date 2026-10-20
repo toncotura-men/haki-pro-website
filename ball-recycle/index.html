@@ -18,8 +18,8 @@
   <link rel="apple-touch-icon" href="../assets/img/mark.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../assets/css/site.css?v=9" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/site.css?v=10" />
   <script type="importmap">{"imports":{"three":"../assets/vendor/three.module.min.js"}}</script>
   <script type="module" src="../assets/js/scene.js?v=4"></script>
   <script src="../assets/js/site.js?v=5" defer></script>
@@ -91,10 +91,10 @@
 
     <section class="sec">
       <div class="wrap split-2" style="align-items:center">
-        <div class="stitch-count reveal">
-          <p class="stitch-num"><span class="num" data-count="108">108</span><span class="unit">針</span></p>
-          <p class="stitch-label">硬式球ひとつの​縫い​目の​数</p>
-        </div>
+        <figure class="stitch reveal" style="margin:0">
+          <div class="photo zoom reveal-img"><img style="object-position:52% 48%" src="../assets/img/ball-new.webp" alt="赤い糸で縫い直した硬式球の縫い目" loading="lazy" width="1027" height="801" /></div>
+          <figcaption>縫い目は、ボール1球で108か所。<br />一針ずつ、同じ力で糸を引いて仕上げます。</figcaption>
+        </figure>
         <div>
           <p class="eyebrow reveal">MAKERS</p>
           <h2 class="h2 split">縫っているのは、<br/>​就労継続支援B型の​皆さんです。</h2>
@@ -107,11 +107,14 @@
 
     <section class="sec night" data-dark>
       <div class="wrap split-2" style="align-items:center">
-        <div class="reveal"><svg class="cycle" viewBox="0 0 400 400" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
-          <g class="cyc-ring" transform="rotate(-90 200 200)"><circle cx="200" cy="200" r="140" stroke="#e60312" stroke-dasharray="140.6 739.0" stroke-dashoffset="0.0"/><circle cx="200" cy="200" r="140" stroke="#b30281" stroke-dasharray="140.6 739.0" stroke-dashoffset="-146.6"/><circle cx="200" cy="200" r="140" stroke="#1d2286" stroke-dasharray="140.6 739.0" stroke-dashoffset="-293.2"/><circle cx="200" cy="200" r="140" stroke="#0881cb" stroke-dasharray="140.6 739.0" stroke-dashoffset="-439.8"/><circle cx="200" cy="200" r="140" stroke="#42af38" stroke-dasharray="140.6 739.0" stroke-dashoffset="-586.4"/><circle cx="200" cy="200" r="140" stroke="#fee003" stroke-dasharray="140.6 739.0" stroke-dashoffset="-733.0"/></g>
-          <g class="cyc-run"><circle cx="200" cy="60" r="6"/></g>
-          <image href="../assets/img/mark.png" x="166" y="166" width="68" height="68"/>
-          <g class="cyc-node" data-node="0" style="--c:#e60312"><circle cx="200" cy="60" r="42"/><text x="200" y="52" class="n">01</text><text x="200" y="74">使う</text></g><g class="cyc-node" data-node="1" style="--c:#b30281"><circle cx="340" cy="200" r="42"/><text x="340" y="192" class="n">02</text><text x="340" y="214">集める</text></g><g class="cyc-node" data-node="2" style="--c:#0881cb"><circle cx="200" cy="340" r="42"/><text x="200" y="332" class="n">03</text><text x="200" y="354">直す</text></g><g class="cyc-node" data-node="3" style="--c:#42af38"><circle cx="60" cy="200" r="42"/><text x="60" y="192" class="n">04</text><text x="60" y="214">また使う</text></g>
+        <div class="reveal"><svg class="cycle" viewBox="-70 -50 540 500" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
+          <defs><clipPath id="cyc-photo"><circle cx="200" cy="200" r="112"/></clipPath></defs>
+          <image href="../assets/img/ball-new.webp" x="50" y="83" width="300" height="234" preserveAspectRatio="xMidYMid slice" clip-path="url(#cyc-photo)"/>
+          <circle cx="200" cy="200" r="112" class="cyc-photo-ring"/>
+          <g class="cyc-ring" transform="rotate(-90 200 200)"><circle cx="200" cy="200" r="150" stroke="#e60312" stroke-dasharray="157.1 785.4" stroke-dashoffset="0.0"/><circle cx="200" cy="200" r="150" stroke="#b30281" stroke-dasharray="157.1 785.4" stroke-dashoffset="-157.1"/><circle cx="200" cy="200" r="150" stroke="#1d2286" stroke-dasharray="157.1 785.4" stroke-dashoffset="-314.2"/><circle cx="200" cy="200" r="150" stroke="#0881cb" stroke-dasharray="157.1 785.4" stroke-dashoffset="-471.2"/><circle cx="200" cy="200" r="150" stroke="#42af38" stroke-dasharray="157.1 785.4" stroke-dashoffset="-628.3"/><circle cx="200" cy="200" r="150" stroke="#fee003" stroke-dasharray="157.1 785.4" stroke-dashoffset="-785.4"/></g>
+          <path class="cyc-chev" d="M-4 -6 L4 0 L-4 6" transform="translate(306.1 93.9) rotate(45)"/><path class="cyc-chev" d="M-4 -6 L4 0 L-4 6" transform="translate(306.1 306.1) rotate(135)"/><path class="cyc-chev" d="M-4 -6 L4 0 L-4 6" transform="translate(93.9 306.1) rotate(225)"/><path class="cyc-chev" d="M-4 -6 L4 0 L-4 6" transform="translate(93.9 93.9) rotate(315)"/>
+          <g class="cyc-run"><circle cx="200" cy="50" r="4"/></g>
+          <g class="cyc-node" data-node="0" style="--c:#e60312"><circle class="cyc-dot" cx="200" cy="50" r="7"/><text x="200" y="6" text-anchor="middle" class="t">使う</text><text x="200" y="28" text-anchor="middle" class="s">練習で</text></g><g class="cyc-node" data-node="1" style="--c:#b30281"><circle class="cyc-dot" cx="350" cy="200" r="7"/><text x="372" y="194" text-anchor="start" class="t">集める</text><text x="372" y="216" text-anchor="start" class="s">古い球を</text></g><g class="cyc-node" data-node="2" style="--c:#0881cb"><circle class="cyc-dot" cx="200" cy="350" r="7"/><text x="200" y="390" text-anchor="middle" class="t">直す</text><text x="200" y="412" text-anchor="middle" class="s">張り替え・縫い直し</text></g><g class="cyc-node" data-node="3" style="--c:#42af38"><circle class="cyc-dot" cx="50" cy="200" r="7"/><text x="28" y="194" text-anchor="end" class="t">また使う</text><text x="28" y="216" text-anchor="end" class="s">地域のチームへ</text></g>
         </svg></div>
         <div>
           <p class="eyebrow reveal">CYCLE</p>

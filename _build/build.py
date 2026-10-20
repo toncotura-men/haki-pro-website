@@ -134,8 +134,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="apple-touch-icon" href="{pre}assets/img/mark.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=9" />
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=10" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=5" defer></script>
 </head>
@@ -754,22 +754,39 @@ def track(steps):
 # 硬式球再生
 # ======================================================================
 def cycle_svg(pre):
-    """使う → 集める → 直す → また使う の輪。輪はロゴの6色、真ん中に HAKI pro のマーク。"""
-    c, r = 200, 140
-    arc = 2 * 3.14159 * r / 6
+    """直したボールの写真を、使う → 集める → 直す → また使う の輪が囲む。輪はロゴの6色を細く。"""
+    import math
+    c, r = 200, 150
+    full = 2 * math.pi * r
+    arc = full / 6
     rings = "".join(
-        f'<circle cx="{c}" cy="{c}" r="{r}" stroke="{col}" stroke-dasharray="{arc - 6:.1f} {2 * 3.14159 * r - arc + 6:.1f}" stroke-dashoffset="{-i * arc:.1f}"/>'
+        f'<circle cx="{c}" cy="{c}" r="{r}" stroke="{col}" stroke-dasharray="{arc:.1f} {full - arc:.1f}" stroke-dashoffset="{-i * arc:.1f}"/>'
         for i, col in enumerate(["#e60312", "#b30281", "#1d2286", "#0881cb", "#42af38", "#fee003"])
     )
-    nodes = [("01", "使う", c, c - r), ("02", "集める", c + r, c), ("03", "直す", c, c + r), ("04", "また使う", c - r, c)]
+    # 進む向き（時計回り）を示す小さな矢印。各言葉の間に1つずつ
+    chev = ""
+    for deg in (45, 135, 225, 315):
+        a_ = math.radians(deg - 90)
+        x, y = c + r * math.cos(a_), c + r * math.sin(a_)
+        chev += f'<path class="cyc-chev" d="M-4 -6 L4 0 L-4 6" transform="translate({x:.1f} {y:.1f}) rotate({deg})"/>'
+    nodes = [
+        ("使う", "練習で", c, c - r, "middle", 0, -44),
+        ("集める", "古い球を", c + r, c, "start", 22, -6),
+        ("直す", "張り替え・縫い直し", c, c + r, "middle", 0, 40),
+        ("また使う", "地域のチームへ", c - r, c, "end", -22, -6),
+    ]
     node = "".join(
-        f'<g class="cyc-node" data-node="{i}" style="--c:{NIGHT_COLORS[i]}"><circle cx="{x}" cy="{y}" r="42"/><text x="{x}" y="{y - 8}" class="n">{n}</text><text x="{x}" y="{y + 14}">{t}</text></g>'
-        for i, (n, t, x, y) in enumerate(nodes)
+        f'<g class="cyc-node" data-node="{i}" style="--c:{NIGHT_COLORS[i]}"><circle class="cyc-dot" cx="{x}" cy="{y}" r="7"/>'
+        f'<text x="{x + dx}" y="{y + dy}" text-anchor="{anc}" class="t">{t}</text><text x="{x + dx}" y="{y + dy + 22}" text-anchor="{anc}" class="s">{sub}</text></g>'
+        for i, (t, sub, x, y, anc, dx, dy) in enumerate(nodes)
     )
-    return f"""<svg class="cycle" viewBox="0 0 400 400" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
+    return f"""<svg class="cycle" viewBox="-70 -50 540 500" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
+          <defs><clipPath id="cyc-photo"><circle cx="{c}" cy="{c}" r="112"/></clipPath></defs>
+          <image href="{pre}assets/img/ball-new.webp" x="{c - 150}" y="{c - 117}" width="300" height="234" preserveAspectRatio="xMidYMid slice" clip-path="url(#cyc-photo)"/>
+          <circle cx="{c}" cy="{c}" r="112" class="cyc-photo-ring"/>
           <g class="cyc-ring" transform="rotate(-90 {c} {c})">{rings}</g>
-          <g class="cyc-run"><circle cx="{c}" cy="{c - r}" r="6"/></g>
-          <image href="{pre}assets/img/mark.png" x="{c - 34}" y="{c - 34}" width="68" height="68"/>
+          {chev}
+          <g class="cyc-run"><circle cx="{c}" cy="{c - r}" r="4"/></g>
           {node}
         </svg>"""
 
@@ -827,10 +844,10 @@ def build_ball():
 
     <section class="sec">
       <div class="wrap split-2" style="align-items:center">
-        <div class="stitch-count reveal">
-          <p class="stitch-num"><span class="num" data-count="108">108</span><span class="unit">針</span></p>
-          <p class="stitch-label">硬式球ひとつの縫い目の数</p>
-        </div>
+        <figure class="stitch reveal" style="margin:0">
+          <div class="photo zoom reveal-img"><img src="{pre}assets/img/ball-new.webp" alt="赤い糸で縫い直した硬式球の縫い目" loading="lazy" width="1027" height="801" /></div>
+          <figcaption>縫い目は、ボール1球で108か所。<br />一針ずつ、同じ力で糸を引いて仕上げます。</figcaption>
+        </figure>
         <div>
           <p class="eyebrow reveal">MAKERS</p>
           <h2 class="h2 split">縫っているのは、<br />就労継続支援B型の皆さんです。</h2>
@@ -1063,7 +1080,7 @@ def build_404():
     for (var i = 0; i < map.length; i++) if (map[i][0].test(map[i][2] ? location.pathname : p)) { location.replace(map[i][1]); return; }
   })();
 </script>
-<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Noto Sans JP",system-ui,sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
+<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Meiryo",sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
 </head><body><div><p style="font-size:48px;font-weight:800;margin:0;letter-spacing:-.04em">404</p><p>お探しのページは見つかりませんでした。</p><a href="/">トップページへ</a></div></body></html>
 """,
         encoding="utf-8",
