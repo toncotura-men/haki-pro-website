@@ -109,7 +109,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=4"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=5"></script>'
         if scene
         else ""
     )
@@ -135,7 +135,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=10" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=11" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=5" defer></script>
 </head>
@@ -754,7 +754,7 @@ def track(steps):
 # 硬式球再生
 # ======================================================================
 def cycle_svg(pre):
-    """直したボールの写真を、使う → 集める → 直す → また使う の輪が囲む。輪はロゴの6色を細く。"""
+    """使う → 集める → 直す → また使う の輪。輪はロゴの6色を細く、真ん中には回る硬式球（scene.js の ball）を重ねる。"""
     import math
     c, r = 200, 150
     full = 2 * math.pi * r
@@ -781,9 +781,6 @@ def cycle_svg(pre):
         for i, (t, sub, x, y, anc, dx, dy) in enumerate(nodes)
     )
     return f"""<svg class="cycle" viewBox="-70 -50 540 500" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
-          <defs><clipPath id="cyc-photo"><circle cx="{c}" cy="{c}" r="112"/></clipPath></defs>
-          <image href="{pre}assets/img/ball-new.webp" x="{c - 150}" y="{c - 117}" width="300" height="234" preserveAspectRatio="xMidYMid slice" clip-path="url(#cyc-photo)"/>
-          <circle cx="{c}" cy="{c}" r="112" class="cyc-photo-ring"/>
           <g class="cyc-ring" transform="rotate(-90 {c} {c})">{rings}</g>
           {chev}
           <g class="cyc-run"><circle cx="{c}" cy="{c - r}" r="4"/></g>
@@ -860,7 +857,7 @@ def build_ball():
 
     <section class="sec night" data-dark>
       <div class="wrap split-2" style="align-items:center">
-        <div class="reveal">{cycle_svg(pre)}</div>
+        <div class="cycle-wrap reveal">{cycle_svg(pre)}<canvas class="cycle-ball" data-scene="ball" data-spin="1.6" data-light="plain" aria-label="指で回せる硬式球"></canvas></div>
         <div>
           <p class="eyebrow reveal">CYCLE</p>
           <h2 class="h2 split">使って、直して、<br />また使う。</h2>

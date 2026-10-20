@@ -424,12 +424,15 @@ const MODES = {
     holder.add(groove);
     holder.rotation.set(0.5, 0.4, 0.2);
     scene.add(holder);
-    const spot = new THREE.PointLight(0xc8ff3d, 18, 10);
+    /* data-light="plain" なら白い光（野球スクールの入口は黄緑の光） */
+    const plain = el.dataset.light === "plain";
+    const spot = new THREE.PointLight(plain ? 0xffffff : 0xc8ff3d, plain ? 8 : 18, 10);
     spot.position.set(-2.5, 1.5, 2);
     scene.add(spot);
 
     /* 指で回す（横の動きだけ奪う。縦はページのスクロール） */
-    const vel = { x: 0, y: reduced ? 0 : 0.6 };
+    const spin = reduced ? 0 : parseFloat(el.dataset.spin || "0.6"); // 何もしないときの回る速さ（data-spin で変えられる）
+    const vel = { x: 0, y: spin };
     let drag = null;
     /* 動かしたら回すだけ、軽く押しただけならリンク（野球スクールへ）として働かせる */
     let moved = 0;
@@ -460,7 +463,7 @@ const MODES = {
         if (!drag) {
           holder.rotation.y += vel.y * dt;
           holder.rotation.x += vel.x * dt;
-          vel.y = damp(vel.y, reduced ? 0 : 0.6, 1.4, dt);
+          vel.y = damp(vel.y, spin, 1.4, dt);
           vel.x = damp(vel.x, 0, 1.4, dt);
         }
         holder.position.y = reduced ? 0 : Math.sin(t * 1.3) * 0.05;
