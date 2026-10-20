@@ -200,6 +200,83 @@
   }, { threshold: 0.6 });
   $$("[data-count]").forEach(function (el) { countIO.observe(el); });
 
+  /* ---------- 横長リスト：光がカーソルについてくる ---------- */
+  if (canHover) {
+    $$("[data-spot]").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", e.clientX - r.left + "px");
+        el.style.setProperty("--my", e.clientY - r.top + "px");
+      });
+    });
+  }
+
+  /* ---------- 循環の輪：リストに乗せた行の丸を光らせる ---------- */
+  $$("[data-cycle-rows]").forEach(function (box) {
+    var svg = box.closest("section").querySelector(".cycle");
+    if (!svg) return;
+    $$("[data-row]", box).forEach(function (li) {
+      var node = svg.querySelector('[data-node="' + li.dataset.row + '"]');
+      var on = function () { node && node.classList.add("hl"); };
+      var off = function () { node && node.classList.remove("hl"); };
+      li.addEventListener("pointerenter", on);
+      li.addEventListener("pointerleave", off);
+    });
+  });
+
+  /* ---------- ボールが工程の線の上を転がる ---------- */
+  $$("[data-track]").forEach(function (tr) {
+    var steps = $$(".tk-step", tr), dots = $$(".tk-dot", tr);
+    var line = $(".tk-line", tr), fill = $("i", line), ball = $(".tk-ball", tr);
+    var cur = 0, pts = [], timer = 0, user = false;
+    var size = function () { return ball.offsetWidth; };
+    var measure = function () {
+      var r0 = tr.getBoundingClientRect();
+      pts = dots.map(function (d) { var r = d.getBoundingClientRect(); return { x: r.left - r0.left + r.width / 2, y: r.top - r0.top + r.height / 2 }; });
+      var a = pts[0], b = pts[pts.length - 1], horiz = Math.abs(b.x - a.x) > Math.abs(b.y - a.y);
+      tr.dataset.dir = horiz ? "x" : "y";
+      line.style.left = (horiz ? a.x : a.x - 1) + "px";
+      line.style.top = (horiz ? a.y - 1 : a.y) + "px";
+      line.style.width = (horiz ? b.x - a.x : 2) + "px";
+      line.style.height = (horiz ? 2 : b.y - a.y) + "px";
+    };
+    var go = function (i) {
+      cur = i;
+      var a = pts[0], p = pts[i], b = pts[pts.length - 1], s = size();
+      var dist = Math.abs(p.x - a.x) + Math.abs(p.y - a.y), total = Math.abs(b.x - a.x) + Math.abs(b.y - a.y) || 1;
+      var horiz = tr.dataset.dir === "x", k = dist / total;
+      fill.style.setProperty("--sx", horiz ? k : 1);
+      fill.style.setProperty("--sy", horiz ? 1 : k);
+      /* 転がった距離のぶんだけ回す（円周 = 直径 × π） */
+      ball.style.transform = "translate(" + (p.x - s / 2) + "px," + (p.y - s / 2) + "px) rotate(" + (dist / (Math.PI * s)) * 360 + "deg)";
+      steps.forEach(function (st, j) { st.classList.toggle("done", j <= i); st.classList.toggle("on", j === i); });
+    };
+    var play = function () {
+      if (reduced) { go(steps.length - 1); return; }
+      var i = 0;
+      clearInterval(timer);
+      go(0);
+      timer = setInterval(function () {
+        if (user || ++i >= steps.length) { clearInterval(timer); return; }
+        go(i);
+      }, 850);
+    };
+    measure();
+    ball.style.transition = "none";
+    go(0);
+    requestAnimationFrame(function () { ball.style.transition = ""; });
+    new IntersectionObserver(function (ents, ob) {
+      if (!ents[0].isIntersecting) return;
+      ob.disconnect();
+      play();
+    }, { threshold: 0.45 }).observe(tr);
+    steps.forEach(function (st, i) {
+      st.addEventListener("pointerenter", function () { user = true; go(i); });
+      st.addEventListener("click", function () { user = true; go(i); });
+    });
+    new ResizeObserver(function () { measure(); ball.style.transition = "none"; go(cur); requestAnimationFrame(function () { ball.style.transition = ""; }); }).observe(tr);
+  });
+
   /* ---------- メニュー ---------- */
   var btn = $(".menu-btn");
   if (btn) {

@@ -91,29 +91,6 @@ NAV = [
     ("specialist", "スペシャリスト", "MEMBER"),
 ]
 
-ICON = {
-    "food": '<path d="M12 7c-2-2-6-1.5-6 3 0 4 3 8 6 8s6-4 6-8c0-4.5-4-5-6-3z"/><path d="M12 7c0-2 1-3.5 3-4"/>',
-    "stress": '<path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/><circle cx="12" cy="15" r="1.2"/>',
-    "move": '<path d="M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12"/>',
-    "doctor": '<path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v3a4 4 0 0 0 8 0v-2"/><circle cx="18" cy="12" r="2"/>',
-    "chat": '<path d="M4 5h16v10H9l-5 4z"/><path d="M8 10h8"/>',
-    "mic": '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
-    "flame": '<path d="M12 21c-4 0-6-3-6-6 0-4 4-6 4-10 3 2 4 4 4 6 1-1 2-2 2-4 2 2 4 5 4 8 0 3-3 6-8 6z"/>',
-    "badge": '<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/>',
-    "event": '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
-    "team": '<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 20a4 4 0 0 1 7 0"/>',
-    "academy": '<circle cx="12" cy="12" r="8"/><path d="M6.5 6.5c2 2 2 9 0 11M17.5 6.5c-2 2-2 9 0 11"/>',
-    "heart": '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
-    "recycle": '<path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 3.5V7h-3.5"/><path d="M9.2 8.8c1.3 1.8 1.3 4.6 0 6.4M14.8 8.8c-1.3 1.8-1.3 4.6 0 6.4"/>',
-    "gift": '<rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M4 13h16M12 9c-1.5-3-5-3.5-5-1.2 0 1.2 2 1.2 5 1.2zM12 9c1.5-3 5-3.5 5-1.2 0 1.2-2 1.2-5 1.2z"/>',
-    "spark": '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/>',
-}
-
-
-def icon(name):
-    return f'<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg></span>'
-
-
 def arrow(ext=False):
     d = "M7 17L17 7M9 7h8v8" if ext else "M5 12h14M13 6l6 6-6 6"
     return f'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>'
@@ -158,9 +135,9 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=8" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=9" />
   {importmap}
-  <script src="{pre}assets/js/site.js?v=4" defer></script>
+  <script src="{pre}assets/js/site.js?v=5" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -356,7 +333,7 @@ def build_home():
                 <p class="stack-num"><b>02</b> / 03</p>
                 <p class="stack-en" style="margin-top:28px">RECYCLE</p>
                 <h3 class="stack-title">硬式球の再生</h3>
-                <p class="muted" style="margin-top:16px">使い古した硬式球を集めて、革を張り替え、縫い直します。捨てずに直して、また練習で使ってもらう取り組みです。</p>
+                <p class="muted" style="margin-top:16px">使い古した硬式球を集めて、就労継続支援B型の皆さんが革を張り替え、縫い直します。捨てずに直して、また練習で使ってもらう取り組みです。</p>
               </div>
               <span class="link-arrow">古いボールを、もう一度 <span class="circle">{arrow()}</span></span>
             </div>
@@ -606,7 +583,7 @@ def build_project():
     biz = [
         ("heart", "健康経営サポート事業", "「企業のチームトレーナー」として、企業さまにとって一番の財産である従業員に対して健康プログラムを作成し、ストレス管理や栄養指導等を提供します。従業員の健康促進をサポートすることにより、企業さまの生産性を向上させます。", ["テラスホールディングス", "桑原組", "御池鐵工所"]),
         ("event", "イベント企画運営事業", "商業施設での運動教室やトークショーなど、幅広い世代の方々を対象としたイベントを、企画から運営までトータルでサポートいたします。", ["イオンモール広島府中", "レクト"]),
-        ("recycle", "硬式球再生事業", "練習で傷んだ硬式球を集め、革を張り替えて縫い直します。直したボールは練習球として、地域のチームや野球教室で使ってもらいます。", []),
+        ("recycle", "硬式球再生事業", "練習で傷んだ硬式球を集め、就労継続支援B型の皆さんが革を張り替えて縫い直します。直したボールは練習球として、地域のチームや野球教室で使ってもらいます。", []),
         ("academy", "アカデミー事業", "子どもたちを対象とした野球教室から、高齢者向けの健康体操まで、幅広い年齢の皆さまに健康プログラムの作成と指導をお届けします。", ["住田学園", "山陽高校女子野球部"]),
     ]
     extra = '<div class="reveal" style="--i:5;display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><span class="chips" style="margin:0"><span style="background:rgba(42,163,255,.18);color:#bfe3ff">● 企業の健康経営</span><span style="background:rgba(91,214,74,.18);color:#cdf5c6">● 子どもの健全なミライ</span></span></div>'
@@ -659,9 +636,7 @@ def build_project():
           <p class="eyebrow reveal">BUSINESS</p>
           <h2 class="h2 split">事業内容</h2>
         </div>
-        <div class="grid-2" data-stagger>
-          {''.join(f'<div class="card tilt reveal" data-tilt="4"><span class="big-k" aria-hidden="true">0{i + 1}</span>{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for i, (ic, t, d, ch) in enumerate(biz))}
-        </div>
+        {rows([(t, d) for ic, t, d, ch in biz])}
       </div>
     </section>
 {cta(pre)}"""
@@ -732,13 +707,47 @@ def build_health():
           <p class="eyebrow reveal">PROGRAM</p>
           <h2 class="h2 split">健康経営 各種プログラム</h2>
         </div>
-        <div class="grid-3" data-stagger>
-          {''.join(f'<div class="card tilt reveal" data-tilt="4">{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for ic, t, d in progs)}
-        </div>
+        {rows([(t, d) for ic, t, d in progs])}
       </div>
     </section>
 {cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、栄養調査・ストレスチェック・出張運動指導・産業医選定・健康経営優良法人の取得までサポートします。", body, scene=True)
+
+
+# ======================================================================
+# 番号つきの横長リスト（アイコンのカードの代わり）・ボールが転がる流れ
+# ======================================================================
+ROW_COLORS = ["#e60312", "#b30281", "#1d2286", "#0881cb", "#42af38"]
+NIGHT_COLORS = ["#e60312", "#b30281", "#0881cb", "#42af38", "#fee003"]  # 暗い背景では紺が見えにくいので外す
+
+
+def rows(items, href=None, start=1, colors=ROW_COLORS):
+    """大きな番号＋見出し＋説明の行。マウスを乗せると色の帯が走り、光がカーソルについてくる。"""
+    out = []
+    for i, it in enumerate(items):
+        title, desc = it[0], it[1]
+        tag, attrs = ("a", f' href="{href}"') if href else ("div", "")
+        go = f'<span class="row-go" aria-hidden="true">{arrow()}</span>' if href else ""
+        out.append(
+            f'<li class="reveal" style="--c:{colors[i % len(colors)]}" data-row="{i}"><{tag} class="row" data-spot{attrs}>'
+            f'<span class="row-n" aria-hidden="true">{i + start:02d}</span>'
+            f'<span class="row-b"><span class="row-t">{title}</span><span class="row-d">{desc}</span></span>{go}</{tag}></li>'
+        )
+    return '<ol class="rows" data-stagger>' + "".join(out) + "</ol>"
+
+
+BALL_MINI = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#f6f2ea"/><path d="M10 7c7 8 7 22 0 30M34 7c-7 8-7 22 0 30" fill="none" stroke="#d2232a" stroke-width="2.2" stroke-dasharray="2.2 2.4"/></svg>'
+
+
+def track(steps):
+    """工程の線の上をボールが転がる。画面に入ると01から順に進み、工程にマウスを乗せるとそこへ転がる。"""
+    cols = ["#e60312", "#b30281", "#0881cb", "#42af38", "#fee003", "#ffffff"]
+    li = "".join(
+        f'<li class="tk-step" style="--c:{cols[i % len(cols)]}"><span class="tk-dot" aria-hidden="true"></span>'
+        f'<span class="tk-n">{i + 1:02d}</span><span class="tk-t">{t}</span><span class="tk-d">{d}</span></li>'
+        for i, (t, d) in enumerate(steps)
+    )
+    return f'<div class="track" data-track><span class="tk-line" aria-hidden="true"><i></i></span><span class="tk-ball" aria-hidden="true">{BALL_MINI}</span><ol class="tk-steps">{li}</ol></div>'
 
 
 # ======================================================================
@@ -754,8 +763,8 @@ def cycle_svg(pre):
     )
     nodes = [("01", "使う", c, c - r), ("02", "集める", c + r, c), ("03", "直す", c, c + r), ("04", "また使う", c - r, c)]
     node = "".join(
-        f'<g class="cyc-node"><circle cx="{x}" cy="{y}" r="42"/><text x="{x}" y="{y - 8}" class="n">{n}</text><text x="{x}" y="{y + 14}">{t}</text></g>'
-        for n, t, x, y in nodes
+        f'<g class="cyc-node" data-node="{i}" style="--c:{NIGHT_COLORS[i]}"><circle cx="{x}" cy="{y}" r="42"/><text x="{x}" y="{y - 8}" class="n">{n}</text><text x="{x}" y="{y + 14}">{t}</text></g>'
+        for i, (n, t, x, y) in enumerate(nodes)
     )
     return f"""<svg class="cycle" viewBox="0 0 400 400" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
           <g class="cyc-ring" transform="rotate(-90 {c} {c})">{rings}</g>
@@ -767,16 +776,24 @@ def cycle_svg(pre):
 
 def build_ball():
     pre = "../"
-    flow = [
+    steps = [
+        ("集める", "使わなくなった硬式球を、チームや学校から引き取ります。"),
+        ("仕分ける", "芯の状態を一球ずつ見て、直せるものを選びます。"),
+        ("革を張り替える", "古い革と糸をはずし、新しい革をかぶせます。"),
+        ("縫う", "赤い糸で、108の縫い目を一針ずつ縫います。"),
+        ("確かめる", "形と縫い目を見て、問題のないものだけを出します。"),
+        ("届ける", "練習球として、地域のチームや野球教室へ届けます。"),
+    ]
+    cycle = [
         ("使う", "チームや学校の練習で、ボールは毎日使われます。"),
-        ("集める", "汚れたり糸が切れたりして、使わなくなったボールを引き取ります。"),
-        ("直す", "古い革をはがして新しい革をかぶせ、赤い糸で縫い直します。地域の就労支援事業所の方と一緒に、一球ずつ手作業で行っています。"),
-        ("また使う", "直したボールは、地域の少年野球チームや野球教室で使ってもらいます。古くなったら、また01に戻ります。"),
+        ("集める", "汚れたり糸が切れたりしたボールを引き取ります。"),
+        ("直す", "就労継続支援B型の皆さんが、革を張り替えて縫い直します。"),
+        ("また使う", "地域の少年野球チームや野球教室で使ってもらいます。古くなったら、また01へ。"),
     ]
     asks = [
-        ("gift", "古いボールを譲ってください", "チームや学校で使わなくなった硬式球を引き取ります。数が少なくてもかまいません。"),
-        ("academy", "直したボールを使ってください", "練習用のボールとしてお使いいただけます。数やお値段は、お問い合わせください。"),
-        ("team", "回収に協力してください", "ボールを集める場所を貸していただけるお店や企業さまを探しています。"),
+        ("古いボールを譲ってください", "チームや学校で使わなくなった硬式球を引き取ります。数が少なくてもかまいません。"),
+        ("直したボールを使ってください", "練習用のボールとしてお使いいただけます。数やお値段は、お問い合わせください。"),
+        ("回収に協力してください", "ボールを集める場所を貸していただけるお店や企業さまを探しています。"),
     ]
     body = hero("BALL RECYCLE", "古いボールを、<br />もう一度グラウンドへ。", "練習で使い古した硬式球を集めて直し、また使えるボールにしています。", "loop", crumbs=crumbs(pre, ("硬式球再生", None))) + f"""
     <section class="sec">
@@ -798,14 +815,39 @@ def build_ball():
     </section>
 
     <section class="sec night" data-dark>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">FLOW</p>
+          <h2 class="h2 split">ボールが戻ってくるまで</h2>
+          <p class="lead reveal">手作業なので、一度にたくさんは仕上がりません。そのぶん、一球ずつ確かめてから届けます。</p>
+        </div>
+        {track(steps)}
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap split-2" style="align-items:center">
+        <div class="stitch-count reveal">
+          <p class="stitch-num"><span class="num" data-count="108">108</span><span class="unit">針</span></p>
+          <p class="stitch-label">硬式球ひとつの縫い目の数</p>
+        </div>
+        <div>
+          <p class="eyebrow reveal">MAKERS</p>
+          <h2 class="h2 split">縫っているのは、<br />就労継続支援B型の皆さんです。</h2>
+          <p class="reveal" style="margin-top:24px">就労継続支援B型（しゅうろうけいぞくしえん・ビーがた）は、障がいや病気のある方が、体調に合わせて自分のペースで働ける場所です。</p>
+          <p class="reveal">ボールの縫い直しは、一針ずつ同じ力で糸を引く、根気のいる作業です。急がず、ていねいに向き合える方の手で、一球ずつ仕上げてもらっています。</p>
+          <p class="reveal">作業した分は工賃（はたらいた分のお金）になります。ボールが一球戻るたびに、地域に仕事がひとつ生まれます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec night" data-dark>
       <div class="wrap split-2" style="align-items:center">
         <div class="reveal">{cycle_svg(pre)}</div>
         <div>
           <p class="eyebrow reveal">CYCLE</p>
           <h2 class="h2 split">使って、直して、<br />また使う。</h2>
-          <ol class="prog" data-stagger style="padding:0;margin:32px 0 0;grid-template-columns:1fr">
-            {''.join(f'<li class="reveal">{t}<small>{d}</small></li>' for t, d in flow)}
-          </ol>
+          <div style="margin-top:32px" data-cycle-rows>{rows(cycle, colors=NIGHT_COLORS)}</div>
         </div>
       </div>
     </section>
@@ -826,20 +868,12 @@ def build_ball():
           <p class="eyebrow reveal">JOIN</p>
           <h2 class="h2 split">ご協力のお願い</h2>
         </div>
-        <div class="grid-3" data-stagger>
-          {''.join(f'<div class="card reveal">{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for ic, t, d in asks)}
-        </div>
-        <p class="note reveal" style="margin-top:20px">※直した硬式球は練習用です。公式戦ではお使いいただけません。</p>
-        <a class="card reveal" href="{pre}contact/?kind=ball" style="display:block;margin-top:16px;background:var(--night);color:#fff;text-align:center">
-          <p class="k" style="color:rgba(255,255,255,.6)">CONTACT</p>
-          <p class="h2" style="margin:8px 0">ボールの回収・購入のご相談</p>
-          <p style="color:rgba(255,255,255,.7);margin:0">回収の方法は、場所と数に合わせてご相談ください</p>
-          <span class="link-arrow" style="margin-top:16px">お問い合わせへ <span class="circle">{arrow()}</span></span>
-        </a>
+        {rows(asks, href=pre + "contact/?kind=ball")}
+        <p class="note reveal" style="margin-top:20px">※直した硬式球は練習用です。公式戦ではお使いいただけません。回収の方法は、場所と数に合わせてご相談ください。</p>
       </div>
     </section>
 {cta(pre)}"""
-    page("ball-recycle", "硬式球再生", "練習で使い古した硬式球を集め、革を張り替えて縫い直し、また練習で使えるボールにする取り組みです。ものを大切に、長く使う。", body, scene=True)
+    page("ball-recycle", "硬式球再生", "練習で使い古した硬式球を集め、就労継続支援B型の皆さんが革を張り替えて縫い直し、また練習で使えるボールにする取り組みです。", body, scene=True)
 
 
 # ======================================================================
