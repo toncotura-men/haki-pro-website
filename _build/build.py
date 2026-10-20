@@ -29,6 +29,8 @@ FOCUS = {
     "abe-seminar.webp": "62% 30%",
     "shimosada.webp": "70% 30%",
     "baseball-class.webp": "45% 40%",
+    "ball-old.webp": "50% 50%",
+    "ball-new.webp": "52% 48%",
 }
 
 
@@ -156,7 +158,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=7" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=8" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=4" defer></script>
 </head>
@@ -300,8 +302,6 @@ def build_home():
               <circle class="ring" cx="200" cy="200" r="150" stroke="#fee003" style="--k:5"/>
               <path class="ecg" d="M40 200h90l20-40 25 90 25-130 25 110 15-30h120"/>
             </svg>"""
-    ball_svg = sewing_ball_svg()
-
     body = f"""    <section class="hero" data-dark data-stage-host>
       <canvas class="stage" data-scene="ring" data-layout="home" aria-hidden="true"></canvas>
       <div class="wrap hero-inner">
@@ -326,7 +326,7 @@ def build_home():
         <p class="eyebrow reveal">MIRAI WO TSUNAGU</p>
         <h2 class="h2 split">ミライをつなぐ</h2>
         <p class="lead reveal" style="margin-top:16px">企業の健康経営と、硬式球の再生でつなぐプロジェクト</p>
-        <p class="scrub" style="margin-top:48px">HAKI proは、健康経営事業を通じて企業の従業員さまの「からだ」と「こころ」の健康を支えています。あわせて、練習で古くなった硬式球を集め、福祉の現場で直し、もう一度グラウンドへ戻しています。働く人、野球をする子ども、ボールを直す人。それぞれの毎日が少しずつ良くなる仕組みを、広島からつくっていきます。</p>
+        <p class="scrub" style="margin-top:48px">HAKI proは、健康経営事業を通じて、企業の従業員さまの「からだ」と「こころ」の健康を支えています。また、練習で使い古した硬式球を集めて直し、地域の子どもたちの練習に戻す取り組みも始めました。人の健康も、ものも、大事にしながら長く続けていく。それが私たちの考える循環です。</p>
         <a class="link-arrow reveal" href="project/" style="margin-top:32px">HAKI proのコンセプト <span class="circle">{arrow()}</span></a>
       </div>
     </section>
@@ -356,11 +356,11 @@ def build_home():
                 <p class="stack-num"><b>02</b> / 03</p>
                 <p class="stack-en" style="margin-top:28px">RECYCLE</p>
                 <h3 class="stack-title">硬式球の再生</h3>
-                <p class="muted" style="margin-top:16px">古くなった硬式球を集め、就労継続支援B型事業所の皆さんが一球ずつ手で直します。直したボールは、また誰かの練習で使われます。</p>
+                <p class="muted" style="margin-top:16px">使い古した硬式球を集めて、革を張り替え、縫い直します。捨てずに直して、また練習で使ってもらう取り組みです。</p>
               </div>
-              <span class="link-arrow">その一球、まだ使えます <span class="circle">{arrow()}</span></span>
+              <span class="link-arrow">古いボールを、もう一度 <span class="circle">{arrow()}</span></span>
             </div>
-            <div class="stack-visual">{ball_svg}</div>
+            <div class="stack-visual xf"><img src="assets/img/ball-old.webp" alt="使い古した硬式球" loading="lazy" width="1940" height="732" /><img class="xf-new" src="assets/img/ball-new.webp" alt="" loading="lazy" width="1027" height="801" /><span class="xf-tag xf-old">BEFORE</span><span class="xf-tag xf-new">AFTER</span></div>
           </a>
           <a class="stack-card" href="specialist/">
             <div class="stack-body">
@@ -484,7 +484,7 @@ def build_home():
       </div>
     </section>
 {cta(pre)}"""
-    page("", "", "株式会社HAKI proは、元プロアスリートが企業の健康経営を支え、古くなった硬式球の再生にも取り組む広島の会社です。", body, scene=True)
+    page("", "", "株式会社HAKI proは、元プロアスリートが企業の健康経営を支え、使い古した硬式球の再生にも取り組む広島の会社です。", body, scene=True)
 
 
 # ======================================================================
@@ -606,7 +606,7 @@ def build_project():
     biz = [
         ("heart", "健康経営サポート事業", "「企業のチームトレーナー」として、企業さまにとって一番の財産である従業員に対して健康プログラムを作成し、ストレス管理や栄養指導等を提供します。従業員の健康促進をサポートすることにより、企業さまの生産性を向上させます。", ["テラスホールディングス", "桑原組", "御池鐵工所"]),
         ("event", "イベント企画運営事業", "商業施設での運動教室やトークショーなど、幅広い世代の方々を対象としたイベントを、企画から運営までトータルでサポートいたします。", ["イオンモール広島府中", "レクト"]),
-        ("recycle", "硬式球再生事業", "練習で傷んだ硬式球を回収し、就労継続支援B型事業所の皆さんと一緒に、革の張り替えと糸の縫い直しを行います。直したボールは練習球として、地域のチームや野球教室へお届けします。", []),
+        ("recycle", "硬式球再生事業", "練習で傷んだ硬式球を集め、革を張り替えて縫い直します。直したボールは練習球として、地域のチームや野球教室で使ってもらいます。", []),
         ("academy", "アカデミー事業", "子どもたちを対象とした野球教室から、高齢者向けの健康体操まで、幅広い年齢の皆さまに健康プログラムの作成と指導をお届けします。", ["住田学園", "山陽高校女子野球部"]),
     ]
     extra = '<div class="reveal" style="--i:5;display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><span class="chips" style="margin:0"><span style="background:rgba(42,163,255,.18);color:#bfe3ff">● 企業の健康経営</span><span style="background:rgba(91,214,74,.18);color:#cdf5c6">● 子どもの健全なミライ</span></span></div>'
@@ -744,117 +744,83 @@ def build_health():
 # ======================================================================
 # 硬式球再生
 # ======================================================================
-def sewing_ball_svg():
-    """トップの事業カードの絵。硬式球の赤い縫い目が、一針ずつ入っていく。"""
-    def bez(p, t):
-        u = 1 - t
-        x = u ** 3 * p[0][0] + 3 * u * u * t * p[1][0] + 3 * u * t * t * p[2][0] + t ** 3 * p[3][0]
-        y = u ** 3 * p[0][1] + 3 * u * u * t * p[1][1] + 3 * u * t * t * p[2][1] + t ** 3 * p[3][1]
-        return x, y
-
-    left = ((118, 92), (182, 160), (182, 240), (118, 308))
-    right = tuple((400 - x, y) for x, y in left)
-    stitches, k = [], 0
-    for curve, side in ((left, 1), (right, -1)):
-        n = 20
-        for i in range(n):
-            t = (i + 0.5) / n
-            x, y = bez(curve, t)
-            x2, y2 = bez(curve, min(1, t + 0.01))
-            tx, ty = x2 - x, y2 - y
-            ln = (tx * tx + ty * ty) ** 0.5 or 1
-            tx, ty = tx / ln, ty / ln
-            nx, ny = -ty * side, tx * side
-            a = (x - nx * 9 - tx * 4, y - ny * 9 - ty * 4)
-            m = (x + tx * 3, y + ty * 3)
-            c = (x + nx * 9 - tx * 4, y + ny * 9 - ty * 4)
-            stitches.append(f'<path class="st" d="M{a[0]:.0f} {a[1]:.0f}L{m[0]:.0f} {m[1]:.0f}L{c[0]:.0f} {c[1]:.0f}" style="--k:{k}"/>')
-            k += 1
-    seam = "".join(f'<path class="seam" d="M{c[0][0]} {c[0][1]}C{c[1][0]} {c[1][1]} {c[2][0]} {c[2][1]} {c[3][0]} {c[3][1]}"/>' for c in (left, right))
-    return f'<svg class="viz-ball" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle class="hide" cx="200" cy="200" r="135"/>{seam}{"".join(stitches)}</svg>'
+def cycle_svg(pre):
+    """使う → 集める → 直す → また使う の輪。輪はロゴの6色、真ん中に HAKI pro のマーク。"""
+    c, r = 200, 140
+    arc = 2 * 3.14159 * r / 6
+    rings = "".join(
+        f'<circle cx="{c}" cy="{c}" r="{r}" stroke="{col}" stroke-dasharray="{arc - 6:.1f} {2 * 3.14159 * r - arc + 6:.1f}" stroke-dashoffset="{-i * arc:.1f}"/>'
+        for i, col in enumerate(["#e60312", "#b30281", "#1d2286", "#0881cb", "#42af38", "#fee003"])
+    )
+    nodes = [("01", "使う", c, c - r), ("02", "集める", c + r, c), ("03", "直す", c, c + r), ("04", "また使う", c - r, c)]
+    node = "".join(
+        f'<g class="cyc-node"><circle cx="{x}" cy="{y}" r="42"/><text x="{x}" y="{y - 8}" class="n">{n}</text><text x="{x}" y="{y + 14}">{t}</text></g>'
+        for n, t, x, y in nodes
+    )
+    return f"""<svg class="cycle" viewBox="0 0 400 400" role="img" aria-label="使う、集める、直す、また使う、をくり返す輪">
+          <g class="cyc-ring" transform="rotate(-90 {c} {c})">{rings}</g>
+          <g class="cyc-run"><circle cx="{c}" cy="{c - r}" r="6"/></g>
+          <image href="{pre}assets/img/mark.png" x="{c - 34}" y="{c - 34}" width="68" height="68"/>
+          {node}
+        </svg>"""
 
 
 def build_ball():
     pre = "../"
-    targets = [
-        "縫い目の糸が切れた・ほつれた",
-        "革がすり減った・破れた",
-        "土や雨で黒ずんで、練習で使わなくなった",
-    ]
     flow = [
-        ("集める", "チーム・学校・スクールから、使わなくなった硬式球を引き取ります"),
-        ("仕分ける", "一球ずつ芯の状態を見て、直せるボールを選びます"),
-        ("革を張り替える", "古い革と糸をはずし、新しい革をかぶせます"),
-        ("縫う", "赤い糸で、108の縫い目を一針ずつ縫い上げます"),
-        ("確かめる", "形や縫い目を確かめ、合格したボールだけを出します"),
-        ("届ける", "練習球として、チームや野球教室へお届けします"),
-    ]
-    goods = [
-        ("team", "チーム・学校に", "新しいボールを買い足す回数が減り、練習球にかかるお金をおさえられます。"),
-        ("heart", "直す人に", "地域のチームとつながる仕事になります。作業した分は、工賃（はたらいた分のお金）になります。"),
-        ("recycle", "地域に", "まだ使えるものを捨てずに回します。ボールを通して、野球と福祉の現場がつながります。"),
+        ("使う", "チームや学校の練習で、ボールは毎日使われます。"),
+        ("集める", "汚れたり糸が切れたりして、使わなくなったボールを引き取ります。"),
+        ("直す", "古い革をはがして新しい革をかぶせ、赤い糸で縫い直します。地域の就労支援事業所の方と一緒に、一球ずつ手作業で行っています。"),
+        ("また使う", "直したボールは、地域の少年野球チームや野球教室で使ってもらいます。古くなったら、また01に戻ります。"),
     ]
     asks = [
-        ("gift", "ボールを譲ってください", "使わなくなった硬式球を引き取ります。卒団や引退で道具を整理する時期に、まとめてご連絡いただけると助かります。"),
-        ("academy", "再生球を使ってください", "直したボールは、練習用としてお使いいただけます。数やお値段は、お問い合わせください。"),
-        ("team", "一緒に取り組みませんか", "回収の場所を貸していただける店舗・企業さま、作業に加わりたい事業所さまからのご連絡もお待ちしています。"),
+        ("gift", "古いボールを譲ってください", "チームや学校で使わなくなった硬式球を引き取ります。数が少なくてもかまいません。"),
+        ("academy", "直したボールを使ってください", "練習用のボールとしてお使いいただけます。数やお値段は、お問い合わせください。"),
+        ("team", "回収に協力してください", "ボールを集める場所を貸していただけるお店や企業さまを探しています。"),
     ]
-    body = hero("BALL RECYCLE", "その一球、<br />まだ使えます。", "練習で古くなった硬式球を集めて、就労継続支援B型事業所の皆さんが、一球ずつ手で直しています。", "loop", crumbs=crumbs(pre, ("硬式球再生", None))) + f"""
+    body = hero("BALL RECYCLE", "古いボールを、<br />もう一度グラウンドへ。", "練習で使い古した硬式球を集めて直し、また使えるボールにしています。", "loop", crumbs=crumbs(pre, ("硬式球再生", None))) + f"""
     <section class="sec">
-      <div class="wrap split-2" style="align-items:start">
-        <div>
-          <p class="eyebrow reveal">WHY</p>
-          <h2 class="h2 split">倉庫の隅で、<br />ボールが眠っていませんか。</h2>
-          <p class="reveal" style="margin-top:24px">硬式球は、毎日の練習で少しずつ傷んでいきます。糸が切れる。革がすり減る。雨や土で黒くなる。そうなったボールは、使われないまま箱にしまわれるか、捨てられてしまうことがほとんどです。</p>
-          <p class="reveal">けれど、中の芯がしっかりしていれば、革と糸を替えるだけでまた投げられます。HAKI proは、そのボールを集めて直し、もう一度グラウンドへ戻す取り組みを始めました。</p>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">BEFORE / AFTER</p>
+          <h2 class="h2 split">使い古したボールも、<br />直せばまた使えます。</h2>
         </div>
-        <div class="card reveal">
-          <p class="k">TARGET</p>
-          <h3 class="h3">こんなボールを集めています</h3>
-          <ul class="list-check" data-stagger style="margin-top:20px">
-            {''.join(f'<li>{t}</li>' for t in targets)}
-          </ul>
-          <p class="note" style="margin-top:20px">※芯が割れたもの、水を吸って重くなったものは、直せないことがあります。</p>
+        <div class="before-after">
+          <figure class="reveal"><div class="photo reveal-img"><img src="{pre}assets/img/ball-old.webp" alt="使い古して汚れた硬式球" loading="lazy" width="1940" height="732" /></div><figcaption><b>BEFORE</b>集まったボール</figcaption></figure>
+          <span class="ba-arrow reveal" aria-hidden="true">{arrow()}</span>
+          <figure class="reveal" style="--i:1"><div class="photo reveal-img"><img src="{pre}assets/img/ball-new.webp" alt="革を張り替えて縫い直した硬式球" loading="lazy" width="1027" height="801" /></div><figcaption><b>AFTER</b>直したボール</figcaption></figure>
+        </div>
+        <div class="wrap-narrow" style="margin:48px 0 0;padding:0">
+          <p class="reveal">硬式球は、練習で使ううちに汚れたり、縫い糸が切れたりします。そうなると練習でも使いにくくなり、倉庫にしまったままになるか、捨てられることが多くなります。</p>
+          <p class="reveal">ただ、中の芯までだめになっていることはあまりありません。外の革を張り替えて縫い直せば、また練習で使えます。</p>
         </div>
       </div>
     </section>
 
     <section class="sec night" data-dark>
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow reveal">FLOW</p>
-          <h2 class="h2 split">ボールが戻ってくるまで</h2>
-          <p class="lead reveal">手作業なので、一度にたくさんは仕上がりません。そのぶん、一球ずつ確かめてからお渡しします。</p>
+      <div class="wrap split-2" style="align-items:center">
+        <div class="reveal">{cycle_svg(pre)}</div>
+        <div>
+          <p class="eyebrow reveal">CYCLE</p>
+          <h2 class="h2 split">使って、直して、<br />また使う。</h2>
+          <ol class="prog" data-stagger style="padding:0;margin:32px 0 0;grid-template-columns:1fr">
+            {''.join(f'<li class="reveal">{t}<small>{d}</small></li>' for t, d in flow)}
+          </ol>
         </div>
-        <ol class="prog" data-stagger style="padding:0;margin:0">
-          {''.join(f'<li class="reveal">{t}<small>{d}</small></li>' for t, d in flow)}
-        </ol>
       </div>
     </section>
 
     <section class="sec">
       <div class="wrap-narrow">
-        <p class="eyebrow reveal">MAKERS</p>
-        <h2 class="h2 split">直しているのは、<br />就労継続支援B型の皆さんです。</h2>
-        <p class="reveal" style="margin-top:24px">就労継続支援B型（しゅうろうけいぞくしえん・ビーがた）は、障がいや病気などの理由で、すぐに会社で働くことが難しい方が、体調に合わせて自分のペースで働ける場所です。</p>
-        <p class="reveal">硬式球の縫い目は108。一針でも引き方が甘いと、投げているうちに糸がゆるんできます。根気のいる仕事ですが、急がず、一つのことにじっくり向き合える人の手が生きる仕事でもあります。</p>
-        <p class="reveal">直したボールは、そのまま誰かの練習で使われます。自分が縫った一球が、子どもたちの手に渡っていく。その手応えも、この仕事の大事な一部だと考えています。</p>
+        <p class="eyebrow reveal">WHY</p>
+        <h2 class="h2 split">ものを大切にすることも、<br />野球から覚えてほしい。</h2>
+        <p class="reveal" style="margin-top:24px">硬式球は、コルクとゴムの芯に毛糸を何重にも巻き、牛の革で包んで縫い上げたものです。小さな一球に、たくさんの材料と手間がかかっています。</p>
+        <p class="reveal">まだ使えるのに捨ててしまうのは、もったいない。グラブを手入れして長く使うように、ボールも直して使い続けたいと考えています。</p>
+        <p class="reveal">直したボールを子どもたちに使ってもらうことで、道具や資源を大切にする気持ちも一緒に渡していけたら。HAKI proがこの取り組みを始めたのは、そんな思いからです。</p>
       </div>
     </section>
 
     <section class="sec bg-2">
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow reveal">GOOD FOR</p>
-          <h2 class="h2 split">直した一球が、3つの場所で役に立つ</h2>
-        </div>
-        <div class="grid-3" data-stagger>
-          {''.join(f'<div class="card tilt reveal" data-tilt="4">{icon(ic)}<h3 class="h3">{t}</h3><p class="muted">{d}</p></div>' for ic, t, d in goods)}
-        </div>
-      </div>
-    </section>
-
-    <section class="sec">
       <div class="wrap">
         <div class="sec-head">
           <p class="eyebrow reveal">JOIN</p>
@@ -866,14 +832,14 @@ def build_ball():
         <p class="note reveal" style="margin-top:20px">※直した硬式球は練習用です。公式戦ではお使いいただけません。</p>
         <a class="card reveal" href="{pre}contact/?kind=ball" style="display:block;margin-top:16px;background:var(--night);color:#fff;text-align:center">
           <p class="k" style="color:rgba(255,255,255,.6)">CONTACT</p>
-          <p class="h2" style="margin:8px 0">ボールの回収・再生球のご相談</p>
-          <p style="color:rgba(255,255,255,.7);margin:0">回収の方法や数は、場所と量に合わせてご相談ください</p>
+          <p class="h2" style="margin:8px 0">ボールの回収・購入のご相談</p>
+          <p style="color:rgba(255,255,255,.7);margin:0">回収の方法は、場所と数に合わせてご相談ください</p>
           <span class="link-arrow" style="margin-top:16px">お問い合わせへ <span class="circle">{arrow()}</span></span>
         </a>
       </div>
     </section>
 {cta(pre)}"""
-    page("ball-recycle", "硬式球再生", "練習で古くなった硬式球を集め、就労継続支援B型事業所の皆さんが革の張り替えと縫い直しを行い、練習球としてもう一度グラウンドへ戻します。", body, scene=True)
+    page("ball-recycle", "硬式球再生", "練習で使い古した硬式球を集め、革を張り替えて縫い直し、また練習で使えるボールにする取り組みです。ものを大切に、長く使う。", body, scene=True)
 
 
 # ======================================================================
