@@ -28,3 +28,4 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 
 ## 旧サイトのアドレス
 - スペシャリストの日本語アドレス・/news/ 以下などは `404.html` の対応表で新しいページへ送る。`?page_id=39`（活動状況）は site.js でトップの #activity へ
+- PUMPS・HERO's CUP へのリンクの名前は「PUMPS ホームページ」「HERO's CUP ホームページ」（2026-10-20 オーナー指示）

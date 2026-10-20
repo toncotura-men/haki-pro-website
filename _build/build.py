@@ -168,8 +168,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
       </a>
       <nav class="nav" aria-label="メインメニュー">
         {nav}
-        <a href="{SCHOOL}">野球スクール</a>
-        <a href="{HEROS}">HERO's CUP</a>
+        <a href="{SCHOOL}">PUMPS ホームページ</a>
+        <a href="{HEROS}">HERO's CUP ホームページ</a>
         <a class="nav-cta" href="{pre}contact/">お問い合わせ</a>
       </nav>
       <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
@@ -179,8 +179,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <div class="drawer" id="drawer" aria-hidden="true">
     <a href="{pre or './'}">トップ<small>HOME</small></a>
     {drawer}
-    <a href="{SCHOOL}">野球スクール PUMPS<small>SCHOOL</small></a>
-    <a href="{HEROS}">HERO's CUP<small>TOURNAMENT</small></a>
+    <a href="{SCHOOL}">PUMPS ホームページ<small>SCHOOL</small></a>
+    <a href="{HEROS}">HERO's CUP ホームページ<small>TOURNAMENT</small></a>
     <a class="drawer-cta" href="{pre}contact/">お問い合わせ</a>
   </div>
   <main id="main">
@@ -199,8 +199,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
           <a href="{pre or './'}">トップ</a>
           {''.join(f'<a href="{pre}{s}/">{ja}</a>' for s, ja, _ in NAV)}
           <a href="{pre}news/">お知らせ</a>
-          <a href="{SCHOOL}">野球スクール PUMPS</a>
-          <a href="{HEROS}">HERO's CUP</a>
+          <a href="{SCHOOL}">PUMPS ホームページ</a>
+          <a href="{HEROS}">HERO's CUP ホームページ</a>
           <a href="{pre}contact/">お問い合わせ</a>
         </nav>
       </div>
