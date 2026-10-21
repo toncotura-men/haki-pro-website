@@ -134,8 +134,8 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="apple-touch-icon" href="{pre}assets/img/mark.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=11" />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=12" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=5" defer></script>
 </head>
@@ -1077,7 +1077,7 @@ def build_404():
     for (var i = 0; i < map.length; i++) if (map[i][0].test(map[i][2] ? location.pathname : p)) { location.replace(map[i][1]); return; }
   })();
 </script>
-<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Meiryo",sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
+<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Meiryo",sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
 </head><body><div><p style="font-size:48px;font-weight:800;margin:0;letter-spacing:-.04em">404</p><p>お探しのページは見つかりませんでした。</p><a href="/">トップページへ</a></div></body></html>
 """,
         encoding="utf-8",
