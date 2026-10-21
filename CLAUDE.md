@@ -16,6 +16,7 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - 導入実績（取引先名）は載せない。講演実績は「約200回」（オーナー申告）
 - 動き `assets/js/site.js`、見た目 `assets/css/site.css`。動きは transform / opacity のみ、動きを減らす設定に対応
 - AI で作った画像は使わない（2026-10 オーナー指示）。写真は旧サイトの本物の写真だけ
+- 丸や四角の中に線画を入れたアイコンは絶対に入れない（2026-10-21 オーナー指示「チープになる」）。枠のカードに英語＋日本語＋説明を詰め込まず、線と余白で区切って言葉は少なく大きく。書体は端末の標準のゴシック
 - 野球スクール（PUMPS）と少年野球大会 HERO's CUP は、リポジトリ company-website の中身を `vercel.json` の rewrites で
   **haki-pro.com/pumps/** と **haki-pro.com/heros-cup/** に取り込んで表示している（2026-10 オーナー指示：URL に toncotura-men.github.io を出さない）。
   中身を直すときは company-website 側を直す（こちらへのコピーは不要、自動で最新になる）。HERO's CUP の参加要項が読む
