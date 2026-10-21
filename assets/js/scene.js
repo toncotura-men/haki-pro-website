@@ -426,7 +426,7 @@ const MODES = {
     scene.add(holder);
     /* data-light="plain" なら白い光（野球スクールの入口は黄緑の光） */
     const plain = el.dataset.light === "plain";
-    const spot = new THREE.PointLight(plain ? 0xffffff : 0xc8ff3d, plain ? 8 : 18, 10);
+    const spot = new THREE.PointLight(plain ? 0xffffff : 0xff8a3d, plain ? 8 : 14, 10);
     spot.position.set(-2.5, 1.5, 2);
     scene.add(spot);
 
