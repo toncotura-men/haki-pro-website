@@ -109,7 +109,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=5"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=6"></script>'
         if scene
         else ""
     )
@@ -135,7 +135,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=12" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=13" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=5" defer></script>
 </head>
@@ -365,9 +365,7 @@ def build_home():
         <a class="school reveal" href="{SCHOOL}" data-dark>
           <div class="school-body">
             <img class="school-logo" src="assets/img/pumps-logo-white.png" alt="PUMPS" width="300" height="120" loading="lazy" />
-            <p class="en" style="font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.6);margin:0">BASEBALL SCIENCE LAB</p>
             <h3 class="school-title">才能を、<br /><span class="accent">科学する。</span></h3>
-            <div class="school-meta"><span>データ計測</span><span>1年設計のプログラム</span><span>比治山大学と連携</span><span>無料体験あり</span></div>
             <span class="school-go">野球スクールのサイトを見る <span class="circle">{arrow(True)}</span></span>
           </div>
           <div class="school-stage">
@@ -387,16 +385,9 @@ def build_home():
         </div>
         <a class="heros reveal" href="{HEROS}">
           <div class="heros-body">
-            <p class="heros-en">ALL-PLAYERS BASEBALL TOURNAMENT</p>
             <h3 class="heros-title">次は、<br /><span>きみだ！</span></h3>
             <p class="heros-lead">すべての子どもに、ヒーローになる瞬間を。</p>
-            <ul class="heros-rules">
-              <li><b>補欠なし</b>登録選手は全員出場</li>
-              <li><b>大人立入禁止</b>指示は出さない</li>
-              <li><b>技術 ＜ 姿勢</b>HERO審査制度</li>
-              <li><b>模擬甲子園演出</b>アナウンス・応援歌</li>
-            </ul>
-            <p class="heros-next"><span>第1回大会 in 三原</span>2026年11月28日・29日／16チーム限定</p>
+            <p class="heros-next">第1回大会　2026年11月28日・29日　広島県三原市</p>
             <span class="school-go">HERO's CUP のサイトを見る <span class="circle heros-circle">{arrow()}</span></span>
           </div>
           <div class="heros-visual" aria-hidden="true">
