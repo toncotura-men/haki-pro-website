@@ -980,7 +980,7 @@ def build_contact():
     <section class="sec">
       <div class="wrap-narrow">
         <a class="card reveal" href="{SCHOOL_FORM}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;background:var(--night);color:#fff">
-          <span><span class="k" style="color:rgba(255,255,255,.6)">BASEBALL SCHOOL</span><span style="display:block;font-weight:700;font-size:17px;margin-top:6px">野球スクール PUMPS へのお問い合わせ</span><span style="display:block;font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">スクール専用のお問い合わせフォームが開きます</span></span>
+          <span><span class="k" style="color:rgba(255,255,255,.6)">BASEBALL SCHOOL</span><span style="display:block;font-weight:700;font-size:clamp(13px,3.7vw,17px);white-space:nowrap;margin-top:6px">野球スクール PUMPS へのお問い合わせ</span><span style="display:block;font-size:13px;color:rgba(255,255,255,.7);margin-top:4px"><span style="display:inline-block">スクール専用の</span><span style="display:inline-block">お問い合わせフォームが開きます</span></span></span>
           <span class="link-arrow"><span class="circle">{arrow(True)}</span></span>
         </a>
         <form class="form card reveal" data-mailto="{MAIL}" data-school-form="{SCHOOL_FORM}" novalidate>
