@@ -442,10 +442,10 @@ const MODES = {
           return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
         void main(){
           float a = texture2D(uTex, vUv).a;
-          float edge = uReveal * 1.35 - .15;
+          float edge = uReveal * 1.4 - .2;
           float k = vUv.x + (n(vUv * vec2(18., 5.)) - .5) * .16;
           float shown = smoothstep(edge, edge - .03, k);
-          float band = exp(-pow((k - edge) / .035, 2.)) * step(.001, uReveal) * (1. - smoothstep(.9, 1., uReveal));
+          float band = exp(-pow((k - edge) / .035, 2.)) * step(.001, uReveal) * (1. - smoothstep(.65, .88, uReveal));
           float s = clamp(vUv.x * 6., 0., 5.999); int i = int(s);
           vec3 c = uCols[0]; for (int j = 1; j < 6; j++) if (j == i) c = uCols[j];
           // uGlow > 0 は光のにじみ用の描画：出ている文字はすべて同じ強さで光らせる
@@ -459,8 +459,6 @@ const MODES = {
     word.material.blendSrc = THREE.OneFactor;
     word.material.blendDst = THREE.OneMinusSrcAlphaFactor;
     scene.add(word);
-    const logoHalo = new THREE.Sprite(new THREE.SpriteMaterial({ map: dotTexture(), color: 0x7f8cff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 }));
-    scene.add(logoHalo);
 
     /* ---- 光のにじみ（ブルーム） ----
        明るさで自動に選ぶと黄色の H まで光るので、光らせる物だけを別に描いてにじませ、元の絵に足す。
@@ -543,7 +541,7 @@ const MODES = {
         const flash = bell(p, 0.55, 0.6, 0.67);
         const warp = bell(p, 0.56, 0.65, 0.8);
         const r = easeOut(seg(p, 0.72, 0.86));       // 戻ってロゴに
-        const wordK = seg(p, 0.8, 0.94);
+        const wordK = seg(p, 0.78, 0.9);
         const arrive = bell(p, 0.3, 0.345, 0.42);    // 集まりきった瞬間の光
 
         // 星と背景
@@ -556,7 +554,7 @@ const MODES = {
         starUniforms.uAlpha.value = 1;
         const nu = neb.material.uniforms;
         nu.uTime.value = t;
-        nu.uSun.value = sunK * (1 + o * 0.6) + r * 0.25;
+        nu.uSun.value = sunK * (1 + o * 0.6);
         nu.uFlash.value = flash * 0.1;
         nu.uWarp.value = warp;
         proj.copy(C).project(camera);
@@ -684,13 +682,13 @@ const MODES = {
         word.visible = wordK > 0;
         word.material.uniforms.uReveal.value = wordK;
         word.material.uniforms.uTime.value = t;
-        logoHalo.position.copy(L.logo);
-        logoHalo.scale.set(LOGO_W * S * 1.6, LOGO_W * S * 0.7, 1);
-        logoHalo.material.opacity = r * 0.12;
 
         // 光のにじみ
         bloom.strength = 0.45 + sunK * 0.25 + o * 0.15 + flash * 0.4 + arrive * 0.3;
         bloom.threshold = 0.6 - flash * 0.15;
+        // ロゴの場面は、遠くまで広がる光（大きくぼかした層）を止めて、文字のまわりだけ光らせる（もやにしない）
+        const bf = bloom.compositeMaterial.uniforms.bloomFactors.value;
+        [1.0, 0.8, 0.6, 0.4, 0.2].forEach((f, k) => { bf[k] = f * (1 - r * [0, 0.3, 0.85, 1, 1][k]); });
 
       },
     };
