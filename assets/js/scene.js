@@ -517,7 +517,7 @@ const MODES = {
       render() {
         H.forEach((h) => { h.m.material = black; });
         neb.visible = false;
-        word.material.uniforms.uGlow.value = 1.15;
+        word.material.uniforms.uGlow.value = 0.72;
         bloomComposer.render();
         H.forEach((h) => { h.m.material = h.mat; });
         neb.visible = true;
@@ -686,7 +686,7 @@ const MODES = {
         word.material.uniforms.uTime.value = t;
         logoHalo.position.copy(L.logo);
         logoHalo.scale.set(LOGO_W * S * 1.6, LOGO_W * S * 0.7, 1);
-        logoHalo.material.opacity = r * 0.22;
+        logoHalo.material.opacity = r * 0.12;
 
         // 光のにじみ
         bloom.strength = 0.45 + sunK * 0.25 + o * 0.15 + flash * 0.4 + arrive * 0.3;
