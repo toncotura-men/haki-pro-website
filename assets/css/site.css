@@ -687,7 +687,7 @@ body.menu-open { overflow: hidden; }
 .cine-pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: flex-end; overflow: hidden; isolation: isolate; }
 .cine-pin canvas.stage { z-index: -2; }
 .cine-shade { position: absolute; inset: auto 0 0; height: 62%; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgba(2, 4, 11, .85) 15%, transparent); }
-.hero-cine .hero-inner { position: relative; width: 100%; }
+.hero-cine .hero-inner { position: relative; }
 [data-show] { opacity: var(--v, 1); }
 .hero-cine .hero-inner[data-show] { transform: translateY(calc((1 - var(--v, 1)) * -48px)); filter: blur(calc((1 - var(--v, 1)) * 6px)); }
 .cine-cap {
