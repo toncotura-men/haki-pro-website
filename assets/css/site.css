@@ -696,14 +696,9 @@ body.menu-open { overflow: hidden; }
   font-size: clamp(30px, 5.6vw, 76px); text-shadow: 0 2px 30px rgba(0, 0, 0, .55); pointer-events: none;
   opacity: var(--v, 0); transform: translateY(calc((1 - var(--v, 0)) * 28px)); filter: blur(calc((1 - var(--v, 0)) * 10px));
 }
-.cine-welcome { position: absolute; left: 0; right: 0; top: var(--logo-top, 40%); transform: translateY(-100%); text-align: center; pointer-events: none; opacity: var(--v, 0); }
-.cine-welcome-en {
-  margin: 0 0 clamp(14px, 2.4vh, 28px); font-family: var(--font-en); font-weight: 500; color: rgba(255, 255, 255, .9);
-  font-size: clamp(13px, 1.5vw, 20px); letter-spacing: calc(.32em + (1 - var(--v, 0)) * .6em);
-}
 .hero-cine .scroll-cue { z-index: 2; }
 @media (prefers-reduced-motion: reduce) {
   .hero-cine { height: auto; }
   .cine-pin { position: relative; min-height: 100svh; height: auto; }
-  .cine-cap, .cine-welcome { display: none; }
+  .cine-cap { display: none; }
 }

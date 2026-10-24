@@ -15,6 +15,7 @@ import { EffectComposer } from "../vendor/postprocessing/EffectComposer.js";
 import { RenderPass } from "../vendor/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "../vendor/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "../vendor/postprocessing/OutputPass.js";
+import { ShaderPass } from "../vendor/postprocessing/ShaderPass.js";
 
 const PALETTE = [0xe60312, 0xb30281, 0x1d2286, 0x0881cb, 0x42af38, 0xfee003];
 const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -426,16 +427,16 @@ const MODES = {
     const SCAT_W = [[0.58, 0.5, -3], [0.92, 0.12, -6], [0.68, -0.38, 1], [0.2, 0.74, -9], [0.97, -0.66, -2], [0.36, 0.1, -14]];
     const SCAT_P = [[-0.55, 0.78, -3], [0.6, 0.62, -6], [0.1, 0.34, 1], [-0.7, 0.22, -9], [0.75, 0.08, -2], [-0.15, 0.9, -14]];
 
-    /* ---- ロゴ（Welcome to HAKI pro）：マークは H が戻ってきて作る。文字は光の筋で浮かぶ ---- */
+    /* ---- ロゴ：マークは H が戻ってきて作る。文字は光の筋で浮かぶ ---- */
     // ロゴ画像（logo-haki.png）の比率どおり：マークの直径 2、文字は幅 8.27・中心はマークから右へ 5.89
     const LOGO_W = 11.02, MARK_X = -4.51, WORD_X = 1.377, WORD_W = 8.27;
     const wordTex = new THREE.TextureLoader().load("assets/img/wordmark-white.png", (t) => { t.anisotropy = renderer.capabilities.getMaxAnisotropy(); });
     wordTex.colorSpace = THREE.SRGBColorSpace;
     const word = new THREE.Mesh(new THREE.PlaneGeometry(WORD_W, WORD_W * 290 / 2308), new THREE.ShaderMaterial({
       transparent: true, depthWrite: false,
-      uniforms: { uTex: { value: wordTex }, uReveal: { value: 0 }, uTime: { value: 0 }, uCols: { value: pc } },
+      uniforms: { uTex: { value: wordTex }, uReveal: { value: 0 }, uTime: { value: 0 }, uCols: { value: pc }, uGlow: { value: 0 } },
       vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }",
-      fragmentShader: `varying vec2 vUv; uniform sampler2D uTex; uniform float uReveal, uTime; uniform vec3 uCols[6];
+      fragmentShader: `varying vec2 vUv; uniform sampler2D uTex; uniform float uReveal, uTime, uGlow; uniform vec3 uCols[6];
         float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
           return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
@@ -447,7 +448,8 @@ const MODES = {
           float band = exp(-pow((k - edge) / .035, 2.)) * step(.001, uReveal) * (1. - smoothstep(.9, 1., uReveal));
           float s = clamp(vUv.x * 6., 0., 5.999); int i = int(s);
           vec3 c = uCols[0]; for (int j = 1; j < 6; j++) if (j == i) c = uCols[j];
-          vec3 col = vec3(.93) * shown + mix(c, vec3(1.), .35) * band * 1.8;
+          // uGlow > 0 は光のにじみ用の描画：出ている文字はすべて同じ強さで光らせる
+          vec3 col = vec3(uGlow > 0. ? uGlow : .93) * shown + mix(c, vec3(1.), .35) * band * 1.8;
           float alpha = a * clamp(shown + band, 0., 1.);
           gl_FragColor = vec4(col * alpha, alpha);
         }`,
@@ -460,12 +462,25 @@ const MODES = {
     const logoHalo = new THREE.Sprite(new THREE.SpriteMaterial({ map: dotTexture(), color: 0x7f8cff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0 }));
     scene.add(logoHalo);
 
-    /* ---- 光のにじみ（ブルーム） ---- */
+    /* ---- 光のにじみ（ブルーム） ----
+       明るさで自動に選ぶと黄色の H まで光るので、光らせる物だけを別に描いてにじませ、元の絵に足す。
+       H は黒、背景の星雲は消して描く（H の後ろの光は H で隠れたまま） */
+    const bloomComposer = new EffectComposer(renderer);
+    bloomComposer.renderToScreen = false;
+    bloomComposer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.5, 0.42, 0.6);
+    bloomComposer.addPass(bloom);
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.5, 0.42, 0.84);
-    composer.addPass(bloom);
+    const mix = new ShaderPass(new THREE.ShaderMaterial({
+      uniforms: { baseTexture: { value: null }, bloomTexture: { value: bloomComposer.renderTarget2.texture } },
+      vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }",
+      fragmentShader: "uniform sampler2D baseTexture, bloomTexture; varying vec2 vUv; void main(){ vec4 b = texture2D(baseTexture, vUv); gl_FragColor = vec4(b.rgb + texture2D(bloomTexture, vUv).rgb, b.a); }",
+    }), "baseTexture");
+    mix.needsSwap = true;
+    composer.addPass(mix);
     composer.addPass(new OutputPass());
+    const black = new THREE.MeshBasicMaterial({ color: 0x000000 });
 
     /* ---- 毎フレームの計算 ---- */
     let travel = 0, lastP = 0, pS = 0, theta = 0;
@@ -495,12 +510,20 @@ const MODES = {
         neb.material.uniforms.uAspect.value = camera.aspect;
       },
       resize(w, h, dpr) {
-        composer.setPixelRatio(dpr);
-        composer.setSize(w, h);
+        [composer, bloomComposer].forEach((c) => { c.setPixelRatio(dpr); c.setSize(w, h); });
         bloom.resolution.set(w * dpr * 0.5, h * dpr * 0.5);
         starUniforms.uPix.value = dpr;
       },
-      render() { composer.render(); },
+      render() {
+        H.forEach((h) => { h.m.material = black; });
+        neb.visible = false;
+        word.material.uniforms.uGlow.value = 1.15;
+        bloomComposer.render();
+        H.forEach((h) => { h.m.material = h.mat; });
+        neb.visible = true;
+        word.material.uniforms.uGlow.value = 0;
+        composer.render();
+      },
       update(t, dt, _s, ptr) {
         // site.js がなめらかにした進み具合をそのまま使う（文字と 3D をそろえる）。無いときだけ自分でなめらかに
         if (reduced) pS = 0;
@@ -667,13 +690,8 @@ const MODES = {
 
         // 光のにじみ
         bloom.strength = 0.45 + sunK * 0.25 + o * 0.15 + flash * 0.4 + arrive * 0.3;
-        bloom.threshold = 0.96 - flash * 0.15;
+        bloom.threshold = 0.6 - flash * 0.15;
 
-        // 「WELCOME TO」を置く高さ（ロゴの上の端の画面位置）を HTML へ
-        if (host && wordK > 0) {
-          proj.set(L.logo.x, L.logo.y + S * 1.0, 0).project(camera);
-          host.style.setProperty("--logo-top", ((1 - proj.y) * 50).toFixed(2) + "%");
-        }
       },
     };
   },
