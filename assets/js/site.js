@@ -334,6 +334,46 @@
     });
   });
 
+  /* ---------- トップの宇宙：スクロールの進み具合（0〜1）で文字を出し入れ ----------
+     3D（scene.js）も window.__cineP を読んで同じ進み具合で動く */
+  var cine = $("[data-cine]");
+  if (cine && !reduced) {
+    var shows = $$("[data-show]", cine).map(function (el) {
+      var r = el.dataset.show.split(" ").map(parseFloat);
+      return { el: el, a: r[0], b: r[1] };
+    });
+    var cp = 0, craf = 0, clast = 0;
+    var sm = function (x) { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+    var target = function () {
+      var r = cine.getBoundingClientRect();
+      return Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight)));
+    };
+    var paint = function () {
+      shows.forEach(function (s) {
+        var f = 0.035;
+        var v = (s.a < 0 ? 1 : sm((cp - s.a) / f)) * (s.b > 1 ? 1 : 1 - sm((cp - (s.b - f)) / f));
+        s.el.style.setProperty("--v", v.toFixed(3));
+        s.el.style.visibility = v < 0.002 ? "hidden" : "";
+      });
+    };
+    var tick = function (now) {
+      var dt = Math.min(0.05, (now - (clast || now)) / 1000) || 0.016;
+      clast = now;
+      var tg = target();
+      cp += (tg - cp) * (1 - Math.exp(-6 * dt));
+      if (Math.abs(tg - cp) < 0.0004) cp = tg;
+      window.__cineP = cp;
+      paint();
+      craf = cp === tg ? 0 : requestAnimationFrame(tick);
+    };
+    var kick = function () { if (!craf) { clast = 0; craf = requestAnimationFrame(tick); } };
+    addEventListener("scroll", kick, { passive: true });
+    addEventListener("resize", kick);
+    cp = target();
+    window.__cineP = cp;
+    paint();
+  }
+
   var y = $("#year");
   if (y) y.textContent = new Date().getFullYear();
   onScroll();

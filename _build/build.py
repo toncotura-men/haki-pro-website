@@ -109,7 +109,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=6"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=7"></script>'
         if scene
         else ""
     )
@@ -135,9 +135,9 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=14" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=15" />
   {importmap}
-  <script src="{pre}assets/js/site.js?v=5" defer></script>
+  <script src="{pre}assets/js/site.js?v=6" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -279,18 +279,28 @@ def build_home():
               <circle class="ring" cx="200" cy="200" r="150" stroke="#fee003" style="--k:5"/>
               <path class="ecg" d="M40 200h90l20-40 25 90 25-130 25 110 15-30h120"/>
             </svg>"""
-    body = f"""    <section class="hero" data-dark data-stage-host>
-      <canvas class="stage" data-scene="ring" data-layout="home" aria-hidden="true"></canvas>
-      <div class="wrap hero-inner">
-        <p class="eyebrow reveal">Life innovation</p>
-        <h1 class="hero-title split">人を紡ぎ、<br />未来へ繋ぐ。</h1>
-        <div class="ticker reveal" style="--i:4" aria-live="off">{ticker}</div>
-        <div class="btn-row reveal" style="--i:6">
-          <a class="btn btn-light magnetic" href="#business">事業を見る <span class="arr">{arrow()}</span></a>
-          <a class="btn btn-ghost magnetic" href="contact/">お問い合わせ</a>
+    body = f"""    <section class="hero hero-cine" data-dark data-stage-host data-cine>
+      <div class="cine-pin">
+        <canvas class="stage" data-scene="cosmos" aria-hidden="true"></canvas>
+        <div class="cine-shade" data-show="-1 0.12" aria-hidden="true"></div>
+        <div class="wrap hero-inner" data-show="-1 0.1">
+          <p class="eyebrow reveal">Life innovation</p>
+          <h1 class="hero-title split">人を紡ぎ、<br />未来へ繋ぐ。</h1>
+          <div class="ticker reveal" style="--i:4" aria-live="off">{ticker}</div>
+          <div class="btn-row reveal" style="--i:6">
+            <a class="btn btn-light magnetic" href="#business">事業を見る <span class="arr">{arrow()}</span></a>
+            <a class="btn btn-ghost magnetic" href="contact/">お問い合わせ</a>
+          </div>
         </div>
+        <p class="cine-cap" data-show="0.17 0.34">人が、集まる。</p>
+        <p class="cine-cap" data-show="0.4 0.55">力が、重なる。</p>
+        <p class="cine-cap" data-show="0.6 0.72">未来へ、広がる。</p>
+        <div class="cine-welcome" data-show="0.84 2">
+          <p class="cine-welcome-en">WELCOME TO</p>
+          <p class="vh">Welcome to HAKI pro</p>
+        </div>
+        <div class="scroll-cue" data-show="-1 0.9" aria-hidden="true">SCROLL</div>
       </div>
-      <div class="scroll-cue" aria-hidden="true">SCROLL</div>
     </section>
 
     <div class="marquee" aria-hidden="true"><div class="marquee-track">

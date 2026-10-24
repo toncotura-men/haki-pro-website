@@ -19,10 +19,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/site.css?v=14" />
+  <link rel="stylesheet" href="assets/css/site.css?v=15" />
   <script type="importmap">{"imports":{"three":"./assets/vendor/three.module.min.js"}}</script>
-  <script type="module" src="assets/js/scene.js?v=6"></script>
-  <script src="assets/js/site.js?v=5" defer></script>
+  <script type="module" src="assets/js/scene.js?v=7"></script>
+  <script src="assets/js/site.js?v=6" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -50,18 +50,28 @@
     <a class="drawer-cta" href="contact/">お問い合わせ</a>
   </div>
   <main id="main">
-    <section class="hero" data-dark data-stage-host>
-      <canvas class="stage" data-scene="ring" data-layout="home" aria-hidden="true"></canvas>
-      <div class="wrap hero-inner">
-        <p class="eyebrow reveal">Life innovation</p>
-        <h1 class="hero-title split">人を​紡ぎ、<br/>​未来へ​繋ぐ。</h1>
-        <div class="ticker reveal" style="--i:4" aria-live="off"><span>企業の健康経営と、硬式球の再生</span><span>“からだ”と“こころ”、真のWell-beingへ</span><span>「自分ならできる」から「自分たちならできる」へ</span><span>「働きやすさ」から「働きがい」へ</span></div>
-        <div class="btn-row reveal" style="--i:6">
-          <a class="btn btn-light magnetic" href="#business">事業を見る <span class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-          <a class="btn btn-ghost magnetic" href="contact/">お問い合わせ</a>
+    <section class="hero hero-cine" data-dark data-stage-host data-cine>
+      <div class="cine-pin">
+        <canvas class="stage" data-scene="cosmos" aria-hidden="true"></canvas>
+        <div class="cine-shade" data-show="-1 0.12" aria-hidden="true"></div>
+        <div class="wrap hero-inner" data-show="-1 0.1">
+          <p class="eyebrow reveal">Life innovation</p>
+          <h1 class="hero-title split">人を​紡ぎ、<br/>​未来へ​繋ぐ。</h1>
+          <div class="ticker reveal" style="--i:4" aria-live="off"><span>企業の健康経営と、硬式球の再生</span><span>“からだ”と“こころ”、真のWell-beingへ</span><span>「自分ならできる」から「自分たちならできる」へ</span><span>「働きやすさ」から「働きがい」へ</span></div>
+          <div class="btn-row reveal" style="--i:6">
+            <a class="btn btn-light magnetic" href="#business">事業を見る <span class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            <a class="btn btn-ghost magnetic" href="contact/">お問い合わせ</a>
+          </div>
         </div>
+        <p class="cine-cap" data-show="0.17 0.34">人が、​集まる。</p>
+        <p class="cine-cap" data-show="0.4 0.55">力が、​重なる。</p>
+        <p class="cine-cap" data-show="0.6 0.72">未来へ、​広がる。</p>
+        <div class="cine-welcome" data-show="0.84 2">
+          <p class="cine-welcome-en">WELCOME TO</p>
+          <p class="vh">Welcome to HAKI pro</p>
+        </div>
+        <div class="scroll-cue" data-show="-1 0.9" aria-hidden="true">SCROLL</div>
       </div>
-      <div class="scroll-cue" aria-hidden="true">SCROLL</div>
     </section>
 
     <div class="marquee" aria-hidden="true"><div class="marquee-track">

@@ -11,7 +11,11 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 ## 構成
 - ビルド不要の静的サイト。文章は `_build/build.py` を直して `python3 _build/build.py` で各ページの index.html を作り直す（事前に `pip install budoux`。日本語を言葉の切れ目で折り返すため）
 - 写真の顔の位置は build.py の `FOCUS`。新しい写真を足したらここにも足す
-- 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱）。モード：ring（ロゴの6色の H）/ loop / pulse / network / orbit（締め）/ ball
+- 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱。光のにじみ用に `vendor/postprocessing/`・`vendor/shaders/` も同梱）。モード：cosmos（トップ）/ ring（ロゴの6色の H）/ loop / pulse / network / orbit（締め）/ ball
+- トップは「宇宙をスクロールで進む」作り（2026-10-24 オーナー指示）。`section.hero-cine`（高さ 560svh）の間、画面が貼り付き、進み具合 0〜1 で場面が進む：
+  バラバラの H と見出し → H が渦を巻いて集まり太陽が灯る（人が、集まる。）→ 互いのまわりを回る（力が、重なる。）→ 太陽が弾け H が四方へ・星が線に（未来へ、広がる。）→ H が戻ってロゴのマーク、文字が光の筋で浮かぶ「WELCOME TO」＋ロゴ。
+  進み具合と文字の出し入れは `site.js`（`data-show="出る 消える"`、`window.__cineP`）、3D は `scene.js` の cosmos。ロゴの文字は `assets/img/wordmark-white.png`（logo-haki.png の文字部分を白く高画質にしたもの）
+- H の輪郭は元画像の画素の段差でギザギザだったため、`smoothOutline` で角を残して角の間だけなめらかにしている（面積は元と 0.5% 以内で一致＝形は同じ）
 - ロゴの H は形を変えない（2026-10 オーナー指示）。`LOGO` の座標は元のロゴ画像（img-junkan3.png）から写し取ったもの。色の丸め（トーンマッピング）は使わない
 - 導入実績（取引先名）は載せない。講演実績は「約200回」（オーナー申告）
 - 動き `assets/js/site.js`、見た目 `assets/css/site.css`。動きは transform / opacity のみ、動きを減らす設定に対応

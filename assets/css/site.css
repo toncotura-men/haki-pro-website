@@ -677,3 +677,33 @@ body.menu-open { overflow: hidden; }
   .header::before, .drawer, .fab { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .header.is-solid::before { background: #fff; }
 }
+
+/* ---------- トップ：宇宙をスクロールで進む（2026-10） ----------
+   section の高さぶんスクロールする間、中の .cine-pin が画面に貼り付き、3D の場面が進む。
+   文字の出し入れは site.js が data-show="出る 消える"（進み具合 0〜1）で行う */
+.vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hero-cine { display: block; min-height: 0; height: 560svh; overflow: visible; overflow: clip; background: #02040b; }
+.hero-cine::after { content: none; }
+.cine-pin { position: sticky; top: 0; height: 100svh; display: flex; align-items: flex-end; overflow: hidden; isolation: isolate; }
+.cine-pin canvas.stage { z-index: -2; }
+.cine-shade { position: absolute; inset: auto 0 0; height: 62%; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgba(2, 4, 11, .85) 15%, transparent); }
+.hero-cine .hero-inner { position: relative; width: 100%; }
+[data-show] { opacity: var(--v, 1); }
+.hero-cine .hero-inner[data-show] { transform: translateY(calc((1 - var(--v, 1)) * -48px)); filter: blur(calc((1 - var(--v, 1)) * 6px)); }
+.cine-cap {
+  position: absolute; left: 0; right: 0; bottom: clamp(56px, 13vh, 140px); margin: 0; padding: 0 var(--gutter);
+  text-align: center; color: #fff; font-weight: 700; letter-spacing: .08em; line-height: 1.2;
+  font-size: clamp(30px, 5.6vw, 76px); text-shadow: 0 2px 30px rgba(0, 0, 0, .55); pointer-events: none;
+  opacity: var(--v, 0); transform: translateY(calc((1 - var(--v, 0)) * 28px)); filter: blur(calc((1 - var(--v, 0)) * 10px));
+}
+.cine-welcome { position: absolute; left: 0; right: 0; top: var(--logo-top, 40%); transform: translateY(-100%); text-align: center; pointer-events: none; opacity: var(--v, 0); }
+.cine-welcome-en {
+  margin: 0 0 clamp(14px, 2.4vh, 28px); font-family: var(--font-en); font-weight: 500; color: rgba(255, 255, 255, .9);
+  font-size: clamp(13px, 1.5vw, 20px); letter-spacing: calc(.32em + (1 - var(--v, 0)) * .6em);
+}
+.hero-cine .scroll-cue { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-cine { height: auto; }
+  .cine-pin { position: relative; min-height: 100svh; height: auto; }
+  .cine-cap, .cine-welcome { display: none; }
+}
