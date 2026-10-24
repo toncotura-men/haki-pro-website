@@ -502,8 +502,10 @@ const MODES = {
       },
       render() { composer.render(); },
       update(t, dt, _s, ptr) {
-        const target = reduced ? 0 : (typeof window.__cineP === "number" ? window.__cineP : rawP());
-        pS = reduced ? 0 : damp(pS, target, 6, dt || 0.016);
+        // site.js がなめらかにした進み具合をそのまま使う（文字と 3D をそろえる）。無いときだけ自分でなめらかに
+        if (reduced) pS = 0;
+        else if (typeof window.__cineP === "number") pS = window.__cineP;
+        else pS = damp(pS, rawP(), 6, dt || 0.016);
         const p = pS;
         const vel = Math.abs(p - lastP) / Math.max(dt, 0.001);
         lastP = p;
