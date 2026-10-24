@@ -109,7 +109,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
-        f'  <script type="module" src="{pre}assets/js/scene.js?v=9"></script>'
+        f'  <script type="module" src="{pre}assets/js/scene.js?v=10"></script>'
         if scene
         else ""
     )
