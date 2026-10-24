@@ -105,7 +105,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
         f'<a href="{pre}{s}/"{" aria-current=page" if cur == s else ""}>{ja}</a>' for s, ja, _ in NAV
     )
     drawer = "".join(f'<a href="{pre}{s}/">{ja}<small>{en}</small></a>' for s, ja, en in NAV)
-    full_title = f"{title}｜株式会社HAKI pro" if slug else "株式会社HAKI pro｜個性を社会の可能性に"
+    full_title = f"{title}｜株式会社HAKI pro" if slug else "株式会社HAKI pro｜人を紡ぎ、未来へ繋ぐ"
     scene = scene or "data-scene=" in body
     importmap = (
         f'<script type="importmap">{{"imports":{{"three":"{pre or "./"}assets/vendor/three.module.min.js"}}}}</script>\n'
@@ -283,7 +283,7 @@ def build_home():
       <canvas class="stage" data-scene="ring" data-layout="home" aria-hidden="true"></canvas>
       <div class="wrap hero-inner">
         <p class="eyebrow reveal">Life innovation</p>
-        <h1 class="hero-title split">個性を、<br />社会の可能性に。</h1>
+        <h1 class="hero-title split">人を紡ぎ、<br />未来へ繋ぐ。</h1>
         <div class="ticker reveal" style="--i:4" aria-live="off">{ticker}</div>
         <div class="btn-row reveal" style="--i:6">
           <a class="btn btn-light magnetic" href="#business">事業を見る <span class="arr">{arrow()}</span></a>
