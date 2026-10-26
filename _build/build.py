@@ -706,16 +706,16 @@ def build_health():
         <div>
           <p class="eyebrow reveal">ABOUT</p>
           <h2 class="h2 split">「今を大切に、明日を最高に」</h2>
-          <p class="reveal" style="margin-top:24px">「組織のパーソナルトレーナー」として、企業さまにとって一番の財産である従業員に対し、健康プログラムを作成し、ストレス管理や栄養指導等を提供します。従業員の健康促進をサポートすることにより、企業さまの生産性を向上させます。</p>
-          <p class="reveal">日々の生活の中に「健康」という概念を浸透させることで、間違った食習慣の改善や運動不足の解消につなげ、健康生活のための新たな行動変容に繋げます。企業として取り組むので、1人ではなく実行する仲間がいることで頑張れて、「意識」が変わります。</p>
+          <p class="reveal" style="margin-top:24px">「組織のパーソナルトレーナー」として、企業さまにとって一番の財産である従業員に対し、健康プログラムを作成し、ストレス管理や栄養指導等を提供します。<br />従業員の健康促進をサポートすることにより、企業さまの生産性を向上させます。</p>
+          <p class="reveal">日々の生活の中に「健康」という概念を浸透させることで、間違った食習慣の改善や運動不足の解消につなげ、健康生活のための新たな行動変容に繋げます。<br />企業として取り組むので、1人ではなく実行する仲間がいることで頑張れて、「意識」が変わります。</p>
           <p class="reveal">企業単位、家族単位に専門家が直接携わることで、健康に関するコミュニケーションが生まれ、いつでも相談しあえる関係が自然とできあがります。</p>
         </div>
         <div>
           <p class="k en reveal" style="font-size:13px;letter-spacing:.14em;color:var(--ink-3);font-weight:700">VOICES</p>
-          <div class="voices" data-stagger style="margin-top:16px">
-            <p class="voice reveal">「健康診断で指導が入ったのですが、どうしたらいいですか？」</p>
-            <p class="voice reveal">「日々の業務で首肩が辛かったり、慢性的な腰痛をなんとかしたい」</p>
-            <p class="voice reveal">「最近なんだかストレスが溜まって……」</p>
+          <div class="voices" data-stagger style="margin-top:20px">
+            <figure class="voice reveal"><p class="voice-b">「健康診断で指導が入ったのですが、<br />どうしたらいいですか？」</p><figcaption class="voice-who">50代・男性　管理職</figcaption></figure>
+            <figure class="voice f reveal"><p class="voice-b">「日々の業務で首肩が辛かったり、<br />慢性的な腰痛をなんとかしたい」</p><figcaption class="voice-who">30代・女性　事務職</figcaption></figure>
+            <figure class="voice reveal"><p class="voice-b">「最近なんだか<br />ストレスが溜まって……」</p><figcaption class="voice-who">20代・男性　営業職</figcaption></figure>
           </div>
           <p class="h3 reveal" style="margin-top:28px">職場から、こんな声が上がっていませんか？</p>
           <p class="muted reveal">健康は、従業員と真剣に話し合えるコンテンツです。</p>

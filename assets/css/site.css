@@ -595,9 +595,20 @@ body.menu-open { overflow: hidden; }
 .stat-src { margin: -16px 0 0; font-size: 13px; line-height: 1.7; color: var(--ink-3); }
 
 /* 吹き出し */
-.voices { display: grid; gap: 12px; }
-.voice { background: #fff; border-radius: 20px 20px 20px 6px; padding: 16px 20px; box-shadow: var(--shadow), inset 0 0 0 .5px var(--line); max-width: 30em; font-weight: 500; }
-.voice:nth-child(2) { margin-left: auto; border-radius: 20px 20px 6px 20px; }
+.voices { display: grid; gap: 22px; }
+/* 悩みの声：考えごとの吹き出し（しっぽは小さな丸2つ）。男性は青、女性は赤紫 */
+.voice { --c: var(--h-blue); margin: 0; max-width: 26em; }
+.voice.f { --c: var(--h-purple); margin-left: auto; }
+.voice-b { position: relative; margin: 0; padding: 18px 24px; border-radius: 30px; font-weight: 500; line-height: 1.8; background: color-mix(in srgb, var(--c) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 26%, transparent); rotate: -1.2deg; }
+.voice.f .voice-b { rotate: 1.2deg; }
+.voice-b::before, .voice-b::after { content: ""; position: absolute; border-radius: 50%; background: inherit; box-shadow: inherit; }
+.voice-b::before { width: 14px; height: 14px; left: 30px; bottom: -20px; }
+.voice-b::after { width: 8px; height: 8px; left: 20px; bottom: -33px; }
+.voice.f .voice-b::before { left: auto; right: 30px; }
+.voice.f .voice-b::after { left: auto; right: 20px; }
+.voice-who { display: flex; align-items: center; gap: 8px; margin-top: 30px; padding-left: 4px; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--c); }
+.voice.f .voice-who { justify-content: flex-end; padding: 0 4px 0 0; }
+.voice-who::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--c); }
 
 /* プログラム一覧（潤化） */
 .prog { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); counter-reset: p; }
