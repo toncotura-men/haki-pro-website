@@ -500,7 +500,7 @@ def build_company():
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow reveal">VISION ＝ 想い</p>
+          <p class="kicker reveal"><span class="kicker-en">VISION</span><span class="kicker-ja">想い</span></p>
           <h2 class="h2 split">私たちが描く、3つの未来</h2>
         </div>
         <div class="grid-3" data-stagger>
@@ -525,7 +525,7 @@ def build_company():
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow reveal">MISSION ＝ 使命</p>
+          <p class="kicker reveal"><span class="kicker-en">MISSION</span><span class="kicker-ja">使命</span></p>
           <h2 class="h2 split">個性が輝き、可能性が広がる社会の創造</h2>
         </div>
         <div class="grid-3" data-stagger>
@@ -537,7 +537,7 @@ def build_company():
     <section class="sec bg-2">
       <div class="wrap">
         <div class="sec-head">
-          <p class="eyebrow reveal">CODE OF CONDUCT</p>
+          <p class="kicker reveal"><span class="kicker-en">CODE OF CONDUCT</span></p>
           <h2 class="h2 split">行動指針</h2>
         </div>
         <div class="values">
