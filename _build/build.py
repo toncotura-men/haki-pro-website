@@ -731,11 +731,12 @@ def build_health():
           <p class="lead reveal">健康経営は今や国からの要請になり「実施しないといけなくなった」取り組みですが、それによって得られる大きなメリットもあります。</p>
         </div>
         <div class="split-2 merit-wrap">
-          <div class="stat compare reveal" role="img" aria-label="離職率の比較：全国平均11.3%、健康経営優良法人2020の企業2.7%">
-            <p class="stat-k">離職率の比較</p>
-            <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">全国平均</span><b class="cmp-v num"><span data-count="11.3">11.3</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.113"></span></span></div>
-            <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人（2020）</span><b class="cmp-v num"><span data-count="2.7">2.7</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.027"></span></span></div>
-            <p class="stat-note">健康経営に取り組む企業は、人が辞めにくい。</p>
+          <div class="stat compare reveal" role="img" aria-label="1年間で会社を辞めた人の割合（離職率）：日本全体の平均11.4%、健康経営優良法人に認定された会社5.4%">
+            <p class="stat-k">1年間で会社を辞めた人の割合（離職率）</p>
+            <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">日本全体の平均</span><b class="cmp-v num"><span data-count="11.4">11.4</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.114"></span></span></div>
+            <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人に<br />認定された会社</span><b class="cmp-v num"><span data-count="5.4">5.4</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.054"></span></span></div>
+            <p class="stat-note">健康経営に取り組む会社は、辞める人が日本全体の半分以下です。</p>
+            <p class="stat-src">メーターは100%を満タンとした長さ。出典：経済産業省「健康経営の推進について」（2021年10月）</p>
           </div>
           {rows([(t, d) for n, t, d, x in merits])}
         </div>
