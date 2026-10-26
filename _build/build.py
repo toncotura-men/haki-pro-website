@@ -500,7 +500,7 @@ def build_company():
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
-          <p class="kicker reveal"><span class="kicker-en">VISION</span><span class="kicker-ja">想い</span></p>
+          <p class="kicker reveal"><span class="kicker-en">VISION</span></p>
           <h2 class="h2 split">私たちが描く、3つの未来</h2>
         </div>
         <div class="grid-3" data-stagger>
@@ -525,7 +525,7 @@ def build_company():
     <section class="sec">
       <div class="wrap">
         <div class="sec-head">
-          <p class="kicker reveal"><span class="kicker-en">MISSION</span><span class="kicker-ja">使命</span></p>
+          <p class="kicker reveal"><span class="kicker-en">MISSION</span></p>
           <h2 class="h2 split">個性が輝き、可能性が広がる社会の創造</h2>
         </div>
         <div class="grid-3" data-stagger>
@@ -537,20 +537,19 @@ def build_company():
     <section class="sec bg-2">
       <div class="wrap">
         <div class="sec-head">
-          <p class="kicker reveal"><span class="kicker-en">CODE OF CONDUCT</span></p>
-          <h2 class="h2 split">行動指針</h2>
+          <h2 class="kicker reveal"><span class="kicker-en">行動指針</span></h2>
         </div>
-        <div class="values">
-          {''.join(f'<div class="value reveal" style="--i:{i};--c:{c}"><span class="L" aria-hidden="true">{L}</span><b>{en}</b><span>{ja}｜{d}</span><i></i></div>' for i, (L, en, ja, d, c) in enumerate(values))}
-        </div>
-        <div class="card reveal" style="margin-top:16px">
-          <p class="k">OUR PROMISE</p>
-          <ul class="list-check" data-stagger style="margin-top:16px">
-            <li>一人ひとりの声に真摯に耳を傾けます</li>
-            <li>常に新しい可能性を追求し続けます</li>
-            <li>結果にこだわり、確実な成果を届けます</li>
-            <li>社会との調和の中で、持続的な成長を実現します</li>
-          </ul>
+        <ol class="vals">
+          {''.join(f'<li class="val reveal" style="--i:{i};--c:{c};--t:{"#c99a00" if c.lower() == "#fee003" else c}"><span class="val-ja">{ja}</span><span class="val-en">{en}</span><span class="val-d">{d}</span></li>' for i, (L, en, ja, d, c) in enumerate(values))}
+        </ol>
+        <div class="promise reveal" data-dark>
+          <p class="kicker sm reveal"><span class="kicker-en">OUR PROMISE</span></p>
+          <ol class="promises" data-stagger>
+            <li class="reveal"><span class="pr-n">01</span>一人ひとりの声に、<br />真摯に耳を傾けます</li>
+            <li class="reveal" style="--i:1"><span class="pr-n">02</span>常に新しい可能性を、<br />追求し続けます</li>
+            <li class="reveal" style="--i:2"><span class="pr-n">03</span>結果にこだわり、<br />確実な成果を届けます</li>
+            <li class="reveal" style="--i:3"><span class="pr-n">04</span>社会との調和の中で、<br />持続的な成長を実現します</li>
+          </ol>
         </div>
       </div>
     </section>
