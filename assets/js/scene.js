@@ -4,7 +4,7 @@
    ・cosmos  … トップ。宇宙をスクロールで進む：H が太陽のように集まる → 回る → 四方へ飛ぶ → ロゴ
    ・ring    … ロゴの6色の H が、バラバラから1つの輪に組み上がる（個性 → 組織）
    ・loop    … 企業（青）と子ども（緑）をつなぐ ∞ の循環
-   ・pulse   … 6色の輪が心拍のように広がる（健康経営）
+   ・pulse   … 6色の心拍の線（心電図の波）が流れる（健康経営）
    ・network … 人と人が線でつながる（今はどのページでも未使用）
    ・ball    … 指で回せる硬式球（野球スクール）
    画面外・タブ非表示のときは止める。動きを減らす設定では止まった1枚だけ描く。
@@ -793,37 +793,65 @@ const MODES = {
     };
   },
 
+  /* 健康経営：6色の心拍の線（心電図の波）が流れる。線を奥へ並べて、斜めから見た立体にする */
   pulse(stage) {
     const { scene, camera } = stage;
     const holder = new THREE.Group();
-    const rings = PALETTE.map((hex, i) => {
-      const m = new THREE.Mesh(new THREE.TorusGeometry(0.5 + i * 0.24, 0.028, 24, 160), new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.25, clearcoat: 1, emissive: hex, emissiveIntensity: 0.25 }));
-      m.rotation.x = 1.15;
-      m.rotation.y = (i - 2.5) * 0.06;
-      holder.add(m);
-      return m;
+    const W = 3.2, BEATS = 2.2, P = W / BEATS, AMP = 0.5;
+    // 1拍の形（P 波・QRS・T 波）。u は 0〜1
+    const g = (u, c, w, a) => a * Math.exp(-Math.pow((u - c) / w, 2));
+    const ecg = (u) => g(u, 0.16, 0.04, 0.12) - g(u, 0.3, 0.012, 0.16) + g(u, 0.33, 0.016, 1) - g(u, 0.36, 0.014, 0.3) + g(u, 0.56, 0.06, 0.24);
+    // 粒を線の長さに沿って等間隔に置く（とがった所でも途切れないように）
+    const path = (lag) => {
+      const raw = [];
+      for (let k = 0, M = 6000; k <= M; k++) {
+        const x = -W / 2 - P + (k / M) * (W + 2 * P);
+        const u = ((((x / P) + lag) % 1) + 1) % 1;
+        raw.push([x, ecg(u) * AMP]);
+      }
+      const out = [];
+      let acc = 0, next = 0;
+      const step = 0.011;
+      for (let k = 1; k < raw.length; k++) {
+        const dx = raw[k][0] - raw[k - 1][0], dy = raw[k][1] - raw[k - 1][1];
+        acc += Math.hypot(dx, dy);
+        while (acc >= next) { out.push(raw[k]); next += step; }
+      }
+      return out;
+    };
+    const lines = PALETTE.map((hex, i) => {
+      const pts = path(i * 0.035);
+      const pos = new Float32Array(pts.length * 3), col = new Float32Array(pts.length * 4);
+      pts.forEach(([x, y], k) => pos.set([x, y, 0], k * 3));
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+      geo.setAttribute("color", new THREE.BufferAttribute(col, 4)); // 4つ目は透明度（消える所で黒い影が出ないように）
+      const obj = new THREE.Points(geo, new THREE.PointsMaterial({ size: 0.075, map: dotTexture(), vertexColors: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }));
+      obj.position.set(0, (2.5 - i) * 0.07, (i - 2.5) * 0.42);
+      holder.add(obj);
+      return { obj, pos, col, geo, base: new THREE.Color(hex), n: pts.length };
     });
-    const core = new THREE.Mesh(new THREE.IcosahedronGeometry(0.34, 6), new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.15, clearcoat: 1, transmission: 0.6, thickness: 0.6, ior: 1.4, emissive: 0xff2d55, emissiveIntensity: 0.25 }));
-    holder.add(core);
-    scene.add(holder, dust(420));
-    const beat = (x) => { const f = x % 1.1; return Math.exp(-Math.pow((f - 0.12) / 0.05, 2)) + 0.6 * Math.exp(-Math.pow((f - 0.34) / 0.06, 2)); };
+    scene.add(holder, dust(260));
     return {
       layout() {
         const v = viewHalf(camera);
         const portrait = camera.aspect < 0.9;
-        holder.scale.setScalar(portrait ? v.w * 0.46 : Math.min(v.w * 0.36, v.h * 0.55));
-        holder.position.set(portrait ? 0 : v.w * 0.4, portrait ? v.h * 0.4 : 0, 0);
+        holder.scale.setScalar(portrait ? v.w * 0.55 : Math.min(v.w * 0.3, v.h * 0.5));
+        holder.position.set(portrait ? 0 : v.w * 0.42, portrait ? v.h * 0.42 : v.h * 0.05, 0);
       },
       update(t, dt, s, ptr) {
-        rings.forEach((m, i) => {
-          const b = reduced ? 0 : beat(t - i * 0.07);
-          m.scale.setScalar(1 + b * 0.09);
-          m.position.y = Math.sin(t * 0.8 + i * 0.6) * 0.06 + s * (i - 2.5) * 0.3;
-          m.rotation.z += dt * (i % 2 ? 0.08 : -0.08);
+        const off = reduced ? 0 : (t * 0.42) % P; // 波が左へ流れる
+        lines.forEach((l) => {
+          l.obj.position.x = -off;
+          for (let k = 0; k < l.n; k++) {
+            const k01 = clamp((l.pos[k * 3] - off + W / 2) / W);
+            const f = Math.pow(Math.sin(Math.PI * k01), 1.4); // 両端は消える
+            l.col.set([l.base.r, l.base.g, l.base.b, f], k * 4);
+          }
+          l.geo.attributes.color.needsUpdate = true;
         });
-        core.scale.setScalar(1 + (reduced ? 0 : beat(t)) * 0.18);
-        holder.rotation.x = damp(holder.rotation.x, -ptr.y * 0.3 + s * 0.6, 4, dt);
-        holder.rotation.y = damp(holder.rotation.y, ptr.x * 0.5, 4, dt);
+        holder.rotation.x = damp(holder.rotation.x, 0.18 - ptr.y * 0.25 + s * 0.4, 4, dt);
+        holder.rotation.y = damp(holder.rotation.y, -0.5 + ptr.x * 0.4, 4, dt);
       },
     };
   },

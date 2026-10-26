@@ -31,6 +31,7 @@ FOCUS = {
     "baseball-class.webp": "45% 40%",
     "ball-old.webp": "50% 50%",
     "ball-new.webp": "52% 48%",
+    "ball-donation.webp": "50% 50%",
 }
 
 
@@ -766,6 +767,20 @@ def build_health():
         {rows([(t, d) for ic, t, d in progs])}
       </div>
     </section>
+
+    <section class="sec bg-2" id="donation">
+      <div class="wrap split-2">
+        <figure class="talk-photo wide reveal"><div class="ph"><img src="{pre}assets/img/ball-donation.webp" alt="企業ロゴ入りのサッカーボールと感謝状を持って並ぶ4人" loading="lazy" width="1600" height="1200" /></div><figcaption>企業さまのロゴ入りサッカーボールを廿日市市内の全小中学校へ寄贈し、市から感謝状が贈られました（2025年12月）</figcaption></figure>
+        <div>
+          <p class="eyebrow reveal">DONATION</p>
+          <h2 class="h2 split">御社のロゴ入りボールを、地域の学校へ。</h2>
+          <p class="reveal" style="margin-top:24px">硬式球の再生事業とあわせて、バスケットボール・サッカーボール・バレーボールなどに企業さまのロゴを入れ、地域の学校へ寄贈する取り組みも行っています。</p>
+          <p class="reveal">寄贈したボールは、休み時間にも体育の授業にも使われます。子どもたちは毎日そのボールを手に取り、ロゴを見て「この会社がくれたボール」と覚えていきます。</p>
+          <p class="reveal">社員の健康を大切にする会社が、地域の子どもが体を動かす場も支える。健康経営の取り組みと一緒に、社内にも地域にも伝わる活動です。</p>
+          <div class="reveal" style="margin-top:28px"><a class="link-arrow" href="{pre}contact/?kind=donation">ボールの寄贈を相談する <span class="circle">{arrow()}</span></a></div>
+        </div>
+      </div>
+    </section>
 {cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
 
@@ -1040,7 +1055,7 @@ def build_specialists():
 # ======================================================================
 def build_contact():
     pre = "../"
-    kinds = ["講演会", "イベント（出演・企画・運営）", "健康経営サポート", "硬式球の回収・再生球のご購入", "SNSマーケティング・AIコンサル", "野球スクール", "その他"]
+    kinds = ["講演会", "イベント（出演・企画・運営）", "健康経営サポート", "硬式球の回収・再生球のご購入", "企業ロゴ入りボールの寄贈", "SNSマーケティング・AIコンサル", "野球スクール", "その他"]
     body = hero("CONTACT", "HAKI proに<br />相談してみる。", "下のフォームに必要事項をご記入のうえ、送信してください。追って担当者よりお返事いたします。", "ring", crumbs=crumbs(pre, ("お問い合わせ", None))) + f"""
     <section class="sec">
       <div class="wrap-narrow">
@@ -1069,6 +1084,7 @@ def build_contact():
         var sel = document.getElementById("f-kind");
         if (k === "ball") sel.value = "硬式球の回収・再生球のご購入";
         if (k === "school") sel.value = "野球スクール";
+        if (k === "donation") sel.value = "企業ロゴ入りボールの寄贈";
         if (k === "talk") sel.value = "講演会";
         var note = document.querySelector(".school-note");
         var sync = function () {{ note.hidden = sel.value !== "野球スクール"; }};
