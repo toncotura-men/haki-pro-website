@@ -599,8 +599,7 @@ body.menu-open { overflow: hidden; }
 /* 悩みの声：考えごとの吹き出し（しっぽは小さな丸2つ）。男性は青、女性は赤紫 */
 .voice { --c: var(--h-blue); margin: 0; max-width: 26em; }
 .voice.f { --c: var(--h-purple); margin-left: auto; }
-.voice-b { position: relative; margin: 0; padding: 18px 24px; border-radius: 30px; font-weight: 500; line-height: 1.8; background: color-mix(in srgb, var(--c) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 26%, transparent); rotate: -1.2deg; }
-.voice.f .voice-b { rotate: 1.2deg; }
+.voice-b { position: relative; margin: 0; padding: 18px 24px; border-radius: 30px; font-weight: 500; line-height: 1.8; background: color-mix(in srgb, var(--c) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 26%, transparent); }
 .voice-b::before, .voice-b::after { content: ""; position: absolute; border-radius: 50%; background: inherit; box-shadow: inherit; }
 .voice-b::before { width: 14px; height: 14px; left: 30px; bottom: -20px; }
 .voice-b::after { width: 8px; height: 8px; left: 20px; bottom: -33px; }
