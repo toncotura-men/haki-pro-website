@@ -726,6 +726,7 @@ body.menu-open { overflow: hidden; }
 .plan-k { margin: 0; font-weight: 700; letter-spacing: .06em; color: var(--ink-2); }
 .plan-p { margin: 8px 0 0; font-weight: 700; line-height: 1.1; }
 .plan-p .num { font-size: clamp(36px, 5vw, 64px); letter-spacing: .01em; }
+.plan-p .yen { margin-left: 4px; font-size: clamp(20px, 2.4vw, 30px); }
 .plan-p small { margin-left: 6px; font-size: 15px; color: var(--ink-2); }
 .plans + .note, .rows + .note { margin-top: 24px; font-size: 15px; line-height: 1.8; }
 @media (max-width: 720px) {
