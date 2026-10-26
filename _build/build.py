@@ -213,6 +213,24 @@ def hero(eyebrow, title_html, lead, scene, *, crumbs=None, extra="", sub=True):
     </section>"""
 
 
+def donation(pre, bg=" bg-2"):
+    """企業ロゴ入りボールを学校へ寄贈する取り組み（健康経営・硬式球再生の2ページに出す）。"""
+    return f"""    <section class="sec{bg}" id="donation">
+      <div class="wrap split-2">
+        <figure class="talk-photo wide reveal"><div class="ph"><img src="{pre}assets/img/ball-donation.webp" alt="企業ロゴ入りのサッカーボールと感謝状を持って並ぶ4人" loading="lazy" width="1600" height="1200" /></div><figcaption>企業さまのロゴ入りサッカーボールを廿日市市内の全小中学校へ寄贈し、市から感謝状が贈られました（2025年12月）</figcaption></figure>
+        <div>
+          <p class="eyebrow reveal">DONATION</p>
+          <h2 class="h2 split">御社のロゴ入りボールを、地域の学校へ。</h2>
+          <p class="reveal" style="margin-top:24px">硬式球の再生事業とあわせて、バスケットボール・サッカーボール・バレーボールなどに企業さまのロゴを入れ、地域の学校へ寄贈する取り組みも行っています。</p>
+          <p class="reveal">寄贈したボールは、休み時間にも体育の授業にも使われます。子どもたちは毎日そのボールを手に取り、ロゴを見て「この会社がくれたボール」と覚えていきます。</p>
+          <p class="reveal">社員の健康を大切にする会社が、地域の子どもが体を動かす場も支える。健康経営の取り組みと一緒に、社内にも地域にも伝わる活動です。</p>
+          <div class="reveal" style="margin-top:28px"><a class="link-arrow" href="{pre}contact/?kind=donation">ボールの寄贈を相談する <span class="circle">{arrow()}</span></a></div>
+        </div>
+      </div>
+    </section>
+"""
+
+
 def crumbs(pre, *items):
     parts = [f'<a href="{pre}">ホーム</a>']
     for label, href in items:
@@ -715,8 +733,8 @@ def build_health():
         <div class="split-2 merit-wrap">
           <div class="stat compare reveal" role="img" aria-label="離職率の比較：全国平均11.3%、健康経営優良法人2020の企業2.7%">
             <p class="stat-k">離職率の比較</p>
-            <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">全国平均</span><b class="cmp-v num"><span data-count="11.3">11.3</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:1"></span></span></div>
-            <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人（2020）</span><b class="cmp-v num"><span data-count="2.7">2.7</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.239"></span></span></div>
+            <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">全国平均</span><b class="cmp-v num"><span data-count="11.3">11.3</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.113"></span></span></div>
+            <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人（2020）</span><b class="cmp-v num"><span data-count="2.7">2.7</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.027"></span></span></div>
             <p class="stat-note">健康経営に取り組む企業は、人が辞めにくい。</p>
           </div>
           {rows([(t, d) for n, t, d, x in merits])}
@@ -733,7 +751,7 @@ def build_health():
         </div>
         {rows([(t, d) for t, d in includes])}
         <div class="plans" data-stagger>
-          {''.join(f'<div class="plan reveal"><p class="plan-k">{k}</p><p class="plan-p"><span class="num">{p}</span><small>円 / 月</small></p></div>' for k, p in plans)}
+          {''.join(f'<div class="plan reveal"><p class="plan-k">{k}</p><p class="plan-p"><span class="num">{p}</span><span class="yen">円〜</span><small>/ 月</small></p></div>' for k, p in plans)}
         </div>
         <p class="note reveal">税別・交通費別。最低契約期間12か月。お試し1回 33,000円（30名まで）は、ご契約いただくと初月の料金から差し引きます。</p>
       </div>
@@ -772,20 +790,7 @@ def build_health():
       </div>
     </section>
 
-    <section class="sec bg-2" id="donation">
-      <div class="wrap split-2">
-        <figure class="talk-photo wide reveal"><div class="ph"><img src="{pre}assets/img/ball-donation.webp" alt="企業ロゴ入りのサッカーボールと感謝状を持って並ぶ4人" loading="lazy" width="1600" height="1200" /></div><figcaption>企業さまのロゴ入りサッカーボールを廿日市市内の全小中学校へ寄贈し、市から感謝状が贈られました（2025年12月）</figcaption></figure>
-        <div>
-          <p class="eyebrow reveal">DONATION</p>
-          <h2 class="h2 split">御社のロゴ入りボールを、地域の学校へ。</h2>
-          <p class="reveal" style="margin-top:24px">硬式球の再生事業とあわせて、バスケットボール・サッカーボール・バレーボールなどに企業さまのロゴを入れ、地域の学校へ寄贈する取り組みも行っています。</p>
-          <p class="reveal">寄贈したボールは、休み時間にも体育の授業にも使われます。子どもたちは毎日そのボールを手に取り、ロゴを見て「この会社がくれたボール」と覚えていきます。</p>
-          <p class="reveal">社員の健康を大切にする会社が、地域の子どもが体を動かす場も支える。健康経営の取り組みと一緒に、社内にも地域にも伝わる活動です。</p>
-          <div class="reveal" style="margin-top:28px"><a class="link-arrow" href="{pre}contact/?kind=donation">ボールの寄贈を相談する <span class="circle">{arrow()}</span></a></div>
-        </div>
-      </div>
-    </section>
-{cta(pre)}"""
+{donation(pre)}{cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
 
 
@@ -962,7 +967,7 @@ def build_ball():
         <p class="note reveal" style="margin-top:20px">※直した硬式球は練習用です。公式戦ではお使いいただけません。回収・お見積りのご依頼は、お問い合わせからお受けしています。</p>
       </div>
     </section>
-{cta(pre)}"""
+{donation(pre, bg="")}{cta(pre)}"""
     page("ball-recycle", "硬式球再生", "練習で使い古した硬式球を集め、就労継続支援B型の皆さんが革を張り替えて縫い直し、また練習で使えるボールにする取り組みです。", body, scene=True)
 
 
