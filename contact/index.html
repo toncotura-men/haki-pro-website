@@ -71,7 +71,7 @@
           <div class="field"><label for="f-org">企業名・屋号</label><input id="f-org" name="org" autocomplete="organization" /></div>
           <div class="field"><label for="f-mail">メールアドレス <span class="req">必須</span></label><input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email" required /><span class="err">メールアドレスを正しく入れてください</span></div>
           <div class="field"><label for="f-tel">電話番号 <span class="req">必須</span></label><input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required /><span class="err">電話番号を入れてください</span></div>
-          <div class="field"><label for="f-kind">お問い合わせの種類 <span class="req">必須</span></label><select id="f-kind" name="kind" required><option value="">選択してください</option><option>講演会</option><option>イベント（出演・企画・運営）</option><option>健康経営サポート</option><option>硬式球の回収・再生球のご購入</option><option>SNSマーケティング・AIコンサル</option><option>野球スクール</option><option>その他</option></select><span class="err">種類を選んでください</span></div>
+          <div class="field"><label for="f-kind">お問い合わせの種類 <span class="req">必須</span></label><select id="f-kind" name="kind" required><option value="">選択してください</option><option>講演会</option><option>イベント（出演・企画・運営）</option><option>健康経営サポート</option><option>硬式球の回収・再生球のご購入</option><option>企業ロゴ入りボールの寄贈</option><option>SNSマーケティング・AIコンサル</option><option>野球スクール</option><option>その他</option></select><span class="err">種類を選んでください</span></div>
           <p class="note school-note" hidden style="margin:-8px 0 0;padding:14px 16px;border-radius:14px;background:var(--bg-2);color:var(--ink)">野球スクールの​お問い合わせは、​スクール専用の​フォームで​受け付けています。<a href="https://pro.form-mailer.jp/fms/39ce6285355128" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:700">​お問い合わせフォームを​開く ↗</a></p>
           <div class="field"><label for="f-body">ご用件 <span class="req">必須</span></label><textarea id="f-body" name="body" required></textarea><span class="err">ご用件を入れてください</span></div>
           <p class="note">「送信する」を​押すと、​入力した​内容が​入った​メールが​開きます。​そのまま​送信してください。<br/>​※商品や​サービスの​一方的な​営業メールは、​一切​お断りいたします。</p>
@@ -87,6 +87,7 @@
         var sel = document.getElementById("f-kind");
         if (k === "ball") sel.value = "硬式球の回収・再生球のご購入";
         if (k === "school") sel.value = "野球スクール";
+        if (k === "donation") sel.value = "企業ロゴ入りボールの寄贈";
         if (k === "talk") sel.value = "講演会";
         var note = document.querySelector(".school-note");
         var sync = function () { note.hidden = sel.value !== "野球スクール"; };

@@ -232,6 +232,7 @@ body.menu-open { overflow: hidden; }
 .hero .h-display, .hero .h1 { color: #fff; }
 .hero-title { font-size: clamp(38px, 8.4vw, 104px); line-height: 1.12; letter-spacing: .02em; font-weight: 700; }
 .hero-title .thin { font-weight: 300; }
+.hero-sub .hero-title { font-size: clamp(30px, 5vw, 62px); line-height: 1.25; }
 .hero-lead { margin-top: 24px; max-width: 34em; color: var(--on-night-2); font-size: clamp(15px, 1.5vw, 18px); }
 .hero .btn-row { margin-top: 32px; }
 .ticker { position: relative; height: 1.8em; margin-top: 18px; font-size: clamp(14px, 1.4vw, 16px); color: rgba(255, 255, 255, .8); overflow: hidden; }
@@ -476,6 +477,8 @@ body.menu-open { overflow: hidden; }
 .talk-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .talk-photo:hover img { transform: scale(1.04); }
 .talk-photo figcaption { margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+.talk-photo.wide .ph { aspect-ratio: 4 / 3; }
+.talk-photo.wide figcaption { font-size: 14px; line-height: 1.8; }
 
 /* ---------- メンバー ---------- */
 .members { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }

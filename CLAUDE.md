@@ -12,6 +12,8 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - ビルド不要の静的サイト。文章は `_build/build.py` を直して `python3 _build/build.py` で各ページの index.html を作り直す（事前に `pip install budoux`。日本語を言葉の切れ目で折り返すため）
 - 写真の顔の位置は build.py の `FOCUS`。新しい写真を足したらここにも足す
 - 3D は `assets/js/scene.js`（Three.js 0.160 を `assets/vendor/` に同梱。光のにじみ用に `vendor/postprocessing/`・`vendor/shaders/` も同梱）。モード：cosmos（トップ）/ ring（ロゴの6色の H）/ loop / pulse / network / orbit（締め）/ ball
+- 健康経営のページ（2026-10-26 オーナー指示）：上の 3D は pulse＝6色の心拍の線（心電図の波）。輪と玉の「惑星」は「ダサい」と言われたので使わない。
+  下層ページの見出しは `.hero-sub .hero-title`（最大 62px）。「大きすぎる」と言われたため。ページ末尾に企業ロゴ入りボールを学校へ寄贈する取り組み（#donation、写真 `ball-donation.webp`）。お問い合わせの種類「企業ロゴ入りボールの寄贈」（`?kind=donation`）
 - トップは「宇宙をスクロールで進む」作り（2026-10-24 オーナー指示）。`section.hero-cine`（高さ 560svh）の間、画面が貼り付き、進み具合 0〜1 で場面が進む：
   バラバラの H と見出し → H が渦を巻いて集まり太陽が灯る（人が、集まる。）→ 互いのまわりを回る（力が、重なる。）→ 太陽が弾け H が四方へ・星が線に（未来へ、広がる。）→ H が戻ってロゴのマーク、文字が光の筋で浮かぶ会社ロゴ（「WELCOME TO」の文字は 2026-10-24 オーナー指示で削除）。光のにじみは光らせる物だけを別に描く方式（H は光らせない。黄色だけ光っていたため）。
   進み具合と文字の出し入れは `site.js`（`data-show="出る 消える"`、`window.__cineP`）、3D は `scene.js` の cosmos。ロゴの文字は `assets/img/wordmark-white.png`（logo-haki.png の文字部分を白く高画質にしたもの）
