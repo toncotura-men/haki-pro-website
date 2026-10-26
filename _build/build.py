@@ -748,7 +748,7 @@ def build_health():
         <div class="sec-head">
           <p class="eyebrow reveal">MONTHLY PLAN</p>
           <h2 class="h2 split">月1回、専門家が会社に来る。</h2>
-          <p class="lead reveal">元プロ野球球団のトレーナー、ヨガ講師、鍼灸師、セラピストなど、分野のちがう専門家が毎月交代で、御社の会議室で60分の運動指導を行います。年2回の体力測定で、社員の体の変化を数字でお返しします。</p>
+          <p class="lead reveal">元プロ野球球団のトレーナー、ヨガ講師、鍼灸師、セラピストなど、分野のちがう専門家が毎月交代で60分の運動指導を行います。年2回の体力測定で、社員の体の変化を数字でお返しします。</p>
         </div>
         {rows([(t, d) for t, d in includes])}
         <div class="plans" data-stagger>
