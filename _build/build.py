@@ -648,8 +648,7 @@ def build_health():
     pre = "../"
     merits = [
         ("01", "生産性向上", "従業員が十分なパフォーマンスを発揮するには、心身ともに健康であることが何より重要です。心身が健康なら、欠勤などの勤怠不良が少なくなるのはもちろん、社内の雰囲気が良くなり、モチベーション向上につながります。", ""),
-        ("02", "人材の定着・確保・採用コスト低減", "健康経営は、退職者の低減につながります。また、健康経営の取り組みを社会へアピールすることで優秀な人材を採用しやすくなるほか、採用コストの低減にもつながります。",
-         '<div class="compare" role="img" aria-label="離職率の比較：全国平均11.3%、健康経営優良法人2020の企業2.7%"><div class="row"><span>全国平均</span><span class="track"><span class="fill" style="--v:1"></span></span><b class="num"><span data-count="11.3">11.3</span>%</b></div><div class="row good"><span>健康経営優良法人2020</span><span class="track"><span class="fill" style="--v:.239"></span></span><b class="num"><span data-count="2.7">2.7</span>%</b></div><p class="note" style="margin:0">離職率の比較</p></div>'),
+        ("02", "人材の定着・確保・採用コスト低減", "健康経営は、退職者の低減につながります。また、健康経営の取り組みを社会へアピールすることで優秀な人材を採用しやすくなるほか、採用コストの低減にもつながります。", ""),
         ("03", "企業イメージの向上", "健康経営に取り組み、審査に通ればホームページや名刺に認定マークを付けることができます。こうした対外的な好印象は信用力そのもので、ブランド力強化に直結します。", ""),
         ("04", "企業負担の医療費軽減", "健康経営によって、従業員が病気にかかる頻度・期間が減少します。そのため、企業が所属する健康保険組合による医療費軽減が見込まれます。逆に従業員の疾病が頻出すると、健康保険組合の財政を圧迫し、組合費の高騰につながります。", ""),
     ]
@@ -666,7 +665,6 @@ def build_health():
     includes = [
         ("月1回・60分の運動指導", "肩こり・腰痛・姿勢・柔軟・筋力・睡眠など、毎月テーマを変えて行います。社員さまの体にさわる施術は行いません。"),
         ("年2回の体力測定", "握力・立ち上がり・片足立ちなどを専門の測定スタッフが測ります。結果は本人に、会社さまには名前を伏せた集計でお返しします。"),
-        ("アプリと毎日の運動", "測定結果のグラフと、家でできる今月の運動をスマホで見られます。"),
         ("毎月の報告書", "参加人数・続けた人の割合・社員さまの声を1枚にまとめます。"),
     ]
     plans = [("〜20名", "50,000"), ("〜50名", "70,000"), ("〜100名", "100,000")]
@@ -714,8 +712,14 @@ def build_health():
           <h2 class="h2 split">健康経営が企業に与えるメリット</h2>
           <p class="lead reveal">健康経営は今や国からの要請になり「実施しないといけなくなった」取り組みですが、それによって得られる大きなメリットもあります。</p>
         </div>
-        <div class="grid-2" data-stagger>
-          {''.join(f'<div class="card reveal"><span class="big-k" aria-hidden="true">{n}</span><div class="bar"></div><p class="k">MERIT {n}</p><h3 class="h3">{t}</h3><p class="muted">{d}</p>{x}</div>' for n, t, d, x in merits)}
+        <div class="split-2 merit-wrap">
+          <div class="stat compare reveal" role="img" aria-label="離職率の比較：全国平均11.3%、健康経営優良法人2020の企業2.7%">
+            <p class="stat-k">離職率の比較</p>
+            <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">全国平均</span><b class="cmp-v num"><span data-count="11.3">11.3</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:1"></span></span></div>
+            <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人（2020）</span><b class="cmp-v num"><span data-count="2.7">2.7</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.239"></span></span></div>
+            <p class="stat-note">健康経営に取り組む企業は、人が辞めにくい。</p>
+          </div>
+          {rows([(t, d) for n, t, d, x in merits])}
         </div>
       </div>
     </section>
@@ -742,7 +746,7 @@ def build_health():
           <h2 class="h2 split">測って、続けて、もう一度測る。</h2>
           <p class="lead reveal">1月と12月の測定を比べ、1年間の取り組みの成果を報告書にまとめます。</p>
         </div>
-        {track(year)}
+        {track(year, light=True)}
       </div>
     </section>
 
@@ -810,15 +814,16 @@ def rows(items, href=None, start=1, colors=ROW_COLORS):
 BALL_MINI = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#f6f2ea"/><path d="M10 7c7 8 7 22 0 30M34 7c-7 8-7 22 0 30" fill="none" stroke="#d2232a" stroke-width="2.2" stroke-dasharray="2.2 2.4"/></svg>'
 
 
-def track(steps):
-    """工程の線の上をボールが転がる。画面に入ると01から順に進み、工程にマウスを乗せるとそこへ転がる。"""
-    cols = ["#e60312", "#b30281", "#0881cb", "#42af38", "#fee003", "#ffffff"]
+def track(steps, light=False):
+    """工程の線の上をボールが転がる。画面に入ると01から順に進み、工程にマウスを乗せるとそこへ転がる。
+    light=True は明るい背景用（白い札・濃い文字。黄色と白は読めないので外す）。"""
+    cols = ROW_COLORS if light else ["#e60312", "#b30281", "#0881cb", "#42af38", "#fee003", "#ffffff"]
     li = "".join(
         f'<li class="tk-step" style="--c:{cols[i % len(cols)]}"><span class="tk-dot" aria-hidden="true"></span>'
         f'<span class="tk-n">{i + 1:02d}</span><span class="tk-t">{t}</span><span class="tk-d">{d}</span></li>'
         for i, (t, d) in enumerate(steps)
     )
-    return f'<div class="track" data-track><span class="tk-line" aria-hidden="true"><i></i></span><span class="tk-ball" aria-hidden="true">{BALL_MINI}</span><ol class="tk-steps">{li}</ol></div>'
+    return f'<div class="track{" light" if light else ""}" style="--n:{len(steps)}" data-track><span class="tk-line" aria-hidden="true"><i></i></span><span class="tk-ball" aria-hidden="true">{BALL_MINI}</span><ol class="tk-steps">{li}</ol></div>'
 
 
 # ======================================================================
