@@ -41,3 +41,4 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 ## 旧サイトのアドレス
 - スペシャリストの日本語アドレス・/news/ 以下などは `404.html` の対応表で新しいページへ送る。`?page_id=39`（活動状況）は site.js でトップの #activity へ
 - PUMPS・HERO's CUP へのリンクの名前は「PUMPS ホームページ」「HERO's CUP ホームページ」（2026-10-20 オーナー指示）
+- 会社概要の VISION / MISSION / CODE OF CONDUCT の見出しは `.kicker`（大きな英語＋日本語。画面に入ると色の線が伸び、英語の上を6色の光が流れ、日本語が遅れて出る）。小さい `.eyebrow` に戻さない（2026-10-26 オーナー指示「小さすぎる・エフェクトを効かせて」）
