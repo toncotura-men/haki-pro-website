@@ -796,7 +796,6 @@ def build_health():
         <div>
           <p class="kicker reveal"><span class="kicker-en">DOWNLOAD</span></p>
           <h2 class="h2 split">はじめの一歩ガイドを、<br />無料でダウンロード。</h2>
-          <p class="lead reveal" style="margin-top:20px">ホームページには載せていない、社内で検討・提案するための中身です。</p>
           <div class="dl-pages reveal" aria-hidden="true">
             <img src="{pre}assets/img/shiryo-p3.webp" alt="" loading="lazy" width="960" height="540" />
             <img src="{pre}assets/img/shiryo-p4.webp" alt="" loading="lazy" width="960" height="540" />
