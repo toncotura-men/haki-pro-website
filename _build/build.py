@@ -791,17 +791,17 @@ def build_health():
       </div>
     </section>
 
-    <section class="sec night dl" id="download" data-dark>
-      <div class="wrap split-2">
-        <div class="dl-pages" aria-hidden="true">
-          <img src="{pre}assets/img/shiryo-p3.webp" alt="" loading="lazy" width="960" height="540" />
-          <img src="{pre}assets/img/shiryo-p4.webp" alt="" loading="lazy" width="960" height="540" />
-          <img src="{pre}assets/img/shiryo-p1.webp" alt="" loading="lazy" width="960" height="540" />
-        </div>
+    <section class="sec night doc-dl" id="download" data-dark>
+      <div class="wrap dl-grid">
         <div>
           <p class="kicker reveal"><span class="kicker-en">DOWNLOAD</span></p>
           <h2 class="h2 split">はじめの一歩ガイドを、<br />無料でダウンロード。</h2>
           <p class="lead reveal" style="margin-top:20px">ホームページには載せていない、社内で検討・提案するための中身です。</p>
+          <div class="dl-pages reveal" aria-hidden="true">
+            <img src="{pre}assets/img/shiryo-p3.webp" alt="" loading="lazy" width="960" height="540" />
+            <img src="{pre}assets/img/shiryo-p4.webp" alt="" loading="lazy" width="960" height="540" />
+            <img src="{pre}assets/img/shiryo-p1.webp" alt="" loading="lazy" width="960" height="540" />
+          </div>
           <ul class="dl-list reveal">
             <li>10問でわかる、職場の健康セルフチェック</li>
             <li>人が1人辞めたときの費用と、社員1人あたりの月額</li>
@@ -809,12 +809,34 @@ def build_health():
             <li>12か月の運動指導テーマ例</li>
             <li>そのまま使える、社長への提案シート</li>
           </ul>
-          <div class="btn-row reveal" style="margin-top:32px">
-            <a class="btn btn-light magnetic" href="{pre}assets/doc/haki-pro-kenko-keiei.pdf" download="HAKIpro_kenko-keiei_hajimeno-ippo.pdf">無料でダウンロード <span class="arr">{arrow()}</span></a>
-          </div>
-          <p class="dl-note reveal">PDF・10ページ・約520KB　お名前などの入力は不要です。</p>
+          <p class="dl-note reveal">PDF・10ページ・約520KB</p>
         </div>
+        <form class="form card dl-form reveal" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf">
+          <p class="dl-form-t">必要事項をご入力ください</p>
+          <div class="field"><label for="d-company">企業名 <span class="req">必須</span></label><input id="d-company" name="company" autocomplete="organization" maxlength="200" required /><span class="err">企業名を入れてください</span></div>
+          <div class="field"><label for="d-name">お名前 <span class="req">必須</span></label><input id="d-name" name="name" autocomplete="name" maxlength="100" required /><span class="err">お名前を入れてください</span></div>
+          <div class="field"><label for="d-email">メールアドレス <span class="req">必須</span></label><input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required /><span class="err">メールアドレスを正しく入れてください</span></div>
+          <div class="field"><label for="d-employees">従業員数 <span class="req">必須</span></label><select id="d-employees" name="employees" required><option value="">選択してください</option><option>1〜20名</option><option>21〜50名</option><option>51〜100名</option><option>101名以上</option></select><span class="err">従業員数を選んでください</span></div>
+          <div class="field"><label for="d-department">部署・役職</label><input id="d-department" name="department" autocomplete="organization-title" maxlength="100" /></div>
+          <div class="field"><label for="d-phone">電話番号</label><input id="d-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" /><span class="err">電話番号は数字とハイフンで入れてください</span></div>
+          <div class="dl-hp" aria-hidden="true"><label for="d-website">ウェブサイト</label><input id="d-website" name="website" tabindex="-1" autocomplete="off" /></div>
+          <div class="privacy" tabindex="0" aria-label="個人情報の取り扱いについて">
+            <p class="privacy-t">個人情報の取り扱いについて</p>
+            <ol>
+              <li><b>事業者</b>株式会社HAKI pro（〒733-0001 広島市西区大芝2丁目9-2）</li>
+              <li><b>利用の目的</b>ご入力いただいた情報は、資料の提供、健康経営サポートなど当社のサービスのご案内、お問い合わせへの回答のために使います。ご案内のメールは、いつでも停止をご依頼いただけます。</li>
+              <li><b>第三者への提供</b>ご本人の同意がある場合と、法令に基づく場合を除き、第三者に提供しません。</li>
+              <li><b>管理</b>情報は当社が契約するデータ保管サービスに保存し、当社の担当者だけが見られるように管理します。</li>
+              <li><b>開示・訂正・削除</b>ご本人からの開示・訂正・利用停止・削除のご依頼は、info@haki-pro.com までご連絡ください。ご本人であることを確かめたうえで対応します。</li>
+              <li><b>入力が必須の項目</b>必須の項目をご入力いただけない場合は、資料をお渡しできません。</li>
+            </ol>
+          </div>
+          <div class="field consent"><label><input type="checkbox" name="consent" id="d-consent" required /> 個人情報の取り扱いに同意する <span class="req">必須</span></label><span class="err">同意にチェックを入れてください</span></div>
+          <button class="btn btn-rainbow" type="submit" style="justify-self:stretch">同意して資料をダウンロード <span class="arr">{arrow()}</span></button>
+          <p class="dl-msg" role="status" aria-live="polite" hidden></p>
+        </form>
       </div>
+      <script src="{pre}assets/js/download.js" defer></script>
     </section>
 {donation(pre)}{cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)

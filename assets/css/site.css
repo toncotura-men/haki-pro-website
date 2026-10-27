@@ -132,8 +132,6 @@ button { font: inherit; color: inherit; }
   .kicker-en { background-position: 0 0; transition: none; }
   .val-ja { background-size: 100% 100%; transition: none; }
 }
-  .kicker-en { background-position: 0 0; transition: none; }
-}
 .h-display {
   font-family: var(--font-en); font-weight: 700;
   font-size: clamp(44px, 9vw, 120px); line-height: .95; letter-spacing: .02em;
@@ -775,10 +773,9 @@ body.menu-open { overflow: hidden; }
 }
 
 /* 資料の無料ダウンロード：資料のページを3枚重ね、画面に入ると扇のように少しずつずれて出る */
-.dl .split-2 { align-items: center; }
-@media (min-width: 900px) { .dl .split-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
-.dl-pages { width: 100%; }
-.dl-pages { position: relative; aspect-ratio: 16 / 11; }
+.dl-grid { display: grid; gap: clamp(36px, 5vw, 64px); align-items: start; }
+@media (min-width: 900px) { .dl-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.dl-pages { position: relative; width: 100%; aspect-ratio: 16 / 9.6; margin-top: 32px; }
 .dl-pages img { position: absolute; width: 82%; height: auto; border-radius: 12px; box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .08); transition: transform 1.2s var(--ease), opacity 1s var(--ease); }
 .dl-pages img:nth-child(1) { right: 0; top: 0; opacity: .55; }
 .dl-pages img:nth-child(2) { right: 9%; top: 14%; opacity: .8; }
@@ -788,3 +785,20 @@ body.menu-open { overflow: hidden; }
 .dl-list li::before { content: ""; position: absolute; left: 0; top: .78em; width: 14px; height: 3px; border-radius: 3px; background: var(--rainbow); }
 .dl-note { margin: 14px 0 0; font-size: 14px; color: var(--on-night-2); }
 @media (hover: hover) { .dl-pages:hover img:nth-child(1) { transform: translate(14px, -10px); } .dl-pages:hover img:nth-child(2) { transform: translate(6px, -4px); } }
+.night .dl-form { background: #fff; color: var(--ink); gap: 16px; box-shadow: 0 30px 80px rgba(0, 0, 0, .35); }
+.night .dl-form .field label { color: var(--ink); }
+.dl-form-t { margin: 0; font-weight: 700; font-size: 18px; }
+.dl-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.privacy { max-height: 190px; overflow: auto; padding: 16px 18px; border-radius: 14px; background: var(--bg-2); font-size: 13px; line-height: 1.75; color: var(--ink-2); }
+.privacy:focus-visible { outline: 2px solid var(--h-blue); }
+.privacy-t { margin: 0 0 8px; font-weight: 700; font-size: 14px; color: var(--ink); }
+.privacy ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.privacy b { display: block; color: var(--ink); }
+.field.consent label { font-size: 15px; cursor: pointer; }
+.field.consent input { width: 20px; height: 20px; margin: 0; accent-color: var(--ink); }
+.dl-msg { margin: 0; font-size: 15px; line-height: 1.7; }
+.dl-msg a { text-decoration: underline; font-weight: 700; }
+.dl-msg.bad { color: var(--h-red); }
+.dl-done { padding: 8px 0; }
+.dl-done p { margin: 0 0 12px; }
+.dl-done .t { font-size: 22px; font-weight: 700; }
