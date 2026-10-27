@@ -791,6 +791,30 @@ def build_health():
       </div>
     </section>
 
+    <section class="sec night dl" id="download" data-dark>
+      <div class="wrap split-2">
+        <div class="dl-pages" aria-hidden="true">
+          <img src="{pre}assets/img/shiryo-p7.webp" alt="" loading="lazy" width="960" height="540" />
+          <img src="{pre}assets/img/shiryo-p5.webp" alt="" loading="lazy" width="960" height="540" />
+          <img src="{pre}assets/img/shiryo-p1.webp" alt="" loading="lazy" width="960" height="540" />
+        </div>
+        <div>
+          <p class="kicker reveal"><span class="kicker-en">DOWNLOAD</span></p>
+          <h2 class="h2 split">ご案内資料を、<br />無料でダウンロード。</h2>
+          <p class="lead reveal" style="margin-top:20px">社内での検討や、ご担当者さまへの共有にお使いください。</p>
+          <ul class="dl-list reveal">
+            <li>健康経営のメリットと離職率のデータ</li>
+            <li>月額プランの中身と料金</li>
+            <li>1年の流れ</li>
+            <li>健康経営優良法人の取り方</li>
+          </ul>
+          <div class="btn-row reveal" style="margin-top:32px">
+            <a class="btn btn-light magnetic" href="{pre}assets/doc/haki-pro-kenko-keiei.pdf" download="HAKIpro_kenko-keiei_guide.pdf">無料でダウンロード <span class="arr">{arrow()}</span></a>
+          </div>
+          <p class="dl-note reveal">PDF・10ページ・約730KB　お名前などの入力は不要です。</p>
+        </div>
+      </div>
+    </section>
 {donation(pre)}{cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
 

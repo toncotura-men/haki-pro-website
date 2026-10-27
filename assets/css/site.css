@@ -773,3 +773,18 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 720px) {
   .plans { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* 資料の無料ダウンロード：資料のページを3枚重ね、画面に入ると扇のように少しずつずれて出る */
+.dl .split-2 { align-items: center; }
+@media (min-width: 900px) { .dl .split-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.dl-pages { width: 100%; }
+.dl-pages { position: relative; aspect-ratio: 16 / 11; }
+.dl-pages img { position: absolute; width: 82%; height: auto; border-radius: 12px; box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .08); transition: transform 1.2s var(--ease), opacity 1s var(--ease); }
+.dl-pages img:nth-child(1) { right: 0; top: 0; opacity: .55; }
+.dl-pages img:nth-child(2) { right: 9%; top: 14%; opacity: .8; }
+.dl-pages img:nth-child(3) { left: 0; bottom: 0; }
+.dl-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 10px; }
+.dl-list li { position: relative; padding-left: 26px; font-size: clamp(16px, 1.6vw, 18px); font-weight: 500; color: var(--on-night); }
+.dl-list li::before { content: ""; position: absolute; left: 0; top: .78em; width: 14px; height: 3px; border-radius: 3px; background: var(--rainbow); }
+.dl-note { margin: 14px 0 0; font-size: 14px; color: var(--on-night-2); }
+@media (hover: hover) { .dl-pages:hover img:nth-child(1) { transform: translate(14px, -10px); } .dl-pages:hover img:nth-child(2) { transform: translate(6px, -4px); } }
