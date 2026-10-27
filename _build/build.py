@@ -114,7 +114,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
         if scene
         else ""
     )
-    fab = "" if slug == "contact" else f'<a class="fab" href="{pre}contact/"><i aria-hidden="true"></i>相談してみる</a>'
+    fab = "" if slug in ("contact", "health-management/shindan") else f'<a class="fab" href="{pre}contact/"><i aria-hidden="true"></i>相談してみる</a>'
     html = f"""<!doctype html>
 <html lang="ja">
 <head>
@@ -136,7 +136,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=17" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=18" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
 </head>
@@ -811,7 +811,30 @@ def build_health():
           </ul>
           <p class="dl-note reveal">PDF・10ページ・約520KB　チェック欄と記入欄は、印刷しなくても入力できます。</p>
         </div>
-        <form class="form card dl-form reveal" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf" data-contact="{pre}contact/?kind=health">
+        <div class="dl-start reveal">
+          <p class="dl-start-k">健康経営かんたん診断</p>
+          <p class="dl-start-t">約3分・無料</p>
+          <ol class="dl-start-steps">
+            <li><b>1</b>会社の状況を選ぶ</li>
+            <li><b>2</b>10問のセルフチェック</li>
+            <li><b>3</b>診断結果とガイドを受け取る</li>
+          </ol>
+          <a class="btn btn-rainbow dl-start-btn" href="shindan/">診断をはじめる <span class="arr">{arrow()}</span></a>
+        </div>
+      </div>
+    </section>
+{donation(pre)}{cta(pre)}"""
+    page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
+
+
+def build_shindan():
+    """健康経営かんたん診断（健康経営のページのボタンから開く）。"""
+    pre = "../../"
+    body = hero("SELF CHECK", "健康経営<br />かんたん診断", "答えるだけで、会社の今の健康状態と、最初に手を打つことがわかります。<br />約3分・無料。診断のあと、ガイド（PDF）を受け取れます。", "pulse",
+                crumbs=crumbs(pre, ("健康経営", f"{pre}health-management/"), ("かんたん診断", None))) + f"""
+    <section class="sec night doc-dl" data-dark>
+      <div class="wrap-narrow">
+        <form class="form card dl-form" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf" data-contact="{pre}contact/?kind=health">
           <p class="dl-step"><b>1</b>会社の状況</p>
           <div class="field"><label for="d-industry">業種 <span class="req">必須</span></label><select id="d-industry" name="industry" required><option value="">選択してください</option><option>製造</option><option>建設</option><option>運輸・物流</option><option>小売・飲食・サービス</option><option>医療・介護・福祉</option><option>IT・事務・専門サービス</option><option>その他</option></select><span class="err">選んでください</span></div>
           <div class="field"><label for="d-workstyle">社員の働き方 <span class="req">必須</span></label><select id="d-workstyle" name="workstyle" required><option value="">選択してください</option><option>デスクワークが中心</option><option>立ち仕事・現場作業が中心</option><option>車の運転が多い</option><option>いろいろ混ざっている</option></select><span class="err">選んでください</span></div>
@@ -846,9 +869,8 @@ def build_health():
         </form>
       </div>
       <script type="module" src="{pre}assets/js/download.js"></script>
-    </section>
-{donation(pre)}{cta(pre)}"""
-    page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
+    </section>"""
+    page("health-management/shindan", "健康経営かんたん診断", "会社の状況とセルフチェック10問に答えると、会社の今の健康状態と、最初に手を打つことがわかります。約3分・無料。診断のあと、健康経営のガイド（PDF）を受け取れます。", body, scene=True)
 
 
 # ======================================================================
@@ -1229,6 +1251,7 @@ if __name__ == "__main__":
     build_company()
     build_project()
     build_health()
+    build_shindan()
     build_ball()
     build_specialists()
     build_contact()
