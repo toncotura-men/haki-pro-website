@@ -1,0 +1,9 @@
+{
+  "name": "haki-pro-website",
+  "private": true,
+  "type": "module",
+  "description": "静的サイト。api/ の中だけ Vercel のサーバー側で動く（健康経営かんたん診断）",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0"
+  }
+}

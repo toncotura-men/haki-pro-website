@@ -89,6 +89,7 @@
         if (k === "school") sel.value = "野球スクール";
         if (k === "donation") sel.value = "企業ロゴ入りボールの寄贈";
         if (k === "talk") sel.value = "講演会";
+        if (k === "health") sel.value = "健康経営サポート";
         var note = document.querySelector(".school-note");
         var sync = function () { note.hidden = sel.value !== "野球スクール"; };
         sel.addEventListener("change", sync);
