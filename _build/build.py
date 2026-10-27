@@ -136,7 +136,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=18" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=19" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
 </head>
@@ -820,6 +820,7 @@ def build_health():
             <li><b>3</b>診断結果とガイドを受け取る</li>
           </ol>
           <a class="btn btn-rainbow dl-start-btn" href="shindan/">診断をはじめる <span class="arr">{arrow()}</span></a>
+          <a class="dl-start-pdf" href="{pre}assets/doc/haki-pro-kenko-keiei.pdf" download="HAKIpro_kenko-keiei_hajimeno-ippo.pdf">資料（PDF）だけダウンロードする <span aria-hidden="true">↓</span></a>
         </div>
       </div>
     </section>
