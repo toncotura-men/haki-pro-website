@@ -48,4 +48,9 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
   ホームページと同じ中身の資料は「意味ない」と言われたので、ホームページにない中身にする。
   ダウンロードの前に入力フォーム（2026-10-27 オーナー指示）：企業名・お名前・メール・従業員数・個人情報の同意が必須、部署・役職と電話は任意。個人情報の取り扱いをフォーム内に記載。
   送信内容は Supabase（PUMPS と同じプロジェクト vazmvcuxmfbhbiakdfoc）の表 `haki_download_requests` に保存（`assets/js/download.js`。外からは書き込みだけ、読めるのはスタッフとダッシュボード）。保存できたら PDF を渡す。届いた申し込みは Supabase の Table Editor で見る。
+  健康経営かんたん診断（2026-10-27 オーナー指示「AI 自動診断」）：フォームは「1 会社の状況（業種・働き方・年代・取り組み状況、必須）→ 2 セルフチェック10問 → 気になること（任意）→ 3 ご担当者さま」。
+  送信は `api/shindan.js`（Vercel のサーバー側。package.json は "type": "module"、依存は @anthropic-ai/sdk）。AI は claude-opus-5-5（effort low・JSON 形式で返す）。鍵は Vercel の環境変数 ANTHROPIC_API_KEY。
+  鍵がない・AI が失敗したときは `assets/js/shindan-rules.mjs` の決まった計算（ruleDiagnose）で診断。サーバーにつながらないときは画面側で計算して Supabase に直接保存。
+  回答と診断は haki_download_requests の answers / check_count / diagnosis / diagnosis_by（'ai' か 'rule'）。AI に送るのは会社の状況の回答だけ（企業名・名前・連絡先は送らない。個人情報の取り扱いに記載）。
+  診断の文は textContent で入れる（AI の文をそのまま HTML にしない）。「。」で改行
   セクションのクラス名は `doc-dl`（`dl` は会社概要の表とぶつかる）。資料を作り直したら、公開前に必ずオーナーに見せる（GitHub は公開なので、OK まで送らない）

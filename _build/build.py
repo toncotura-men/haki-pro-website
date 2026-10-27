@@ -795,13 +795,14 @@ def build_health():
       <div class="wrap dl-grid">
         <div>
           <p class="kicker reveal"><span class="kicker-en">DOWNLOAD</span></p>
-          <h2 class="h2 split">はじめの一歩ガイドを、<br />無料でダウンロード。</h2>
+          <h2 class="h2 split">会社の健康状態を診断して、<br />ガイドを無料で受け取る。</h2>
           <div class="dl-pages reveal" aria-hidden="true">
             <img src="{pre}assets/img/shiryo-p3.webp" alt="" loading="lazy" width="960" height="540" />
             <img src="{pre}assets/img/shiryo-p4.webp" alt="" loading="lazy" width="960" height="540" />
             <img src="{pre}assets/img/shiryo-p1.webp" alt="" loading="lazy" width="960" height="540" />
           </div>
           <ul class="dl-list reveal">
+            <li>回答をもとに、会社の今の状態をAIが診断</li>
             <li>10問でわかる、職場の健康セルフチェック</li>
             <li>人が1人辞めたときの費用と、社員1人あたりの月額</li>
             <li>健康経営優良法人の申請・発表のカレンダー</li>
@@ -810,8 +811,16 @@ def build_health():
           </ul>
           <p class="dl-note reveal">PDF・10ページ・約520KB　チェック欄と記入欄は、印刷しなくても入力できます。</p>
         </div>
-        <form class="form card dl-form reveal" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf">
-          <p class="dl-form-t">必要事項をご入力ください</p>
+        <form class="form card dl-form reveal" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf" data-contact="{pre}contact/?kind=health">
+          <p class="dl-step"><b>1</b>会社の状況</p>
+          <div class="field"><label for="d-industry">業種 <span class="req">必須</span></label><select id="d-industry" name="industry" required><option value="">選択してください</option><option>製造</option><option>建設</option><option>運輸・物流</option><option>小売・飲食・サービス</option><option>医療・介護・福祉</option><option>IT・事務・専門サービス</option><option>その他</option></select><span class="err">選んでください</span></div>
+          <div class="field"><label for="d-workstyle">社員の働き方 <span class="req">必須</span></label><select id="d-workstyle" name="workstyle" required><option value="">選択してください</option><option>デスクワークが中心</option><option>立ち仕事・現場作業が中心</option><option>車の運転が多い</option><option>いろいろ混ざっている</option></select><span class="err">選んでください</span></div>
+          <div class="field"><label for="d-age">社員の年代 <span class="req">必須</span></label><select id="d-age" name="age" required><option value="">選択してください</option><option>20〜30代が中心</option><option>40代が中心</option><option>50代以上が多い</option><option>年代はばらばら</option></select><span class="err">選んでください</span></div>
+          <div class="field"><label for="d-status">健康経営の取り組み <span class="req">必須</span></label><select id="d-status" name="status" required><option value="">選択してください</option><option>まだ何もしていない</option><option>健康診断だけしている</option><option>健康宣言をした</option><option>健康経営優良法人の認定を目指している</option><option>認定を受けている</option></select><span class="err">選んでください</span></div>
+          <p class="dl-step"><b>2</b>セルフチェック<small>当てはまるものを選んでください</small></p>
+          <div class="sd-checks"><label class="sd-check"><input type="checkbox" name="c1" /><span>健康診断で「要再検査」「要精密検査」の人がいる</span></label><label class="sd-check"><input type="checkbox" name="c2" /><span>肩こり・腰痛を訴える人が多い</span></label><label class="sd-check"><input type="checkbox" name="c3" /><span>座りっぱなし・立ちっぱなしの仕事が多い</span></label><label class="sd-check"><input type="checkbox" name="c4" /><span>運動の習慣がある社員は少ないと思う</span></label><label class="sd-check"><input type="checkbox" name="c5" /><span>「疲れが取れない」「眠れない」という声がある</span></label><label class="sd-check"><input type="checkbox" name="c6" /><span>ストレスや気分の落ち込みで休む人がいた</span></label><label class="sd-check"><input type="checkbox" name="c7" /><span>この1年で、体調を理由に辞めた人がいた</span></label><label class="sd-check"><input type="checkbox" name="c8" /><span>社員の平均年齢が上がってきている</span></label><label class="sd-check"><input type="checkbox" name="c9" /><span>採用の募集を出しても、人が集まりにくい</span></label><label class="sd-check"><input type="checkbox" name="c10" /><span>健康づくりの担当者が決まっていない</span></label></div>
+          <div class="field"><label for="d-concern">気になること</label><textarea id="d-concern" name="concern" maxlength="300" placeholder="例：腰痛で休む人が増えてきた"></textarea></div>
+          <p class="dl-step"><b>3</b>ご担当者さま</p>
           <div class="field"><label for="d-company">企業名 <span class="req">必須</span></label><input id="d-company" name="company" autocomplete="organization" maxlength="200" required /><span class="err">企業名を入れてください</span></div>
           <div class="field"><label for="d-name">お名前 <span class="req">必須</span></label><input id="d-name" name="name" autocomplete="name" maxlength="100" required /><span class="err">お名前を入れてください</span></div>
           <div class="field"><label for="d-email">メールアドレス <span class="req">必須</span></label><input id="d-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required /><span class="err">メールアドレスを正しく入れてください</span></div>
@@ -823,19 +832,20 @@ def build_health():
             <p class="privacy-t">個人情報の取り扱いについて</p>
             <ol>
               <li><b>事業者</b>株式会社HAKI pro（〒733-0001 広島市西区大芝2丁目9-2）</li>
-              <li><b>利用の目的</b>ご入力いただいた情報は、資料の提供、健康経営サポートなど当社のサービスのご案内、お問い合わせへの回答のために使います。ご案内のメールは、いつでも停止をご依頼いただけます。</li>
+              <li><b>利用の目的</b>ご入力いただいた情報は、診断結果と資料の提供、健康経営サポートなど当社のサービスのご案内、お問い合わせへの回答のために使います。ご案内のメールは、いつでも停止をご依頼いただけます。</li>
+              <li><b>AIによる診断</b>診断のため、会社の状況とセルフチェックの回答を、AIの提供会社（Anthropic社）に送って処理します。企業名・お名前・連絡先は送りません。</li>
               <li><b>第三者への提供</b>ご本人の同意がある場合と、法令に基づく場合を除き、第三者に提供しません。</li>
               <li><b>管理</b>情報は当社が契約するデータ保管サービスに保存し、当社の担当者だけが見られるように管理します。</li>
               <li><b>開示・訂正・削除</b>ご本人からの開示・訂正・利用停止・削除のご依頼は、info@haki-pro.com までご連絡ください。ご本人であることを確かめたうえで対応します。</li>
-              <li><b>入力が必須の項目</b>必須の項目をご入力いただけない場合は、資料をお渡しできません。</li>
+              <li><b>入力が必須の項目</b>必須の項目をご入力いただけない場合は、診断結果と資料をお渡しできません。</li>
             </ol>
           </div>
           <div class="field consent"><label><input type="checkbox" name="consent" id="d-consent" required /> 個人情報の取り扱いに同意する <span class="req">必須</span></label><span class="err">同意にチェックを入れてください</span></div>
-          <button class="btn btn-rainbow" type="submit" style="justify-self:stretch">同意して資料をダウンロード <span class="arr">{arrow()}</span></button>
+          <button class="btn btn-rainbow" type="submit" style="justify-self:stretch">診断して、ガイドを受け取る <span class="arr">{arrow()}</span></button>
           <p class="dl-msg" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
-      <script src="{pre}assets/js/download.js" defer></script>
+      <script type="module" src="{pre}assets/js/download.js"></script>
     </section>
 {donation(pre)}{cta(pre)}"""
     page("health-management", "健康経営サポート事業", "元プロアスリートと専門家が「組織のパーソナルトレーナー」として、月1回の運動指導の月額プラン（月50,000円から）・体力測定・栄養調査・ストレスチェックなどで、企業の健康経営を支えます。", body, scene=True)
@@ -1143,6 +1153,7 @@ def build_contact():
         if (k === "school") sel.value = "野球スクール";
         if (k === "donation") sel.value = "企業ロゴ入りボールの寄贈";
         if (k === "talk") sel.value = "講演会";
+        if (k === "health") sel.value = "健康経営サポート";
         var note = document.querySelector(".school-note");
         var sync = function () {{ note.hidden = sel.value !== "野球スクール"; }};
         sel.addEventListener("change", sync);

@@ -806,3 +806,31 @@ body.menu-open { overflow: hidden; }
 .dl-done { padding: 8px 0; }
 .dl-done p { margin: 0 0 12px; }
 .dl-done .t { font-size: 22px; font-weight: 700; }
+
+/* 健康経営かんたん診断：質問の区切り・セルフチェック・診断結果 */
+.dl-step { margin: 10px 0 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-weight: 700; font-size: 17px; padding-top: 14px; border-top: 1px solid var(--line); }
+.dl-form-t + .dl-step, .dl-form > .dl-step:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+.dl-step b { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 14px; }
+.dl-step small { width: 100%; font-weight: 500; font-size: 13px; color: var(--ink-3); }
+.sd-checks { display: grid; gap: 8px; }
+.sd-check { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--bg-2); font-size: 15px; line-height: 1.55; cursor: pointer; transition: background-color .2s var(--ease), box-shadow .2s var(--ease); }
+.sd-check input { flex: none; width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--ink); }
+.sd-check:has(input:checked) { background: #fff; box-shadow: inset 0 0 0 2px var(--ink); }
+.sd-result { display: grid; gap: 14px; }
+.sd-head { display: flex; justify-content: space-between; align-items: center; }
+.sd-k { margin: 0; font-weight: 700; letter-spacing: .12em; font-size: 14px; color: var(--ink-2); }
+.sd-level { margin: 0; padding: 6px 16px; border-radius: 999px; font-weight: 700; font-size: 16px; color: #fff; }
+.sd-ok { background: var(--h-green); } .sd-warn { background: #c99a00; } .sd-bad { background: var(--h-red); }
+.sd-headline { margin: 0; font-weight: 700; font-size: clamp(19px, 2vw, 23px); line-height: 1.6; }
+.sd-sum, .sd-cert { margin: 0; font-size: 15px; line-height: 1.85; color: var(--ink-2); }
+.sd-count { margin: 0; font-size: 13px; color: var(--ink-3); }
+.sd-sub { margin: 8px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-weight: 700; font-size: 16px; }
+.sd-pri { margin: 0; padding: 0; list-style: none; counter-reset: p; display: grid; gap: 12px; }
+.sd-pri li { counter-increment: p; display: grid; gap: 4px; padding-left: 38px; position: relative; font-size: 14.5px; line-height: 1.75; color: var(--ink-2); }
+.sd-pri li::before { content: counter(p, decimal-leading-zero); position: absolute; left: 0; top: 2px; font-weight: 700; font-size: 14px; color: var(--h-blue); }
+.sd-pri b { font-size: 16px; color: var(--ink); }
+.sd-act { color: var(--ink); }
+.sd-months { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.sd-months li { padding: 10px 14px; border-radius: 10px; background: var(--bg-2); font-weight: 700; font-size: 15px; }
+.sd-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.sd-note { margin: 0; font-size: 12.5px; color: var(--ink-3); }
