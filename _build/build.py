@@ -806,9 +806,9 @@ def build_health():
             <li>人が1人辞めたときの費用と、社員1人あたりの月額</li>
             <li>健康経営優良法人の申請・発表のカレンダー</li>
             <li>12か月の運動指導テーマ例</li>
-            <li>そのまま使える、社長への提案シート</li>
+            <li>書き込んで使える、導入検討シート</li>
           </ul>
-          <p class="dl-note reveal">PDF・10ページ・約520KB</p>
+          <p class="dl-note reveal">PDF・10ページ・約520KB　チェック欄と記入欄は、印刷しなくても入力できます。</p>
         </div>
         <form class="form card dl-form reveal" id="dl-form" novalidate data-pdf="{pre}assets/doc/haki-pro-kenko-keiei.pdf">
           <p class="dl-form-t">必要事項をご入力ください</p>
