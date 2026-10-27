@@ -53,4 +53,5 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
   鍵がない・AI が失敗したときは `assets/js/shindan-rules.mjs` の決まった計算（ruleDiagnose）で診断。サーバーにつながらないときは画面側で計算して Supabase に直接保存。
   回答と診断は haki_download_requests の answers / check_count / diagnosis / diagnosis_by（'ai' か 'rule'）。AI に送るのは会社の状況の回答だけ（企業名・名前・連絡先は送らない。個人情報の取り扱いに記載）。
   診断の文は textContent で入れる（AI の文をそのまま HTML にしない）。「。」で改行
+  診断の入力欄は別ページ `/health-management/shindan/`（`build_shindan`）。健康経営のページの #download には「約3分・無料」と3つの手順と「診断をはじめる」ボタンだけを置く（2026-10-27 オーナー指示「縦長の一覧をそのまま載せると雑に見える」）。診断ページには右下の「相談してみる」ボタンを出さない（入力欄に重なるため）。
   セクションのクラス名は `doc-dl`（`dl` は会社概要の表とぶつかる）。資料を作り直したら、公開前に必ずオーナーに見せる（GitHub は公開なので、OK まで送らない）
