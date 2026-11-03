@@ -75,8 +75,8 @@
 .kb.kb-p::before, .kb.kb-f::before { animation: kb-shine 4.2s cubic-bezier(.6, 0, .3, 1) 1.2s infinite; }
 @keyframes kb-shine { 0%, 62% { background-position: -160% 0, 0 0; } 100% { background-position: 260% 0, 0 0; } }
 
-/* 古い飾り（丸い矢印の入れ物・以前の光・色の点）を消す */
-.kb.kb.kb .kb-a, .kb.kb.kb .kb-a:hover { width: 1.3em; height: 1.3em; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform: none; color: inherit; }
+/* 古い飾り（丸い矢印の入れ物・以前の光・色の点）を消す。矢印の入れ物は必ず重ね置き（HAKI pro の .btn .arr { display: inline-block } に負けて、隠れた2本目の矢印が右にはみ出した。2026-11-03） */
+.kb.kb.kb .kb-a, .kb.kb.kb .kb-a:hover { display: inline-grid; place-items: center; overflow: hidden; flex: none; width: 1.3em; height: 1.3em; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform: none; color: inherit; }
 .kb.kb.kb .kb-t, .kb.kb.kb span:has(> .kb-t) { color: inherit; }
 /* HAKI pro の右下「相談してみる」は、横に広い画面では出さない（元の決まりのまま） */
 @media (min-width: 1240px) { :is(a, button).kb.kb.kb.kb.fab { display: none; } }
