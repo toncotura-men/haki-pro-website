@@ -77,3 +77,4 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 
 - build.py の最後に `_build/phrase.py`（company-website の tools/phrase.py と同じ中身）をかけ、全文に言葉の区切り・句読点の後・かっこの前の見えない区切りを入れる。CSS は `body { word-break: keep-all; overflow-wrap: anywhere; }`（site.css の最後）
 - budoux は **0.10.2** を使う（`pip install budoux==0.10.2`）。数字・英字の間には区切りを入れない（「200」「2026」が割れない）
+- かっこの直後（「『（など）と、閉じかっこ・句読点の直前には区切りを入れない（2026-11-03「なり「／実施」と切れた）
