@@ -503,7 +503,8 @@ const MODES = {
         L.portrait = camera.aspect < 0.9;
         L.R = L.portrait ? Math.min(v.w * 0.62, v.h * 0.3) : Math.min(v.h * 0.4, v.w * 0.3);
         L.C.set(0, L.portrait ? v.h * 0.1 : v.h * 0.06, 0);
-        L.S = Math.min((2 * v.w * (L.portrait ? 0.8 : 0.5)) / LOGO_W, v.h * 0.16);
+        // スマホ（縦長）は最後のカメラが少し近づく分（約1.09倍）を見込んで、ロゴ全体が画面幅の約7割に収まる大きさ（2026-11-03 見切れていた）
+        L.S = Math.min((2 * v.w * (L.portrait ? 0.64 : 0.5)) / LOGO_W, v.h * 0.16);
         L.logo.set(0, L.portrait ? v.h * 0.02 : 0, 0);
         neb.material.uniforms.uAspect.value = camera.aspect;
       },
@@ -564,7 +565,9 @@ const MODES = {
         const yaw = Math.sin(spin * Math.PI) * 0.42 * (1 - b);
         const pitch = Math.sin(spin * Math.PI) * 0.18;
         const dist = CAMZ - g * 0.8 + b * 1.2 - r * 1.2;
-        camera.position.set(C.x + Math.sin(yaw) * dist + ptr.x * 0.35, C.y + Math.sin(pitch) * dist - ptr.y * 0.25, Math.cos(yaw) * dist);
+        // ロゴの場面では指・カーソルでカメラを動かさない（スマホで指を動かすとロゴが端から切れたため）
+        const pk = 1 - r;
+        camera.position.set(C.x + Math.sin(yaw) * dist + ptr.x * 0.35 * pk, C.y + Math.sin(pitch) * dist - ptr.y * 0.25 * pk, Math.cos(yaw) * dist);
         camera.lookAt(C.x * (1 - r) + L.logo.x * r, C.y * (1 - r) + L.logo.y * r, 0);
         camera.fov = 38 + warp * 26;
         camera.updateProjectionMatrix();
