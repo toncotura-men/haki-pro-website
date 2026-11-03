@@ -72,3 +72,8 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 
 - ボタン（`.btn` `.nav-cta` `.drawer-cta` `.fab` の「相談してみる」）は HERO's CUP と同じ作り：少し斜めのオレンジの板・文字が流れる動き・光が走る。`assets/css/btn2.css` と `assets/js/btn2.js`（company-website と同じ中身。直すときは3か所とも）
 - build.py の head に読み込みを足した。作り直しのときに消さない。「相談してみる」の色の点は矢印に置き換わる。横に広い画面（1240px 以上）では今までどおり出さない
+
+## 改行（2026-11-03 オーナー指示「改行おかしいところ全部直して」）
+
+- build.py の最後に `_build/phrase.py`（company-website の tools/phrase.py と同じ中身）をかけ、全文に言葉の区切り・句読点の後・かっこの前の見えない区切りを入れる。CSS は `body { word-break: keep-all; overflow-wrap: anywhere; }`（site.css の最後）
+- budoux は **0.10.2** を使う（`pip install budoux==0.10.2`）。数字・英字の間には区切りを入れない（「200」「2026」が割れない）

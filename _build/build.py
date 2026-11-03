@@ -6,11 +6,14 @@
 出力はリポジトリ直下の各フォルダの index.html（GitHub Pages がそのまま公開する）。
 """
 import re
+import sys
 from pathlib import Path
 
 import budoux  # 日本語を「言葉のまとまり」で折り返すため（pip install budoux）
 
 _PHRASE = budoux.load_default_japanese_parser()
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from phrase import process as phrase_all  # 全文に言葉の区切りを入れる仕上げ（2026-11-03。company-website の tools/phrase.py と同じ中身）
 _PHRASE_CLASSES = ("lead", "hero-lead", "scrub", "voice", "serif", "h1", "h2", "h3")
 
 
@@ -136,11 +139,11 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=19" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=20" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
-  <script src="{pre}assets/js/btn2.js?v=1" defer></script>
+  <script src="{pre}assets/js/btn2.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
@@ -196,7 +199,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
 """
     out = ROOT / slug / "index.html" if slug else ROOT / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(focus_images(phrase_breaks(html)), encoding="utf-8")
+    out.write_text(phrase_all(focus_images(phrase_breaks(html))), encoding="utf-8")
 
 
 def hero(eyebrow, title_html, lead, scene, *, crumbs=None, extra="", sub=True):

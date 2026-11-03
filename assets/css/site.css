@@ -846,3 +846,7 @@ body.menu-open { overflow: hidden; }
 .sd-months li { padding: 10px 14px; border-radius: 8px; background: var(--bg-2); font-weight: 700; font-size: 15px; }
 .sd-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .sd-note { margin: 0; font-size: 12.5px; color: var(--ink-3); }
+
+/* 言葉の途中で改行しない（2026-11-03 オーナー指示「改行おかしいところ全部直して」）。
+   本文には言葉の区切りごとに見えない区切り（U+200B）が入っている。そこと空白・句読点でだけ改行する。長すぎる語だけははみ出さないよう折る */
+body { word-break: keep-all; overflow-wrap: anywhere; }

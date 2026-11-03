@@ -11,7 +11,7 @@
   function split(text) {
     var t = document.createElement("span");
     t.className = "kb-t"; t.setAttribute("aria-hidden", "true");
-    Array.from(text.trim()).forEach(function (ch, i) {
+    Array.from(text.replace(/\u200b/g, "").trim()).forEach(function (ch, i) {
       var c = document.createElement("span");
       if (ch === " " || ch === "　") { c.className = "kb-sp"; t.appendChild(c); return; }
       c.className = "kb-c"; c.style.setProperty("--i", i);
@@ -32,7 +32,7 @@
     if (el.classList.contains("kb")) return;
     var arr = el.querySelector("i, .arr");
     var small = el.querySelector("small");
-    var full = el.textContent.replace(/\s+/g, " ").trim();
+    var full = el.textContent.replace(/\u200b/g, "").replace(/\s+/g, " ").trim();
     if (!full) return;
     el.setAttribute("aria-label", small ? full.replace(small.textContent.trim(), "（" + small.textContent.trim() + "）").replace(/\s+（/, "（") : full);
 
