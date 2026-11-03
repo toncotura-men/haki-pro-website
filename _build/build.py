@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=20" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=21" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -719,8 +719,8 @@ def build_health():
           <p class="k en reveal" style="font-size:13px;letter-spacing:.14em;color:var(--ink-3);font-weight:700">VOICES</p>
           <div class="voices" data-stagger style="margin-top:20px">
             <figure class="voice reveal"><p class="voice-b">「健康診断で指導が入ったのですが、<br />どうしたらいいですか？」</p><figcaption class="voice-who">50代・男性　管理職</figcaption></figure>
-            <figure class="voice f reveal"><p class="voice-b">「日々の業務で首肩が辛かったり、<br />慢性的な腰痛をなんとかしたい」</p><figcaption class="voice-who">30代・女性　事務職</figcaption></figure>
-            <figure class="voice reveal"><p class="voice-b">「最近なんだか<br />ストレスが溜まって……」</p><figcaption class="voice-who">20代・男性　営業職</figcaption></figure>
+            <figure class="voice f reveal"><p class="voice-b"><span class="ln" style="font-size:min(1em, calc((100vw - 84px) / 16.6))">「日々の業務で首肩が辛かったり、</span><span class="ln" style="font-size:min(1em, calc((100vw - 84px) / 16.6))">慢性的な腰痛をなんとかしたい」</span></p><figcaption class="voice-who">30代・女性　事務職</figcaption></figure>
+            <figure class="voice reveal"><p class="voice-b"><span class="ln" style="font-size:min(1em, calc((100vw - 84px) / 19.6))">「最近なんだかストレスが溜まって……」</span></p><figcaption class="voice-who">20代・男性　営業職</figcaption></figure>
           </div>
           <p class="h3 reveal" style="margin-top:28px">職場から、こんな声が上がっていませんか？</p>
           <p class="muted reveal">健康は、従業員と真剣に話し合えるコンテンツです。</p>
@@ -740,8 +740,8 @@ def build_health():
             <p class="stat-k">1年間で会社を辞めた人の割合（離職率）</p>
             <div class="cmp-row" style="--c:var(--h-red)"><span class="cmp-l">日本全体の平均</span><b class="cmp-v num"><span data-count="11.4">11.4</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.114"></span></span></div>
             <div class="cmp-row" style="--c:var(--h-green)"><span class="cmp-l">健康経営優良法人に<br />認定された会社</span><b class="cmp-v num"><span data-count="5.4">5.4</span><small>%</small></b><span class="cmp-bar"><span class="cmp-fill" style="--v:.054"></span></span></div>
-            <p class="stat-note">健康経営に取り組む会社は、辞める人が日本全体の半分以下です。</p>
-            <p class="stat-src">出典：経済産業省「健康経営の推進について」（2021年10月）</p>
+            <p class="stat-note">健康経営に取り組む会社は、<br /><span class="ln" style="font-size:min(1em, calc((100vw - 96px) / 17.6))">辞める人が日本全体の半分以下です。</span></p>
+            <p class="stat-src"><span class="ln" style="font-size:min(1em, calc((100vw - 96px) / 27))">出典：経済産業省「健康経営の推進について」（2021年10月）</span></p>
           </div>
           {rows([(t, d) for n, t, d, x in merits])}
         </div>

@@ -78,3 +78,5 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - build.py の最後に `_build/phrase.py`（company-website の tools/phrase.py と同じ中身）をかけ、全文に言葉の区切り・句読点の後・かっこの前の見えない区切りを入れる。CSS は `body { word-break: keep-all; overflow-wrap: anywhere; }`（site.css の最後）
 - budoux は **0.10.2** を使う（`pip install budoux==0.10.2`）。数字・英字の間には区切りを入れない（「200」「2026」が割れない）
 - かっこの直後（「『（など）と、閉じかっこ・句読点の直前には区切りを入れない（2026-11-03「なり「／実施」と切れた）
+- 閉じかっこ（」』）】）の後ろには必ず区切りを入れる（Safari は「」の後ろで改行しないことがあり、長いまとまりを無理に折って「「」の直後で切れた）
+- 1行で見せたい文（吹き出しの各行・出典など）は `<span class="ln" style="font-size:min(1em, calc((100vw - 余白px) / 文字数))">` で包む（`.ln` は折り返さない。狭い画面では文字が少し小さくなる）。2026-11-03 オーナー指示「ピンクの吹き出しは2行・青は1行・出典は1行」

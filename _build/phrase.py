@@ -60,7 +60,7 @@ def process(src):
         for ph in P.parse(text)[:-1]:
             idx += len(ph); cuts.append(idx)
         # 句読点の後・かっこの前でも必ず区切る
-        for m in re.finditer(r"[、。・／]", text):
+        for m in re.finditer(r"[、。・／」』）】]", text):
             if 0 < m.end() < len(text): cuts.append(m.end())
         for m in re.finditer(r"[「『（]", text):
             if m.start() > 0: cuts.append(m.start())

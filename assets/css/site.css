@@ -850,3 +850,7 @@ body.menu-open { overflow: hidden; }
 /* 言葉の途中で改行しない（2026-11-03 オーナー指示「改行おかしいところ全部直して」）。
    本文には言葉の区切りごとに見えない区切り（U+200B）が入っている。そこと空白・句読点でだけ改行する。長すぎる語だけははみ出さないよう折る */
 body { word-break: keep-all; overflow-wrap: anywhere; }
+
+/* 1行で見せたい文（吹き出しの各行・出典など）。画面が狭いときは文字を少し小さくして1行に収める（2026-11-03 オーナー指示）。
+   文字の大きさは各行の style の min(1em, calc((100vw - 余白) / 文字数)) */
+.ln { display: block; white-space: nowrap; }
