@@ -70,7 +70,9 @@ def process(src):
                 o = m.start()
                 for q in parts[:-1]:
                     o += len(q); cuts.append(o)
-        cuts = sorted(set(c for c in cuts if 0 < c < len(text)))
+        # かっこの直後・閉じかっこや句読点の直前では区切らない（2026-11-03「なり「／実施」と切れた）
+        NOAFTER = "「『（(【〈《［"; NOBEFORE = "」』）)】〉》］、。，．,.・ー！？!?：:；;"
+        cuts = sorted(set(c for c in cuts if 0 < c < len(text) and text[c-1] not in NOAFTER and text[c] not in NOBEFORE))
         ins = {}
         for c in cuts:
             a, b = text[c-1], text[c]
