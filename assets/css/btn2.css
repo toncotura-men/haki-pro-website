@@ -1,0 +1,99 @@
+/* =========================================================
+   ボタンの作り直し（2026-11-03 オーナー指示「縦に大きすぎる・もっとかっこよく・他のとこも」）
+   ・全ページで最後に読み込む。中身の組み替えは assets/js/btn2.js（文字を1字ずつに分ける）
+   ・形：少し斜めの板（スポーツの勢い）。高さは 48px 前後に詰めた
+   ・動き：画面に入ると文字が1字ずつ下から立ち上がる／カーソルを乗せると文字が上へ流れて入れ替わる・
+     矢印が抜けて次の矢印が入る／主なボタンは光が数秒ごとに走る／押すと少し縮む（スマホは押すと文字が流れる）
+   ・背景・斜めの形は ::before に描く（磁石の動き data-magnetic が要素の transform を使うため）
+   ・「視差効果を減らす」の設定では動かさない
+   ・2026-11-03 オーナー指示「全てこのボタンに統一」：HAKI pro・PUMPS も同じ中身のファイルを置く（直すときは3つとも）。色は全部オレンジ
+   ========================================================= */
+:is(a, button).kb.kb.kb.kb {
+  --kb-h: 48px; --kb-fs: 15px; --kb-px: 22px;
+  --kb-bg: #e04f08; --kb-bg2: #ff7a2e; --kb-ink: #fff; --kb-bd: transparent;
+  --kb-e: cubic-bezier(.7, 0, .2, 1);
+  position: relative; isolation: isolate; overflow: visible;
+  display: inline-flex; flex-direction: row !important; align-items: center; justify-content: center; gap: 12px;
+  min-height: 0; height: var(--kb-h); flex-shrink: 0; padding: 0 calc(var(--kb-px) - 4px) 0 var(--kb-px) !important;
+  border: 0 !important; border-radius: 0 !important; clip-path: none !important;
+  background: none !important; box-shadow: none !important; backdrop-filter: none !important;
+  color: var(--kb-ink) !important; font-family: "Zen Kaku Gothic New", sans-serif; font-size: var(--kb-fs) !important;
+  font-weight: 700; letter-spacing: .06em; line-height: 1; white-space: nowrap; text-decoration: none;
+  transition: scale .18s ease-out; -webkit-tap-highlight-color: transparent;
+}
+.kb.kb.kb.kb::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 3px;
+  border: 1.5px solid var(--kb-bd); border-radius: 4px; transform: skewX(-12deg);
+  background:
+    linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .38) 50%, transparent 62%) -160% 0 / 60% 100% no-repeat,
+    linear-gradient(100deg, var(--kb-bg2), var(--kb-bg) 60%);
+  box-shadow: 0 10px 26px -14px var(--kb-glow, rgba(224, 79, 8, .85));
+  transition: box-shadow .35s ease, filter .35s ease, background-color .3s ease;
+  transform-origin: center; filter: none; opacity: 1; -webkit-mask: none; mask: none;
+}
+.kb.kb.kb.kb::after { content: none; display: none; }
+.kb.kb.kb.kb:active { scale: .96; }
+
+/* 種類 */
+:is(a, button).kb.kb.kb.kb.kb-lg { --kb-h: 54px; --kb-fs: 16px; --kb-px: 28px; }
+:is(a, button).kb.kb.kb.kb.kb-n { --kb-h: 38px; --kb-fs: 13px; --kb-px: 16px; gap: 8px; }
+:is(a, button).kb.kb.kb.kb.kb-d { --kb-h: 50px; --kb-fs: 16px; display: flex; width: 100%; }
+:is(a, button).kb.kb.kb.kb.kb-f { --kb-h: 46px; --kb-fs: 14px; --kb-px: 20px; position: fixed; gap: 10px; }
+.kb.kb-f small { display: block; padding-left: 10px; border-left: 1px solid rgba(255, 255, 255, .45); font-size: 11px; font-weight: 500; letter-spacing: .08em; opacity: .9; }
+
+/* 文字：1字ずつ2枚重ね（上の1枚が抜け、下の1枚が入る） */
+.kb-t { position: relative; display: inline-flex; }
+.kb-c { position: relative; display: inline-block; overflow: hidden; padding: .12em 0; margin: -.12em 0; }
+.kb-c > span { display: block; transition: transform .55s var(--kb-e); transition-delay: calc(var(--i) * 18ms); }
+.kb-c > span + span { position: absolute; left: 0; top: .12em; transform: translateY(115%); }
+.kb-sp { width: .3em; }
+
+/* 矢印：抜けて、次が入る */
+.kb-a { position: relative; display: inline-grid; place-items: center; width: 1.3em; height: 1.3em; overflow: hidden; font-style: normal; font-family: "Anton", "Zen Kaku Gothic New", sans-serif; font-weight: 400; }
+.kb-a > span { grid-area: 1 / 1; transition: transform .5s var(--kb-e); }
+.kb-a > span + span { transform: translateX(-140%); }
+
+/* 画面に入ったとき：1字ずつ立ち上がる */
+.kb.kb-wait .kb-c > span:first-child { transform: translateY(115%); }
+.kb.kb-wait .kb-a > span:first-child { transform: translateX(-140%); }
+.kb.kb-in .kb-c > span:first-child { transition-duration: .7s; transition-timing-function: cubic-bezier(.2, .8, .2, 1); transition-delay: calc(120ms + var(--i) * 40ms); }
+
+/* 乗せた・押したとき：文字が上へ流れて入れ替わる */
+@media (hover: hover) and (pointer: fine) {
+  .kb:hover .kb-c > span:first-child { transform: translateY(-115%); }
+  .kb:hover .kb-c > span + span { transform: translateY(0); }
+  .kb:hover .kb-a > span:first-child { transform: translateX(140%); }
+  .kb:hover .kb-a > span + span { transform: translateX(0); }
+  .kb.kb.kb.kb:hover::before { filter: brightness(1.08); box-shadow: 0 16px 34px -14px var(--kb-glow, rgba(224, 79, 8, .95)); background-color: transparent; }
+}
+.kb.kb-roll .kb-c > span:first-child { transform: translateY(-115%); }
+.kb.kb-roll .kb-c > span + span { transform: translateY(0); }
+.kb.kb-roll .kb-a > span:first-child { transform: translateX(140%); }
+.kb.kb-roll .kb-a > span + span { transform: translateX(0); }
+
+/* 主なボタン（申し込み）：光が数秒ごとに走る */
+.kb.kb-p::before, .kb.kb-f::before { animation: kb-shine 4.2s cubic-bezier(.6, 0, .3, 1) 1.2s infinite; }
+@keyframes kb-shine { 0%, 62% { background-position: -160% 0, 0 0; } 100% { background-position: 260% 0, 0 0; } }
+
+/* 古い飾り（丸い矢印の入れ物・以前の光・色の点）を消す */
+.kb.kb.kb .kb-a, .kb.kb.kb .kb-a:hover { width: 1.3em; height: 1.3em; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; transform: none; color: inherit; }
+.kb.kb.kb .kb-t, .kb.kb.kb span:has(> .kb-t) { color: inherit; }
+/* HAKI pro の右下「相談してみる」は、横に広い画面では出さない（元の決まりのまま） */
+@media (min-width: 1240px) { :is(a, button).kb.kb.kb.kb.fab { display: none; } }
+
+/* スマホ */
+@media (max-width: 640px) {
+  :is(a, button).kb.kb.kb.kb { --kb-h: 46px; --kb-fs: 15px; --kb-px: 20px; }
+  :is(a, button).kb.kb.kb.kb.kb-lg { --kb-h: 50px; --kb-fs: 15px; --kb-px: 22px; }
+  :is(a, button).kb.kb.kb.kb.kb-f { --kb-h: 42px; --kb-fs: 13px; --kb-px: 16px; }
+  :is(a, button).kb.kb.kb.kb.kb-n { --kb-h: 36px; }
+}
+
+/* 動きを減らす設定 */
+@media (prefers-reduced-motion: reduce) {
+  .kb .kb-c > span, .kb .kb-a > span { transition: none !important; }
+  .kb.kb-wait .kb-c > span:first-child, .kb.kb-wait .kb-a > span:first-child { transform: none; }
+  .kb:hover .kb-c > span:first-child, .kb.kb-roll .kb-c > span:first-child, .kb:hover .kb-a > span:first-child, .kb.kb-roll .kb-a > span:first-child { transform: none !important; }
+  .kb .kb-c > span + span, .kb .kb-a > span + span { visibility: hidden; }
+  .kb.kb-p::before, .kb.kb-f::before { animation: none; }
+}

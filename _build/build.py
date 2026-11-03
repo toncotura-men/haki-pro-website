@@ -137,8 +137,10 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{pre}assets/css/site.css?v=19" />
+  <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=1" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
+  <script src="{pre}assets/js/btn2.js?v=1" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
