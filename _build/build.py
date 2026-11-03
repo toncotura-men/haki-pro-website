@@ -1159,7 +1159,7 @@ def build_contact():
           <div class="field"><label for="f-mail">メールアドレス <span class="req">必須</span></label><input id="f-mail" name="email" type="email" autocomplete="email" inputmode="email" required /><span class="err">メールアドレスを正しく入れてください</span></div>
           <div class="field"><label for="f-tel">電話番号 <span class="req">必須</span></label><input id="f-tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" required /><span class="err">電話番号を入れてください</span></div>
           <div class="field"><label for="f-kind">お問い合わせの種類 <span class="req">必須</span></label><select id="f-kind" name="kind" required><option value="">選択してください</option>{''.join(f'<option>{k}</option>' for k in kinds)}</select><span class="err">種類を選んでください</span></div>
-          <p class="note school-note" hidden style="margin:-8px 0 0;padding:14px 16px;border-radius:14px;background:var(--bg-2);color:var(--ink)">野球スクールのお問い合わせは、スクール専用のフォームで受け付けています。<a href="{SCHOOL_FORM}" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:700">お問い合わせフォームを開く ↗</a></p>
+          <p class="note school-note" hidden style="margin:-8px 0 0;padding:14px 16px;border-radius:10px;background:var(--bg-2);color:var(--ink)">野球スクールのお問い合わせは、スクール専用のフォームで受け付けています。<a href="{SCHOOL_FORM}" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:700">お問い合わせフォームを開く ↗</a></p>
           <div class="field"><label for="f-body">ご用件 <span class="req">必須</span></label><textarea id="f-body" name="body" required></textarea><span class="err">ご用件を入れてください</span></div>
           <p class="note">「送信する」を押すと、入力した内容が入ったメールが開きます。そのまま送信してください。<br />※商品やサービスの一方的な営業メールは、一切お断りいたします。</p>
           <button class="btn" type="submit" style="justify-self:start">送信する <span class="arr">{arrow()}</span></button>
@@ -1240,7 +1240,7 @@ def build_404():
     for (var i = 0; i < map.length; i++) if (map[i][0].test(map[i][2] ? location.pathname : p)) { location.replace(map[i][1]); return; }
   })();
 </script>
-<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Meiryo",sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:999px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
+<style>body{margin:0;min-height:100svh;display:grid;place-items:center;background:#070a14;color:#f4f5fa;font-family:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic Medium","Meiryo",sans-serif;text-align:center;padding:24px}a{color:#fff;display:inline-block;margin-top:24px;padding:14px 26px;border-radius:8px;box-shadow:inset 0 0 0 1px #fff;text-decoration:none}</style>
 </head><body><div><p style="font-size:48px;font-weight:800;margin:0;letter-spacing:-.04em">404</p><p>お探しのページは見つかりませんでした。</p><a href="/">トップページへ</a></div></body></html>
 """,
         encoding="utf-8",
