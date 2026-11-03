@@ -854,3 +854,6 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 /* 1行で見せたい文（吹き出しの各行・出典など）。画面が狭いときは文字を少し小さくして1行に収める（2026-11-03 オーナー指示）。
    文字の大きさは各行の style の min(1em, calc((100vw - 余白) / 文字数)) */
 .ln { display: block; white-space: nowrap; }
+
+/* 途中で改行しないまとまり（短いかっこ「…」など。phrase.py が包む）。2026-11-03 */
+.nw { display: inline-block; }

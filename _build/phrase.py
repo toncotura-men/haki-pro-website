@@ -17,6 +17,7 @@ def tagname(t):
     m = re.match(r"</?\s*([a-zA-Z0-9]+)", t); return m.group(1).lower() if m else ""
 def process(src):
     src = src.replace(ZW, "")
+    src = re.sub(r'<span class="nw" data-q>(.*?)</span>', r"\1", src, flags=re.S)
     bstart = src.find("<body"); bstart = src.find(">", bstart) + 1
     head, body = src[:bstart], src[bstart:]
     toks = []; pos = 0
@@ -84,6 +85,19 @@ def process(src):
             s = toks[k][1]
             for off in sorted(set(offs), reverse=True): s = s[:off] + ZW + s[off:]
             toks[k][1] = s
+    # 短いかっこ「…」（18字以内・中にタグなし）は、途中で絶対に切れない箱で包む（2026-11-03 オーナー指摘「」で改行されていない」。
+    # 見えない区切りの扱いがブラウザで違っても、かっこの中は1つのまとまりで改行される）
+    skip = []
+    for k, (kind, s) in enumerate(toks):
+        if kind == "g":
+            n = tagname(s)
+            if n in SKIP and not s.startswith("<!--"):
+                if s.startswith("</"):
+                    if skip and skip[-1] == n: skip.pop()
+                elif not s.endswith("/>"): skip.append(n)
+            continue
+        if skip: continue
+        toks[k][1] = re.sub("「([^「」<>]{1,18})」", lambda m: '<span class="nw" data-q>「' + m.group(1).replace(ZW, "") + '」</span>', s)
     return head + "".join(t[1] for t in toks)
 if __name__ == "__main__":
   for f in sys.argv[1:]:
