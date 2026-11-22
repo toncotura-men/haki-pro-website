@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=31" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=32" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -1105,10 +1105,13 @@ def build_ball():
 
     <section class="sec night" data-dark id="sponsor">
       <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow reveal">SPONSOR BALL</p>
-          <h2 class="h2 split">御社の名前入りのボールを、<br />高校・大学の野球部へ。</h2>
-          <p class="lead reveal">企業さまに社名入りの再生球をお買い求めいただき、高校・大学の野球部へお届けします。<br />野球部は練習球を無料で受け取れます。<br />地元の部活の応援と、障がいのある方の仕事づくりを、一度に形にできます。</p>
+        <div class="split-2 sec-head" style="align-items:center">
+          <div>
+            <p class="eyebrow reveal">SPONSOR BALL</p>
+            <h2 class="h2 split">御社の名前入りのボールを、<br />高校・大学の野球部へ。</h2>
+            <p class="lead reveal">企業さまに社名入りの再生球をお買い求めいただき、高校・大学の野球部へお届けします。<br />野球部は練習球を無料で受け取れます。<br />地元の部活の応援と、障がいのある方の仕事づくりを、一度に形にできます。</p>
+          </div>
+          <figure class="talk-photo wide reveal ball-mock"><div class="ph"><img src="{pre}assets/img/ball-sponsor.webp" alt="HAKI proのロゴを印刷した硬式球のイメージ" width="1027" height="801" loading="lazy" /></div><figcaption>社名入りのイメージ（HAKI proのロゴの例）</figcaption></figure>
         </div>
         {cols(sponsor, colors=NIGHT_COLORS)}
         <p class="note reveal" style="margin-top:32px">※高校へのお届けは、高校野球の決まりに沿って、学校を通して行います。</p>
@@ -1183,10 +1186,15 @@ def build_sponsor():
                 crumbs=crumbs(pre, ("硬式球再生", f"{pre}ball-recycle/"), ("応援ボールのCSRと税金", None))) + f"""
     <section class="sec">
       <div class="wrap">
-        <div class="plans" data-stagger style="margin-top:0">
+        <div class="split-2" style="align-items:center">
+        <figure class="talk-photo wide reveal ball-mock"><div class="ph"><img src="{pre}assets/img/ball-sponsor.webp" alt="HAKI proのロゴを印刷した硬式球のイメージ" width="1027" height="801" loading="lazy" /></div><figcaption>社名入りのイメージ（HAKI proのロゴの例）</figcaption></figure>
+        <div>
+        <div class="plans plans-1" data-stagger style="margin-top:0">
           {''.join(f'<div class="plan reveal"><p class="plan-k">{k}</p><p class="plan-p" style="white-space:nowrap"><span class="num">{p}</span><span class="yen">{u}</span>{'<small>（税別）</small>' if u.startswith('円') else ''}</p></div>' for k, p, u in prices)}
         </div>
         <p class="note reveal">社名の印刷代を含みます。<br />年2回（240球）の応援もお受けしています。</p>
+        </div>
+        </div>
       </div>
     </section>
 

@@ -935,3 +935,9 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 /* パンくず（ホーム / … ）はページの一番上、メニューのすぐ下（2026-11-22 オーナー指摘「ページの上にあるものじゃないの？」） */
 .hero-sub .crumbs-top { position: absolute; top: calc(var(--header-h) + 18px); left: 0; right: 0; z-index: 1; }
 .hero-sub .crumbs-top .crumbs { margin-bottom: 0; }
+
+/* 社名入りボールのイメージ（本物の写真に HAKI pro のロゴを重ねたもの。2026-11-22 オーナー指示） */
+.ball-mock .ph { aspect-ratio: 1027 / 801 !important; }
+.ball-mock img { object-fit: cover; }
+.night .ball-mock figcaption { color: var(--on-night-2); }
+.plans-1 { grid-template-columns: 1fr !important; gap: 22px !important; }
