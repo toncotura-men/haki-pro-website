@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=25" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=26" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -1140,7 +1140,7 @@ def build_sponsor():
     pre = "../../"
     def sdg(*goals):
         """SDGs の目標を、国連の目標ごとの色の四角に番号＋目標の名前で見せる（2026-11-22 オーナー指摘「数字と文字が判別しづらい」）"""
-        return '<span class="sdgs">' + "".join(f'<span class="sdg" style="--s:{c}"><b>{n}</b><span>{t}</span></span>' for n, t, c in goals) + "</span>"
+        return '<span class="sdgs">' + "".join(f'<span class="sdg"><img src="../../assets/img/sdgs/goal-{n:02d}.webp" alt="" width="167" height="167" loading="lazy" /><span>目標{n}<br />{t}</span></span>' for n, t, c in goals) + "</span>"
     goals = [
         (1, "貧困を<br />なくそう", "#E5243B"), (2, "飢餓を<br />ゼロに", "#DDA63A"), (3, "すべての人に<br />健康と福祉を", "#4C9F38"),
         (4, "質の高い教育を<br />みんなに", "#C5192D"), (5, "ジェンダー平等を<br />実現しよう", "#FF3A21"), (6, "安全な水とトイレを<br />世界中に", "#26BDE2"),
@@ -1151,9 +1151,13 @@ def build_sponsor():
     ]
     mine = {3, 8, 10, 12}
     # SDGs の17の目標を一覧で見せ、応援ボールで取り組む4つだけ色を残す（2026-11-22 オーナー指示「ネットで見る17個のやつをまずポンと見せて」）
-    sdg_grid = ('<ol class="sdg-grid reveal" aria-label="SDGsの17の目標。応援ボールで取り組むのは3・8・10・12">'
-                + "".join(f'<li class="sdgt{" on" if n in mine else ""}" style="--s:{c};--i:{k}"><b>{n}</b><span>{t}</span></li>' for k, (n, t, c) in enumerate(goals))
-                + '<li class="sdgt sdgt-logo" style="--i:17"><b>SDGs</b><span>持続可能な<br />開発目標</span></li></ol>')
+    # 画像はオーナー提供の SDGs の17の目標の一覧（2026-11-22）を1枚ずつ切り出したもの（assets/img/sdgs/）
+    def alt(t):
+        return t.replace("<br />", "")
+    sdg_grid = ('<div class="sdg-wrap"><img class="sdg-title reveal" src="../../assets/img/sdgs/title.webp" alt="SUSTAINABLE DEVELOPMENT GOALS" width="636" height="95" loading="lazy" />'
+                '<ol class="sdg-grid reveal" aria-label="SDGsの17の目標。応援ボールで取り組むのは3・8・10・12">'
+                + "".join(f'<li class="sdgt{" on" if n in mine else ""}" style="--s:{c};--i:{k}"><img src="../../assets/img/sdgs/goal-{n:02d}.webp" alt="目標{n} {alt(t)}" width="167" height="167" loading="lazy" /></li>' for k, (n, t, c) in enumerate(goals))
+                + '<li class="sdgt sdgt-logo" style="--i:17"><img src="../../assets/img/sdgs/goal-18.webp" alt="SDGsのマーク" width="167" height="167" loading="lazy" /></li></ol></div>')
     csr = [
         ("地元の部活の応援", "地域の高校・大学の野球部に、練習球を無料で届けます", sdg((3, "すべての人に<br />健康と福祉を", "#4C9F38"))),
         ("障がいのある方の仕事づくり", "ボールの再生は、就労継続支援B型の事業所に出来高払いでお願いしています。<br />ご注文の分が工賃（はたらいた分のお金）になります", sdg((8, "働きがいも<br />経済成長も", "#A21942"), (10, "人や国の<br />不平等をなくそう", "#DD1367"))),
