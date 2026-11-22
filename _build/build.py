@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=22" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=23" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -901,6 +901,30 @@ def rows(items, href=None, start=1, colors=ROW_COLORS):
     return '<ol class="rows" data-stagger>' + "".join(out) + "</ol>"
 
 
+def cols(items, n=3, colors=ROW_COLORS):
+    """横に並ぶ列（上に色の線・番号・見出し・説明・リンク）。縦に長い一覧を横に並べるときに使う。2026-11-22"""
+    out = []
+    for i, it in enumerate(items):
+        title, desc = it[0], it[1]
+        link = f'<a class="link-arrow col-a" href="{it[3]}">{it[2]} <span class="circle">{arrow()}</span></a>' if len(it) > 3 else ""
+        out.append(
+            f'<li class="reveal" style="--c:{colors[i % len(colors)]}"><span class="col-n" aria-hidden="true">{i + 1:02d}</span>'
+            f'<p class="col-t">{title}</p><p class="col-d">{desc}</p>{link}</li>'
+        )
+    return f'<ol class="cols" style="--n:{n}" data-stagger>' + "".join(out) + "</ol>"
+
+
+def dtable(head, body_rows, caption=""):
+    """見やすい表。スマホでは行ごとのまとまりに並べ替える（各欄の見出しを小さく添える）。2026-11-22"""
+    th = "".join(f'<th scope="col">{h}</th>' for h in head)
+    trs = []
+    for r in body_rows:
+        cells = f'<th scope="row">{r[0]}</th>' + "".join(f'<td data-label="{head[i + 1]}"><span>{c}</span></td>' for i, c in enumerate(r[1:]))
+        trs.append(f"<tr>{cells}</tr>")
+    cap = f"<caption>{caption}</caption>" if caption else ""
+    return f'<div class="dtbl reveal"><table>{cap}<thead><tr>{th}</tr></thead><tbody>{"".join(trs)}</tbody></table></div>'
+
+
 BALL_MINI = '<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#f6f2ea"/><path d="M10 7c7 8 7 22 0 30M34 7c-7 8-7 22 0 30" fill="none" stroke="#d2232a" stroke-width="2.2" stroke-dasharray="2.2 2.4"/></svg>'
 
 
@@ -971,11 +995,9 @@ def build_ball():
         ("また使う", "中学・高校・大学の練習で、また使ってもらいます。古くなったら、また01へ。"),
     ]
     asks = [
-        ("硬式球の回収", "中学の硬式クラブ・高校・大学で使わなくなった硬式球を回収します。"),
-        ("再生球の販売", "張り替え・縫い直しを済ませた硬式球を、練習球として販売しています。1ダース4,800円（税別）、毎月の定期便は1割引きです。"),
-        ("社名入り応援ボール", "企業さまにお買い求めいただいた社名入りの再生球を、高校・大学の野球部へお届けします。"),
-        ("回収拠点パートナー", "店舗や企業さまに、ボールの回収拠点としてご参加いただけます。環境や地域への取り組みとして発信いただけます。"),
-        ("再生パートナー", "ボールの再生を出来高払いでお願いできる、就労継続支援B型の事業所さまを募集しています。まずは100球のお試しからお願いしています。"),
+        ("チーム・学校の方へ", "使わなくなった硬式球の回収と、再生球のご購入。<br />再生球は1ダース4,800円（税別）、毎月の定期便は1割引きです。", "回収・購入を相談する", pre + "contact/?kind=ball"),
+        ("企業の方へ", "社名入り応援ボールで、高校・大学の野球部を応援できます。<br />店舗での回収拠点としてのご参加もお受けしています。", "CSRと税金の扱いを見る", "sponsor/"),
+        ("福祉事業所の方へ", "ボールの再生を出来高払いでお願いできる、就労継続支援B型の事業所さまを募集しています。<br />まずは100球のお試しから。", "再生パートナーを相談する", pre + "contact/?kind=ball"),
     ]
     collect = [
         ("広島市内・近郊", "決まった日に、練習場や大会の会場まで車で引き取りに伺います。大会の会場には回収箱を置きます。"),
@@ -985,12 +1007,6 @@ def build_ball():
         ("10ダース（120球）〜 96,000円〜（税別）", "1球800円（税別）で、社名の印刷代を含みます。年2回（240球）の応援もお受けしています。"),
         ("贈る野球部を選べます", "御社の地元の学校や、社員の方の母校など、応援したい野球部をお選びいただけます。"),
         ("届けたことを形に残します", "お届けのときの写真をお渡しします。<br />御社のホームページ・採用の案内・CSR（企業の社会的な取り組み）の報告でお使いいただけます。"),
-    ]
-    tax = [
-        ("公立の高校・大学（県立・市立）", "学校を通して、県や市への寄付として受け取ってもらいます。<br />国や県・市への寄付は、法人税の計算で全額を経費（損金）にできます。"),
-        ("私立の高校・大学（学校法人）", "学校法人は、税金の決まりで「特定公益増進法人」にあたります。<br />ふつうの寄付金とは別の枠で、上限まで経費（損金）にできます。<br />学校法人から、受け取りの書類と証明書の写しを受け取ってください。"),
-        ("国立の大学", "国立大学法人への寄付は、使い道によっては全額を経費（損金）にできます。<br />大学の寄付の窓口で、扱いを確かめてからお届けします。"),
-        ("広告宣伝費として扱う場合", "社名を入れたボールのため、寄付ではなく広告宣伝費として経費にする考え方もあります。"),
     ]
     prices = [
         ("再生球", "4,800", "1ダース"),
@@ -1071,7 +1087,7 @@ def build_ball():
           <h2 class="h2 split">ボールの集め方</h2>
           <p class="lead reveal">集めたボールは、近くの就労継続支援B型の事業所に届き、そこで直して、そこから皆さんのもとへ送ります。</p>
         </div>
-        {rows(collect)}
+        {cols(collect, n=2)}
       </div>
     </section>
 
@@ -1095,23 +1111,15 @@ def build_ball():
           <h2 class="h2 split">御社の名前入りのボールを、<br />高校・大学の野球部へ。</h2>
           <p class="lead reveal">企業さまに社名入りの再生球をお買い求めいただき、高校・大学の野球部へお届けします。<br />野球部は練習球を無料で受け取れます。<br />地元の部活の応援と、障がいのある方の仕事づくりを、一度に形にできます。</p>
         </div>
-        {rows(sponsor, colors=NIGHT_COLORS)}
-        <p class="note reveal" style="margin-top:20px">※高校へのお届けは、高校野球の決まりに沿って、学校を通して行います。</p>
-        <div class="reveal" style="margin-top:28px"><a class="link-arrow" href="{pre}contact/?kind=sponsor">応援ボールを相談する <span class="circle">{arrow()}</span></a></div>
+        {cols(sponsor, colors=NIGHT_COLORS)}
+        <p class="note reveal" style="margin-top:32px">※高校へのお届けは、高校野球の決まりに沿って、学校を通して行います。</p>
+        <div class="btn-row reveal" style="margin-top:32px;gap:16px 32px;align-items:center">
+          <a class="btn btn-light" href="sponsor/">CSRと税金の扱いを見る <span class="arr">{arrow()}</span></a>
+          <a class="link-arrow" href="{pre}contact/?kind=sponsor">応援ボールを相談する <span class="circle">{arrow()}</span></a>
+        </div>
       </div>
     </section>
 
-    <section class="sec" id="tax">
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="eyebrow reveal">TAX</p>
-          <h2 class="h2 split">寄付の受け取り先と、<br />税金の扱い</h2>
-          <p class="lead reveal">応援ボールは、学校への寄付になります。<br />受け取り先によって、税金の扱いが変わります。<br />寄付の申し込みと、受け取りの書類のやりとりは、HAKI proがお手伝いします。</p>
-        </div>
-        {rows(tax)}
-        <p class="note reveal">寄付の金額は、お買い求めいただいたボールの代金がもとになります。<br />どの扱いにするかは、御社の顧問税理士にご確認ください。<br />出典：国税庁「寄附金を支出したとき」「No.5283 特定公益増進法人に対する寄附金」</p>
-      </div>
-    </section>
 
     <section class="sec bg-2">
       <div class="wrap">
@@ -1119,12 +1127,87 @@ def build_ball():
           <p class="eyebrow reveal">SERVICE</p>
           <h2 class="h2 split">サービス内容</h2>
         </div>
-        {rows(asks, href=pre + "contact/?kind=ball")}
-        <p class="note reveal" style="margin-top:20px">回収・ご購入・パートナーのご相談は、お問い合わせからお受けしています。</p>
+        {cols(asks)}
       </div>
     </section>
 {donation(pre, bg="")}{cta(pre)}"""
     page("ball-recycle", "硬式球再生", "中学の硬式クラブ・高校・大学で使い古した硬式球を集め、就労継続支援B型の皆さんが革を張り替えて縫い直し、また練習で使えるボールにする取り組みです。再生球の販売と、企業の社名入り応援ボールも行っています。", body, scene=True)
+
+
+def build_sponsor():
+    """社名入り応援ボールの CSR と税金（硬式球再生のページから開く）。2026-11-22 オーナー指示「別に飛ぶように・表で見やすく」。
+    税金は国税庁の資料で確認した内容だけを書く。最終判断は企業の顧問税理士。"""
+    pre = "../../"
+    csr = [
+        ("地元の部活の応援", "地域の高校・大学の野球部に、練習球を無料で届けます", "3 すべての人に健康と福祉を"),
+        ("障がいのある方の仕事づくり", "ボールの再生は、就労継続支援B型の事業所に出来高払いでお願いしています。<br />ご注文の分が工賃（はたらいた分のお金）になります", "8 働きがいも経済成長も<br />10 人や国の不平等をなくそう"),
+        ("資源の再利用", "捨てられるはずの硬式球を、革を張り替えて練習球に戻します", "12 つくる責任 つかう責任"),
+    ]
+    tax = [
+        ("公立の高校<br /><small>県立・市立</small>", "県・市<br /><small>学校を通して受け取り</small>", "<b>全額</b>", "県・市（学校）からの受け取りの書類"),
+        ("私立の高校・大学<br /><small>学校法人</small>", "学校法人<br /><small>特定公益増進法人</small>", "ふつうの寄付金とは<b>別の枠</b>で、上限まで", "受け取りの書類と、特定公益増進法人の証明書の写し"),
+        ("国立・公立の大学", "国立大学法人・公立大学法人", "使い道によっては<b>全額</b>", "大学の寄付の窓口で確認"),
+        ("広告宣伝費として扱う場合", "―", "<b>全額</b>（広告宣伝費）", "HAKI proの請求書"),
+    ]
+    steps = [
+        ("ご相談", "贈りたい学校と、ボールの数をお聞きします。"),
+        ("受け取りの調整", "学校と、県・市や学校法人の受け取りの手続きを進めます。"),
+        ("印刷・再生", "社名を入れ、就労継続支援B型の皆さんがボールを仕上げます。"),
+        ("お届け", "野球部へお届けし、そのときの写真をお渡しします。"),
+        ("書類", "学校からの受け取りの書類と、HAKI proの請求書をお渡しします。"),
+    ]
+    prices = [("1球", "800", "円"), ("最小の数", "120", "球〜"), ("10ダース", "96,000", "円〜")]
+    body = hero("SPONSOR BALL", "社名入り応援ボールの、<br />CSRと税金", "企業さまに社名入りの再生球をお買い求めいただき、高校・大学の野球部へお届けします。<br />地域への取り組みとして伝えられることと、税金の扱いをまとめました。", "loop",
+                crumbs=crumbs(pre, ("硬式球再生", f"{pre}ball-recycle/"), ("応援ボールのCSRと税金", None))) + f"""
+    <section class="sec">
+      <div class="wrap">
+        <div class="plans" data-stagger style="margin-top:0">
+          {''.join(f'<div class="plan reveal"><p class="plan-k">{k}</p><p class="plan-p" style="white-space:nowrap"><span class="num">{p}</span><span class="yen">{u}</span>{'<small>（税別）</small>' if u.startswith('円') else ''}</p></div>' for k, p, u in prices)}
+        </div>
+        <p class="note reveal">社名の印刷代を含みます。<br />年2回（240球）の応援もお受けしています。</p>
+      </div>
+    </section>
+
+    <section class="sec bg-2" id="csr">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">CSR</p>
+          <h2 class="h2 split">1回の寄付で、<br />3つの取り組みを伝えられます。</h2>
+          <p class="lead reveal">お届けのときの写真を、御社のホームページ・採用の案内・CSR（企業の社会的な取り組み）の報告でお使いいただけます。</p>
+        </div>
+        {dtable(["伝えられること", "中身", "SDGsの目標"], csr)}
+      </div>
+    </section>
+
+    <section class="sec" id="tax">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">TAX</p>
+          <h2 class="h2 split">贈り先で変わる、<br />税金の扱い</h2>
+          <p class="lead reveal">応援ボールは、学校への寄付になります。<br />法人税の計算で、寄付した額を経費（損金）にできます。</p>
+        </div>
+        {dtable(["贈り先", "寄付を受け取るのは", "経費（損金）にできる額", "御社が受け取る書類"], tax)}
+        <p class="note reveal">寄付の金額は、お買い求めいただいたボールの代金がもとになります。<br />どの扱いにするかは、御社の顧問税理士にご確認ください。<br />出典：国税庁「寄附金を支出したとき」「No.5283 特定公益増進法人に対する寄附金」</p>
+      </div>
+    </section>
+
+    <section class="sec bg-2">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow reveal">FLOW</p>
+          <h2 class="h2 split">お申し込みからお届けまで</h2>
+          <p class="lead reveal">学校との手続きと書類のやりとりは、HAKI proがお手伝いします。</p>
+        </div>
+        {track(steps, light=True)}
+        <p class="note reveal" style="margin-top:32px">※高校へのお届けは、高校野球の決まりに沿って、学校を通して行います。</p>
+        <div class="btn-row reveal" style="margin-top:32px;gap:16px 32px;align-items:center">
+          <a class="btn" href="{pre}contact/?kind=sponsor">応援ボールを相談する <span class="arr">{arrow()}</span></a>
+          <a class="link-arrow" href="{pre}ball-recycle/">硬式球再生のページへ戻る <span class="circle">{arrow()}</span></a>
+        </div>
+      </div>
+    </section>
+{cta(pre)}"""
+    page("ball-recycle/sponsor", "社名入り応援ボールのCSRと税金", "企業さまが社名入りの再生球を高校・大学の野球部へ贈る応援ボールの、CSRとして伝えられることと、贈り先ごとの税金の扱いをまとめました。", body, scene=True)
 
 
 # ======================================================================
@@ -1331,6 +1414,7 @@ if __name__ == "__main__":
     build_health()
     build_shindan()
     build_ball()
+    build_sponsor()
     build_specialists()
     build_contact()
     build_news()
