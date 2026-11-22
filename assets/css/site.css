@@ -917,3 +917,11 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .sdg-cap { margin-top: 20px; font-size: 15px; line-height: 1.8; }
 @media (max-width: 760px) { .sdg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .sdgt, .sdgt .grey { transition: none; } .sdg-grid .sdgt { opacity: 1; transform: none; } .sdg-grid .sdgt .grey { opacity: 1; } }
+
+/* 表の項目の間に線（2026-11-22 オーナー指示「間に線を引いてわかりやすく。他のとこも」） */
+.dtbl thead th + th, .dtbl tbody td { border-left: 1px solid var(--line); }
+@media (max-width: 760px) {
+  .dtbl tbody td { border-left: 0; border-top: 1px solid var(--line); padding: 14px 0; align-items: start; }
+  .dtbl tbody th { padding-bottom: 14px; }
+  .dtbl tr { padding: 24px 0 10px; border-bottom: 2px solid rgba(10, 14, 28, .18); }
+}
