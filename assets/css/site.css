@@ -892,7 +892,7 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 /* SDGs の目標（応援ボールの CSR の表。2026-11-22）：目標ごとの色の四角に番号、横に目標の名前 */
 .sdgs { display: grid; gap: 12px; }
 .sdg { display: flex; align-items: center; gap: 12px; }
-.sdg b { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 6px; background: var(--s); color: #fff !important; font-family: var(--font-en); font-size: 22px; font-weight: 700; letter-spacing: 0; }
+.sdg img { flex: none; width: 64px; height: 64px; display: block; }
 .sdg span { font-size: 14px; font-weight: 700; line-height: 1.45; color: var(--ink); }
 
 /* 下層ページの見出しまわり（2026-11-22 オーナー指摘「アニメーションと文字が被ってる・文字が薄い」） */
@@ -902,22 +902,16 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .hero-sub::after { height: 78%; background: linear-gradient(to top, rgba(7, 10, 20, .95) 40%, rgba(7, 10, 20, .55) 72%, transparent); }
 @media (max-width: 760px) { .hero-sub canvas.stage { opacity: .5; } }
 
-/* SDGs の17の目標の一覧（応援ボールのページ。2026-11-22）。画面に入ると全部が順に出て、そのあと取り組む4つ以外が薄くなる */
-.sdg-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(6px, .8vw, 10px); }
-.sdgt { position: relative; aspect-ratio: 1; border-radius: 6px; background: var(--s); color: #fff; padding: clamp(8px, 1vw, 14px); display: flex; flex-direction: column; gap: 6px; overflow: hidden;
-  opacity: 0; transform: scale(.9); transition: opacity .6s var(--ease), transform .7s var(--ease), filter .8s ease; transition-delay: calc(var(--i, 0) * 45ms); }
-.sdgt b { font-family: var(--font-en); font-weight: 700; font-size: clamp(22px, 3vw, 44px); line-height: 1; letter-spacing: 0; }
-.sdgt span { font-size: clamp(10px, 1vw, 13px); font-weight: 700; line-height: 1.4; }
-.sdgt-logo { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
-.sdgt-logo b { font-size: clamp(18px, 2.2vw, 30px); background: linear-gradient(90deg, #E5243B, #FCC30B, #4C9F38, #26BDE2, #00689D, #A21942); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* SDGs の17の目標の一覧（応援ボールのページ。2026-11-22）。画像はオーナー提供の一覧を1枚ずつ切り出したもの。
+   画面に入ると全部が順に出て、そのあと取り組む4つ（.on）だけ濃いまま、ほかは薄くなる */
+.sdg-wrap { background: #fff; border-radius: 14px; padding: clamp(20px, 3vw, 40px); box-shadow: inset 0 0 0 1px var(--line); }
+.sdg-title { display: block; width: min(100%, 520px); height: auto; margin: 0 auto clamp(20px, 3vw, 32px); }
+.sdg-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(6px, 1vw, 14px); }
+.sdgt { position: relative; aspect-ratio: 1; opacity: 0; transform: scale(.9); transition: opacity .6s var(--ease), transform .7s var(--ease), filter .8s ease, box-shadow .8s ease; transition-delay: calc(var(--i, 0) * 45ms); }
+.sdgt img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .sdg-grid.in .sdgt { opacity: 1; transform: none; }
-.sdg-grid.in .sdgt:not(.on):not(.sdgt-logo) { opacity: .16; filter: grayscale(1); transition-delay: 1.4s; }
-.sdgt.on { box-shadow: 0 10px 28px -10px var(--s); }
-.sdgt.on::after { content: "応援ボール"; position: absolute; right: 8px; bottom: 8px; font-size: clamp(9px, .8vw, 11px); font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, .92); color: var(--s); }
+.sdg-grid.in .sdgt:not(.on) { opacity: .2; filter: grayscale(1); transition-delay: 1.4s; }
+.sdg-grid.in .sdgt.on { transform: translateY(-4px); box-shadow: 0 14px 30px -12px var(--s); transition-delay: 1.4s; }
 .sdg-cap { margin-top: 20px; font-size: 15px; line-height: 1.8; }
-@media (max-width: 760px) {
-  .sdg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .sdgt span { font-size: 10px; }
-  .sdgt.on::after { font-size: 9px; right: 6px; bottom: 6px; }
-}
+@media (max-width: 760px) { .sdg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .sdgt { transition: none; } .sdg-grid .sdgt { opacity: 1; transform: none; } }
