@@ -939,7 +939,7 @@ def cycle_svg(pre):
         ("使う", "練習で", c, c - r, "middle", 0, -44),
         ("集める", "古い球を", c + r, c, "start", 22, -6),
         ("直す", "張り替え・縫い直し", c, c + r, "middle", 0, 40),
-        ("また使う", "中学・高校・大学へ", c - r, c, "end", -22, -6),
+        ("また使う", "中学〜大学へ", c - r, c, "end", -22, -6),
     ]
     node = "".join(
         f'<g class="cyc-node" data-node="{i}" style="--c:{NIGHT_COLORS[i]}"><circle class="cyc-dot" cx="{x}" cy="{y}" r="7"/>'
