@@ -941,3 +941,17 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .ball-mock img { object-fit: cover; }
 .night .ball-mock figcaption { color: var(--on-night-2); }
 .plans-1 { grid-template-columns: 1fr !important; gap: 22px !important; }
+
+/* 応援ボールのページ：ページの一番上（見出しの横）に社名入りボールのイメージ図（2026-11-22 オーナー指示「このページにイメージ図入れて」） */
+.hero-fig { margin: 28px 0 0; }
+.hero-fig img { display: block; width: 100%; height: auto; border-radius: var(--r-card); box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .8); }
+.hero-fig figcaption { margin-top: 10px; font-size: 13px; color: var(--on-night-2); }
+@media (min-width: 900px) {
+  .hero-inner:has(> .hero-fig) { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); column-gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero-inner:has(> .hero-fig) > :not(.hero-fig) { grid-column: 1; }
+  .hero-inner:has(> .hero-fig) > .hero-fig { grid-column: 2; grid-row: 1 / span 3; margin: 0; }
+}
+@media (min-width: 900px) { .hero-inner:has(> .hero-fig) .hero-title { font-size: clamp(30px, 3.4vw, 50px); } }
+/* スマホでは見出しと動く絵が重なるので、画像のある見出しでは動く絵を出さない（オーナー指摘「アニメーションと文字が被ってる」） */
+@media (max-width: 899px) { .hero-sub:has(.hero-fig) canvas.stage { display: none; } }
+.hero-sub .crumbs-top + .hero-inner { padding-top: calc(var(--header-h) + 72px); }
