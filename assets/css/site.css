@@ -857,3 +857,34 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* 途中で改行しないまとまり（短いかっこ「…」など。phrase.py が包む）。2026-11-03 */
 .nw { display: inline-block; }
+
+/* 横に並ぶ列 cols()（2026-11-22 オーナー指示「縦にずらっと長いだけ。レイアウトを整えて」）。枠のカードにせず、上の色の線と余白で区切る */
+.cols { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: clamp(32px, 4vw, 48px) clamp(20px, 3vw, 44px); }
+.cols > li { display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 2px solid var(--c, var(--ink)); }
+.col-n { font-family: var(--font-en); font-weight: 700; font-size: 13px; letter-spacing: .08em; color: var(--c); }
+.col-t { margin: 0; font-weight: 700; font-size: clamp(18px, 1.9vw, 22px); letter-spacing: .04em; line-height: 1.5; }
+.col-d { margin: 0; color: var(--ink-2); line-height: 1.85; }
+.night .col-d { color: var(--on-night-2); }
+.col-a { margin-top: auto; padding-top: 8px; }
+@media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+
+/* 表 dtable()（応援ボールの CSR と税金。2026-11-22）。スマホでは1行ずつのまとまりにする */
+.dtbl { border-top: 2px solid var(--ink); }
+.dtbl table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.75; }
+.dtbl caption { text-align: left; }
+.dtbl thead th { padding: 16px 18px; text-align: left; font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--ink-2); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.dtbl tbody th, .dtbl td { padding: 22px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.dtbl tbody th { font-weight: 700; font-size: 16px; width: 22%; }
+.dtbl small { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.dtbl b { color: #e60312; font-weight: 700; }
+@media (max-width: 760px) {
+  .dtbl thead { display: none; }
+  .dtbl table, .dtbl tbody, .dtbl tr, .dtbl th, .dtbl td { display: block; width: auto; }
+  .dtbl tr { padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .dtbl tbody th, .dtbl td { padding: 0; border: 0; }
+  .dtbl tbody th { font-size: 17px; margin-bottom: 12px; }
+  .dtbl td { display: grid; grid-template-columns: 8.5em 1fr; gap: 12px; padding: 6px 0; }
+  .dtbl td::before { content: attr(data-label); font-size: 13px; font-weight: 700; color: var(--ink-2); }
+}
+.dtbl + .note { margin-top: 24px; font-size: 15px; line-height: 1.8; }
+@media (max-width: 760px) { .dtbl tbody th { width: auto; } }
