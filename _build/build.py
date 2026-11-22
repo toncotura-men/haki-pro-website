@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=30" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=31" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -208,8 +208,8 @@ def hero(eyebrow, title_html, lead, scene, *, crumbs=None, extra="", sub=True):
         cr = '<nav class="crumbs reveal" aria-label="現在地">' + crumbs + "</nav>"
     return f"""    <section class="hero{' hero-sub' if sub else ''}" data-dark data-stage-host>
       <canvas class="stage" data-scene="{scene}" aria-hidden="true"></canvas>
+      {f'<div class="wrap crumbs-top">{cr}</div>' if cr else ""}
       <div class="wrap hero-inner">
-        {cr}
         <p class="eyebrow reveal">{eyebrow}</p>
         <h1 class="hero-title split">{title_html}</h1>
         {f'<p class="hero-lead reveal" style="--i:3">{lead}</p>' if lead else ""}
@@ -1154,9 +1154,12 @@ def build_sponsor():
     def alt(t):
         return t.replace("<br />", "")
     sdg_grid = ('<div class="sdg-wrap"><img class="sdg-title reveal" src="../../assets/img/sdgs/title.webp" alt="SUSTAINABLE DEVELOPMENT GOALS" width="636" height="95" loading="lazy" />'
-                '<ol class="sdg-grid reveal" aria-label="SDGsの17の目標。応援ボールで取り組むのは3・8・10・12">'
+                '<ol class="sdg-grid" data-sdg aria-label="SDGsの17の目標。応援ボールで取り組むのは3・8・10・12">'
                 + "".join(f'<li class="sdgt{" on" if n in mine else ""}" style="--s:{c};--i:{k}"><img src="../../assets/img/sdgs/goal-{n:02d}.webp" alt="目標{n} {alt(t)}" width="167" height="167" loading="lazy" />{"" if n in mine else f'<img class="grey" src="../../assets/img/sdgs/grey-{n:02d}.webp" alt="" width="167" height="167" loading="lazy" />'}</li>' for k, (n, t, c) in enumerate(goals))
-                + '<li class="sdgt sdgt-logo" style="--i:17"><img src="../../assets/img/sdgs/goal-18.webp" alt="SDGsのマーク" width="167" height="167" loading="lazy" /><img class="grey" src="../../assets/img/sdgs/grey-18.webp" alt="" width="167" height="167" loading="lazy" /></li></ol></div>')
+                + '<li class="sdgt sdgt-logo on" style="--i:17"><img src="../../assets/img/sdgs/goal-18.webp" alt="SDGsのマーク" width="167" height="167" loading="lazy" /></li></ol></div>'
+                + '<script>(function(){var g=document.querySelector("[data-sdg]");if(!g)return;'
+                  'if(!("IntersectionObserver" in window)){g.classList.add("go");return;}'
+                  'var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){g.classList.add("go");o.disconnect();}});},{threshold:0.6});o.observe(g);})();</script>')
     csr = [
         ("地元の部活の応援", "地域の高校・大学の野球部に、練習球を無料で届けます", sdg((3, "すべての人に<br />健康と福祉を", "#4C9F38"))),
         ("障がいのある方の仕事づくり", "ボールの再生を、就労継続支援B型の事業所にお願いしています", sdg((8, "働きがいも<br />経済成長も", "#A21942"), (10, "人や国の<br />不平等をなくそう", "#DD1367"))),

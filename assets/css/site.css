@@ -903,21 +903,19 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 @media (max-width: 760px) { .hero-sub canvas.stage { opacity: .5; } }
 
 /* SDGs の17の目標の一覧（応援ボールのページ。2026-11-22）。画像はオーナー提供の一覧を1枚ずつ切り出したもの。
-   画面に入ると全部が順に出て、そのあと取り組む4つ（.on）だけ濃いまま、ほかは薄くなる */
+   最初は全部色付きで見えていて、一覧の6割が画面に入ったら（.go）取り組む 3・8・10・12 と SDGs マーク以外が一斉にグレーに切り替わる。
+   四角の位置は動かさない（オーナー指示「ちょっとずつずれるのやめて」） */
 .sdg-wrap { background: #fff; border-radius: 14px; padding: clamp(20px, 3vw, 40px); box-shadow: inset 0 0 0 1px var(--line); }
 .sdg-title { display: block; width: min(100%, 520px); height: auto; margin: 0 auto clamp(20px, 3vw, 32px); }
 .sdg-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(6px, 1vw, 14px); }
-.sdgt { position: relative; aspect-ratio: 1; opacity: 0; transition: opacity .7s ease, box-shadow .8s ease; }
+.sdgt { position: relative; aspect-ratio: 1; transition: box-shadow .8s ease .6s; }
 .sdgt img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.sdg-grid.in .sdgt { opacity: 1; }
-/* 薄くする13個は、同じ濃さのグレーの画像（grey-XX.webp）に切り替える。白黒にするだけだと元の色で濃さがばらつくため（2026-11-22 オーナー指摘「色ムラ」） */
-.sdgt .grey { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease 1.4s; }
-.sdg-grid.in .sdgt .grey { opacity: 1; }
-/* 四角は動かさない（2026-11-22 オーナー指示「ちょっとずつずれるのやめて」）。全部いっしょに出て、少ししてから一斉にグレーに切り替わる */
-.sdg-grid.in .sdgt.on { box-shadow: 0 12px 26px -12px var(--s); transition-delay: 1.4s; }
+.sdgt .grey { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease .6s; }
+.sdg-grid.go .sdgt .grey { opacity: 1; }
+.sdg-grid.go .sdgt.on:not(.sdgt-logo) { box-shadow: 0 12px 26px -12px var(--s); }
 .sdg-cap { margin-top: 20px; font-size: 15px; line-height: 1.8; }
 @media (max-width: 760px) { .sdg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (prefers-reduced-motion: reduce) { .sdgt, .sdgt .grey { transition: none; } .sdg-grid .sdgt { opacity: 1; transform: none; } .sdg-grid .sdgt .grey { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sdgt, .sdgt .grey { transition: none; } }
 
 /* 表の項目の間に線（2026-11-22 オーナー指示「間に線を引いてわかりやすく。他のとこも」） */
 .dtbl thead th + th, .dtbl tbody td { border-left: 1px solid var(--line); }
@@ -933,3 +931,7 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
   .dtbl td > span { padding-left: 14px; }
 }
 .dtbl b { white-space: nowrap; }
+
+/* パンくず（ホーム / … ）はページの一番上、メニューのすぐ下（2026-11-22 オーナー指摘「ページの上にあるものじゃないの？」） */
+.hero-sub .crumbs-top { position: absolute; top: calc(var(--header-h) + 18px); left: 0; right: 0; z-index: 1; }
+.hero-sub .crumbs-top .crumbs { margin-bottom: 0; }
