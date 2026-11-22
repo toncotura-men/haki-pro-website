@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=32" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=33" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -1182,19 +1182,16 @@ def build_sponsor():
         ("書類", "学校からの受け取りの書類と、HAKI proの請求書をお渡しします。"),
     ]
     prices = [("1球", "800", "円"), ("最小の数", "120", "球〜"), ("10ダース", "96,000", "円〜")]
+    hero_fig = (f'<figure class="hero-fig reveal" style="--i:4"><img src="{pre}assets/img/ball-sponsor.webp" alt="HAKI proのロゴを印刷した硬式球のイメージ" width="1027" height="801" />'
+                '<figcaption>社名入りのイメージ（HAKI proのロゴの例）</figcaption></figure>')
     body = hero("SPONSOR BALL", "社名入り応援ボールの、<br />CSRと税金", "企業さまに社名入りの再生球をお買い求めいただき、高校・大学の野球部へお届けします。<br />地域への取り組みとして伝えられることと、税金の扱いをまとめました。", "loop",
-                crumbs=crumbs(pre, ("硬式球再生", f"{pre}ball-recycle/"), ("応援ボールのCSRと税金", None))) + f"""
+                crumbs=crumbs(pre, ("硬式球再生", f"{pre}ball-recycle/"), ("応援ボールのCSRと税金", None)), extra=hero_fig) + f"""
     <section class="sec">
       <div class="wrap">
-        <div class="split-2" style="align-items:center">
-        <figure class="talk-photo wide reveal ball-mock"><div class="ph"><img src="{pre}assets/img/ball-sponsor.webp" alt="HAKI proのロゴを印刷した硬式球のイメージ" width="1027" height="801" loading="lazy" /></div><figcaption>社名入りのイメージ（HAKI proのロゴの例）</figcaption></figure>
-        <div>
-        <div class="plans plans-1" data-stagger style="margin-top:0">
+        <div class="plans" data-stagger style="margin-top:0">
           {''.join(f'<div class="plan reveal"><p class="plan-k">{k}</p><p class="plan-p" style="white-space:nowrap"><span class="num">{p}</span><span class="yen">{u}</span>{'<small>（税別）</small>' if u.startswith('円') else ''}</p></div>' for k, p, u in prices)}
         </div>
         <p class="note reveal">社名の印刷代を含みます。<br />年2回（240球）の応援もお受けしています。</p>
-        </div>
-        </div>
       </div>
     </section>
 
