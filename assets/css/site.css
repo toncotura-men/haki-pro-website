@@ -910,8 +910,10 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .sdgt { position: relative; aspect-ratio: 1; opacity: 0; transform: scale(.9); transition: opacity .6s var(--ease), transform .7s var(--ease), filter .8s ease, box-shadow .8s ease; transition-delay: calc(var(--i, 0) * 45ms); }
 .sdgt img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .sdg-grid.in .sdgt { opacity: 1; transform: none; }
-.sdg-grid.in .sdgt:not(.on) { opacity: .2; filter: grayscale(1); transition-delay: 1.4s; }
+/* 薄くする13個は、同じ濃さのグレーの画像（grey-XX.webp）に切り替える。白黒にするだけだと元の色で濃さがばらつくため（2026-11-22 オーナー指摘「色ムラ」） */
+.sdgt .grey { position: absolute; inset: 0; opacity: 0; transition: opacity .8s ease 1.4s; }
+.sdg-grid.in .sdgt .grey { opacity: 1; }
 .sdg-grid.in .sdgt.on { transform: translateY(-4px); box-shadow: 0 14px 30px -12px var(--s); transition-delay: 1.4s; }
 .sdg-cap { margin-top: 20px; font-size: 15px; line-height: 1.8; }
 @media (max-width: 760px) { .sdg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (prefers-reduced-motion: reduce) { .sdgt { transition: none; } .sdg-grid .sdgt { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sdgt, .sdgt .grey { transition: none; } .sdg-grid .sdgt { opacity: 1; transform: none; } .sdg-grid .sdgt .grey { opacity: 1; } }
