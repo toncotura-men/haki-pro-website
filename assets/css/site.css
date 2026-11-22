@@ -925,3 +925,10 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
   .dtbl tbody th { padding-bottom: 14px; }
   .dtbl tr { padding: 24px 0 10px; border-bottom: 2px solid rgba(10, 14, 28, .18); }
 }
+/* スマホの表：項目名と中身の間に縦の線（2026-11-22 オーナー指示「縦も入れて」） */
+@media (max-width: 760px) {
+  .dtbl td { grid-template-columns: 9.8em 1fr; gap: 0; }
+  .dtbl td::before { align-self: stretch; padding-right: 12px; border-right: 1px solid var(--line); }
+  .dtbl td > span { padding-left: 14px; }
+}
+.dtbl b { white-space: nowrap; }
