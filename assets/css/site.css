@@ -888,3 +888,16 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 }
 .dtbl + .note { margin-top: 24px; font-size: 15px; line-height: 1.8; }
 @media (max-width: 760px) { .dtbl tbody th { width: auto; } }
+
+/* SDGs の目標（応援ボールの CSR の表。2026-11-22）：目標ごとの色の四角に番号、横に目標の名前 */
+.sdgs { display: grid; gap: 12px; }
+.sdg { display: flex; align-items: center; gap: 12px; }
+.sdg b { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 6px; background: var(--s); color: #fff !important; font-family: var(--font-en); font-size: 22px; font-weight: 700; letter-spacing: 0; }
+.sdg span { font-size: 14px; font-weight: 700; line-height: 1.45; color: var(--ink); }
+
+/* 下層ページの見出しまわり（2026-11-22 オーナー指摘「アニメーションと文字が被ってる・文字が薄い」） */
+.crumbs { color: rgba(255, 255, 255, .88); font-size: 13px; text-shadow: 0 1px 8px rgba(7, 10, 20, .9); }
+.hero-sub .eyebrow, .hero-sub .hero-lead { text-shadow: 0 1px 10px rgba(7, 10, 20, .85); }
+.hero-sub .hero-lead { color: rgba(244, 245, 250, .86); }
+.hero-sub::after { height: 78%; background: linear-gradient(to top, rgba(7, 10, 20, .95) 40%, rgba(7, 10, 20, .55) 72%, transparent); }
+@media (max-width: 760px) { .hero-sub canvas.stage { opacity: .5; } }

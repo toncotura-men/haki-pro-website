@@ -139,7 +139,7 @@ def page(slug, title, desc, body, *, scene=False, dark_top=True):
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{pre}assets/css/site.css?v=23" />
+  <link rel="stylesheet" href="{pre}assets/css/site.css?v=24" />
   <link rel="stylesheet" href="{pre}assets/css/btn2.css?v=2" />
   {importmap}
   <script src="{pre}assets/js/site.js?v=6" defer></script>
@@ -1138,10 +1138,13 @@ def build_sponsor():
     """社名入り応援ボールの CSR と税金（硬式球再生のページから開く）。2026-11-22 オーナー指示「別に飛ぶように・表で見やすく」。
     税金は国税庁の資料で確認した内容だけを書く。最終判断は企業の顧問税理士。"""
     pre = "../../"
+    def sdg(*goals):
+        """SDGs の目標を、国連の目標ごとの色の四角に番号＋目標の名前で見せる（2026-11-22 オーナー指摘「数字と文字が判別しづらい」）"""
+        return '<span class="sdgs">' + "".join(f'<span class="sdg" style="--s:{c}"><b>{n}</b><span>{t}</span></span>' for n, t, c in goals) + "</span>"
     csr = [
-        ("地元の部活の応援", "地域の高校・大学の野球部に、練習球を無料で届けます", "3 すべての人に健康と福祉を"),
-        ("障がいのある方の仕事づくり", "ボールの再生は、就労継続支援B型の事業所に出来高払いでお願いしています。<br />ご注文の分が工賃（はたらいた分のお金）になります", "8 働きがいも経済成長も<br />10 人や国の不平等をなくそう"),
-        ("資源の再利用", "捨てられるはずの硬式球を、革を張り替えて練習球に戻します", "12 つくる責任 つかう責任"),
+        ("地元の部活の応援", "地域の高校・大学の野球部に、練習球を無料で届けます", sdg((3, "すべての人に<br />健康と福祉を", "#4C9F38"))),
+        ("障がいのある方の仕事づくり", "ボールの再生は、就労継続支援B型の事業所に出来高払いでお願いしています。<br />ご注文の分が工賃（はたらいた分のお金）になります", sdg((8, "働きがいも<br />経済成長も", "#A21942"), (10, "人や国の<br />不平等をなくそう", "#DD1367"))),
+        ("資源の再利用", "捨てられるはずの硬式球を、革を張り替えて練習球に戻します", sdg((12, "つくる責任<br />つかう責任", "#BF8B2E"))),
     ]
     tax = [
         ("公立の高校<br /><small>県立・市立</small>", "県・市<br /><small>学校を通して受け取り</small>", "<b>全額</b>", "県・市（学校）からの受け取りの書類"),
