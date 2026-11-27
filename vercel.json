@@ -2,6 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/kenkou-keiei",
+      "destination": "/kenkou-keiei/",
+      "permanent": true
+    },
+    {
       "source": "/pumps",
       "destination": "/pumps/",
       "permanent": true
@@ -23,6 +28,22 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/kenkou-keiei/k/:path+",
+      "destination": "https://pumps-tracker-v2.vercel.app/:path+"
+    },
+    {
+      "source": "/kenkou-keiei/",
+      "destination": "https://pumps-tracker-v2.vercel.app/kenko.html"
+    },
+    {
+      "source": "/kenkou-keiei/admin",
+      "destination": "https://pumps-tracker-v2.vercel.app/kenko-admin.html"
+    },
+    {
+      "source": "/kenkou-keiei/sample",
+      "destination": "https://pumps-tracker-v2.vercel.app/kenko-admin.html"
+    },
     {
       "source": "/pumps/",
       "destination": "https://toncotura-men.github.io/company-website/index.html"
