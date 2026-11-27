@@ -35,7 +35,7 @@ haki-pro.com（株式会社HAKI pro）の作り直し。旧サイトは WordPres
 - スペシャリストは安部・下定の2名。伊藤・舩木のページと写真は 2026-10 オーナー指示で削除（再掲載しない）
 
 ## 健康と働き方の診断（2026-11-27 オーナー指示「URL は haki-pro の kenkou-keiei に」）
-- 企業の社員向けアンケート・報告書は、リポジトリ pumps-tracker-v2 の中身を `vercel.json` の rewrites で **haki-pro.com/kenkou-keiei/**（回答 `?c=合言葉`）・`/kenkou-keiei/admin`（管理）・`/kenkou-keiei/sample`（見本の報告書）に取り込んで表示している
+- 企業の社員向けアンケート・報告書は、リポジトリ pumps-tracker-v2 の中身を `vercel.json` の rewrites で **haki-pro.com/kenkou-keiei/**（回答 `?c=合言葉`）・`/kenkou-keiei/admin`（管理）・`/kenkou-keiei/sample`（見本の報告書）・`/kenkou-keiei/apply`（会社のご担当者の申し込み）・`/kenkou-keiei/manage`（ご担当者ページ）に取り込んで表示している
 - 読み込む物は `/kenkou-keiei/k/` の下（pumps-tracker-v2 の vite.config.js がその住所で書き出す）。中身を直すときは pumps-tracker-v2 側を直す（こちらは自動で最新になる）
 
 ## お問い合わせ（2026-10 オーナー決定）
